@@ -28,7 +28,6 @@ export default class MainApp extends React.Component {
 	}
 
 	render(){
-		console.log(this.state.idToken)
 		return (
 			<div className="container">
 				<div className="col-md-6 col-offset-2">

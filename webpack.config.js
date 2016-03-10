@@ -1,4 +1,5 @@
 var path = require('path')
+var webpack = require('webpack')
 var getConfig = require('hjs-webpack')
 
 var index = [
@@ -32,5 +33,11 @@ var config = getConfig({
 		}
 	}
 })
+
+config.plugins = config.plugins.concat([
+	new webpack.ProvidePlugin({
+    'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+	})
+])
 
 module.exports = config;

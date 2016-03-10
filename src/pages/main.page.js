@@ -1,9 +1,11 @@
 import React from 'react'
+import {Logs} from '../modules/firebase.module.js'
 
 export default class Main extends React.Component {
 	constructor(){
 		super()
 		this.state = {profile: null}
+		Logs.all();
 	}
 
 	componentDidMount(){
