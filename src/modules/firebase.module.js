@@ -5,7 +5,6 @@ const log = x => {console.log(x); return x}
 const getFirebaseRef = url => {
 	const ref = new Firebase(url);
 	return fetchDelegatedToken(localStorage.getItem('userToken')).
-	//then(log).
 	then(token => ref.authWithCustomToken(token.id_token)).
 	then(authData => {
 		return ref;
@@ -41,5 +40,11 @@ export const Logs = {
 		getFirebaseRef('https://mcp-admin.firebaseio.com/Logs/collection').
 		then(ref => ref.orderByKey().on('child_added', snapshot => console.log(snapshot.val()))).
 		catch(err => {throw new Error(err)})
+	}
+}
+
+export const Session = {
+	logout(){
+		(new Firebase('https://mcp-admin.firebaseio.com')).unauth()
 	}
 }
