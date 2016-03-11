@@ -1,14 +1,32 @@
 import Firebase from 'firebase'
+import Rx from 'rx'
+import RxDOM from 'rx-dom'
+import onObservable from './on-observable.module.js'
 
 const log = x => {console.log(x); return x}
 
-const getFirebaseRef = url => {
-	const ref = new Firebase(url);
+const getFirebaseRefObs = url => Rx.Observable.
+	just(new Firebase(url)).
+	flatMap(ref => Rx.Observable.
+		if(() => !!ref.getAuth(), 
+			Rx.Observable.just(ref),
+			fetchFirebaseRefObs(ref)
+		)
+	)
+
+const fetchFirebaseRefObs = ref => Rx.Observable.
+	fromPromise(fetchDelegatedToken(localStorage.getItem('userToken'))).
+	flatMap(token => Rx.Observable.
+		fromPromise(ref.authWithCustomToken(token.id_token)).
+		map(authData => ref)
+	)
+
+const getFirebaseRef = ref => {
 	return fetchDelegatedToken(localStorage.getItem('userToken')).
-	then(token => ref.authWithCustomToken(token.id_token)).
-	then(authData => {
-		return ref;
-	})
+		then(token => ref.authWithCustomToken(token.id_token)).
+		then(authData => {
+			return ref;
+		})
 }
 
 const fetchDelegatedToken = idToken => {
@@ -35,11 +53,15 @@ const fetchDelegatedToken = idToken => {
 const count = 0
 const listeners = {}	
 
+const onObs = (ref, event) => Rx.Observable.create(observer => {
+	ref.on(event, snapshot => observer.onNext(snapshot))
+	return () => ref.off(event);
+})
+
 export const Logs = {
 	all(){
-		getFirebaseRef('https://mcp-admin.firebaseio.com/Logs/collection').
-		then(ref => ref.orderByKey().on('child_added', snapshot => console.log(snapshot.val()))).
-		catch(err => {throw new Error(err)})
+		return getFirebaseRefObs('https://mcp-admin.firebaseio.com/Logs/collection').
+			flatMap(ref => onObservable('child_added', ref.orderByKey()))
 	}
 }
 

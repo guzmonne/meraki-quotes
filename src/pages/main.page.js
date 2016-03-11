@@ -6,7 +6,6 @@ export default class Main extends React.Component {
 		super()
 		this.logout = this.logout.bind(this)
 		this.state = {profile: null}
-		Logs.all();
 	}
 
 	logout(){
@@ -17,10 +16,15 @@ export default class Main extends React.Component {
 
 	componentDidMount(){
 		this.props.lock.getProfile(this.props.idToken, (err, profile) => {
-			if (err)
-				return console.log('Error loading the profile', err);
+			if (err) {
+				console.log('Error loading the profile', err);
+				return this.logout();
+			}
 			this.setState({profile: profile})
 		})
+		Logs.all().
+			take(2).
+			subscribe(data => console.log(data.snapshot.val()));
 	}
 
 	render(){
