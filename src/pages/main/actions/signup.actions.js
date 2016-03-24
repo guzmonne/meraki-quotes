@@ -20,12 +20,23 @@ export function signupFormSubmitError(error){
 
 export function doSignupUser(user){
 	return (dispatch, getSTate) => {
-		const handleSuccess = () => dispatch(signupUserSuccess({1:2, 3:4}))
+		const lambda = new AWS.Lambda()
+		const handleSuccess = user => dispatch(signupUserSuccess(user))
 		const handleError = error => dispatch(signupUserError(error))
 
 		dispatch(doingSignupUser());
 
-		setTimeout(() => handleSuccess(), 3000)
+		lambda.invoke({
+			FunctionName: 'conapps-create-user',
+			Payload: JSON.stringify(user)
+		}, (err, data) => {
+			if (err) return handleError(err);
+			const output = JSON.parse(data.Payload)
+			if (output.created) 
+				handleSuccess(user)
+			else
+				handleError({type: 'email', message: 'Cuenta de correo existente.'})
+		})
 	}
 }
 

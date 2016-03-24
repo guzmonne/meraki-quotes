@@ -25,11 +25,9 @@ var config = getConfig({
 			'index.html': context.defaultTemplate({
 				html: [
 					'<div id="root"></div>',
-					'<script src="//cdn.auth0.com/js/lock-8.2.min.js"></script>',
-					'<script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>'
+					'<script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.47.min.js"></script>'
 				].join('')
-			}),
-			'200.html': context.defaultTemplate()
+			})
 		}
 	}
 })

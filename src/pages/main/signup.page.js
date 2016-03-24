@@ -6,7 +6,6 @@ import SignupFormContainer from '../../components/main/signup-form-container.com
 class Signup extends React.Component {
 
 	render(){
-		console.log(this.props)
 		const {signup, signupFormSubmitError, doSignupUser} = this.props
 		return <SignupFormContainer
 			onError={signupFormSubmitError}

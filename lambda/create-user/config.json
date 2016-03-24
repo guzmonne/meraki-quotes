@@ -1,0 +1,6 @@
+{
+	"DDB_TABLE": "ConappsUsers",
+	"EXTERNAL_NAME": "Conapps",
+	"VERIFICATION_PAGE": "http://localhost:3000",
+	"EMAIL_SOURCE": "guzmonne@hotmail.com"
+}

@@ -1,0 +1,8 @@
+{
+	"DDB_TABLE": "ConappsUsers",
+	"EXTERNAL_NAME": "Conapps",
+	"VERIFICATION_PAGE": "http://localhost:3000",
+	"EMAIL_SOURCE": "guzmonne@hotmail.com",
+	"IDENTITY_POOL_ID": "us-east-1:56a9c97c-1034-4b11-bdfa-316403796652",
+	"DEVELOPER_PROVIDER_NAME": "login.conapps.click"
+}
