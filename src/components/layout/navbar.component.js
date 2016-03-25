@@ -12,11 +12,11 @@ export default () =>
     <Navbar.Collapse>
 	    <Nav>
 	      <NavDropdown eventKey={1} title="Meraki Quotes" id="basic-nav-dropdown">
-	        <MenuItem eventKey={2.1}>Nuevo Quote</MenuItem>
-	        <MenuItem eventKey={2.2}>Mis Quotes</MenuItem>
-	        <MenuItem eventKey={2.3}>Quotes Compartidos</MenuItem>
+	        <MenuItem href="/meraki_quotes/new" eventKey={2.1}>Nuevo Quote</MenuItem>
+	        <MenuItem href="/meraki_quotes/list" eventKey={2.2}>Mis Quotes</MenuItem>
+	        <MenuItem href="/meraki_quotes/shared" eventKey={2.3}>Quotes Compartidos</MenuItem>
 	        <MenuItem divider />
-	        <MenuItem eventKey={2.4}>Lista de Precios</MenuItem>
+	        <MenuItem href="/meraki_quotes/price_list" eventKey={2.4}>Lista de Precios</MenuItem>
 	      </NavDropdown>
 	    </Nav>
 	    <Nav pullRight>
