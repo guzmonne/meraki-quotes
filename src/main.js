@@ -1,6 +1,6 @@
 import React from 'react'
 // React-Router
-import {Router, Route, browserHistory} from 'react-router'
+import {Router, Route, browserHistory, IndexRoute} from 'react-router'
 // Redux
 import {Provider} from 'react-redux'
 import {store} from './state/store.js'
@@ -8,11 +8,15 @@ import {store} from './state/store.js'
 import Signup from './pages/main/signup.page.js'
 import Login from './pages/main/login.page.js'
 import Home from './pages/main/home.page.js'
+import MainLayout from './components/layout/main.layout.js'
+
 
 export default (props) => 
 	<Provider store={store}>
 		<Router history={browserHistory}>
-			<Route path="/" component={Home} onEnter={requireAuth}/>
+			<Route path="/" component={MainLayout} onEnter={requireAuth}>
+				<IndexRoute component={Home} />
+			</Route>
 			<Route path="/login" component={Login} onEnter={alreadyLoggedIn}/>
 			<Route path="/signup" component={Signup} />
 		</Router>
