@@ -1,18 +1,28 @@
-export function awsConfig(output){
+export function awsConfig(output, expired){
 	if (!output)
 		unAuthConfig()
 	else
-		authConfig(output)
+		authConfig(output, expired)
 }
 
-function authConfig(output){
+function authConfig(output, expired){
 	unAuthConfig()
 	const credentials = AWS.config.credentials
 	credentials.params.IdentityId = output.IdentityId
 	credentials.params.Logins = {
-		'login.conapps.click': output.token
+		'cognito-identity.amazonaws.com': output.token
 	}
-	credentials.expired = true
+	credentials.expired = expired || true
+
+	/*
+	AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+   	IdentityPoolId: 'us-east-1:56a9c97c-1034-4b11-bdfa-316403796652',
+   	IdentityId: output.IdentityId,
+   	Logins: {
+    	'cognito-identity.amazonaws.com': output.token
+   	}
+	});
+	*/
 }
 
 function unAuthConfig(){

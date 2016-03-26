@@ -1,9 +1,26 @@
 import React from 'react'
+import {connect} from 'react-redux';
+import {getMerakiDevices} from './actions/meraki-devices.actions.js'
+import MerakiPriceListContainer from '../../components/meraki_quotes/meraki-price-list-container.component.js'
 
-export default class MerakiPriceList extends React.Component {
+class MerakiPriceList extends React.Component {
+	componentWillMount(){
+		this.props.getMerakiDevices()
+	}
+
 	render(){
 		return (
-			<h1>Meraki - Lista de Precios</h1>
+			<pre>{JSON.stringify(this.props.merakiDevices)}</pre>
 		)
 	}
 }
+
+const select = state => (
+	{ merakiDevices: state.merakiDevices }
+)
+
+const actions = {
+	getMerakiDevices
+}
+
+export default connect(select, actions)(MerakiPriceList)
