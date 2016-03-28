@@ -1,4 +1,5 @@
 import {awsConfig} from '../../../modules/aws.module.js'
+import {browserHistory} from 'react-router'
 import {
 	DOING_LOGIN_USER,
 	LOGIN_USER_SUCCESS,
@@ -24,7 +25,7 @@ export function doLoginUser(user){
 			localStorage.token = JSON.stringify(output)
 			
 			awsConfig(output)
-			location.href = '/'
+			browserHistory.push('/')
 			handleSuccess()				
 		})
 	}

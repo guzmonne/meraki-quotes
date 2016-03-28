@@ -53,12 +53,12 @@ function getUser(email, fn) {
 }
 
 function getToken(email, fn) {
-	var param = {
+	var params = {
 		IdentityPoolId: config.IDENTITY_POOL_ID,
 		Logins        : {} // To have provider name in a variable
 	};
-	param.Logins[config.DEVELOPER_PROVIDER_NAME] = email;
-	cognitoidentity.getOpenIdTokenForDeveloperIdentity(param, function(err, data) {
+	params.Logins[config.DEVELOPER_PROVIDER_NAME] = email;
+	cognitoidentity.getOpenIdTokenForDeveloperIdentity(params, function(err, data) {
 		if (err) return fn(err); // an error occurred
 		else fn(null, data.IdentityId, data.Token); // successful response
 	});
