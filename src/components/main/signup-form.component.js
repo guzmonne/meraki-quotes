@@ -8,6 +8,7 @@ export default class SignupForm extends React.Component {
 		this.signup          = this.signup.bind(this)
 		this.invalidPassword = this.invalidPassword.bind(this)
 		this.invalidEmail    = this.invalidEmail.bind(this)
+		this.emptyName       = this.emptyName.bind(this)
 	}
 
 	signup(e){
@@ -16,10 +17,15 @@ export default class SignupForm extends React.Component {
 		const {onSubmit, onError} = this.props
 
 		const attrs = {
+			username: this.refs.username.value,
 			email: this.refs.email.value,
 			password: this.refs.password.value,
 			verifyPassword: this.refs.verifyPassword.value
 		}
+		if (this.emptyName(attrs)) return onError({
+			type: 'username',
+			message: 'Ingrese el nombre del nuevo usuario'
+		})
 		if (this.invalidEmail(attrs)) return onError({
 			type: 'email',
 			message: 'Cuenta de correo invalida.'
@@ -30,6 +36,10 @@ export default class SignupForm extends React.Component {
 		})
 
 		onSubmit(attrs)
+	}
+
+	emptyName(attrs) {
+		return attrs.username === ''
 	}
 
 	invalidEmail(attrs){
@@ -47,6 +57,14 @@ export default class SignupForm extends React.Component {
 		return (
 			<form className="Signup__form" onSubmit={this.signup}>
 				<legend>Nueva Cuenta</legend>
+				{/*Nombre*/}
+				<div className="form-group">
+					<label>Nombre</label>
+					<input type="text" className="form-control"  ref="username" placeholder="Nombre"/>
+					<p className="help-block text-danger">
+						{error.type === 'username' ? error.message : null}
+					</p>
+				</div>
 				{/*Email*/}
 				<div className="form-group">
 					<label>Email</label>

@@ -6,28 +6,34 @@ import {
 	LOGIN_USER_ERROR
 } from '../../../state/action-types.js'
 
+import Rx from 'rx-dom'
+
 export function doLoginUser(user){
 	return (dispatch, getState) => {
-		const lambda = new AWS.Lambda()
 		const handleSuccess = output => dispatch(loginUserSuccess(output))
 		const handleError = error => dispatch(loginUserError(error))
 
 		dispatch(doingLoginUser())
 
-		lambda.invoke({
-			FunctionName: 'conapps-login-user',
-			Payload: JSON.stringify(user)
-		}, (err, data) => {
-			if (err) return handleError(JSON.stringify(err))
-			
-			const output = JSON.parse(data.Payload)
-			if (!output.login) return handleError('Error de autenticación.')
-			localStorage.token = JSON.stringify(output)
-			
-			awsConfig(output)
-			browserHistory.push('/')
-			handleSuccess()				
-		})
+		Rx.DOM.ajax({
+			method: 'POST',
+			url: 'https://8ewstzbc9l.execute-api.us-east-1.amazonaws.com/test/session/login',
+			headers: {
+				'Auth': 'allow'
+			},
+			body: JSON.stringify(user)
+		}).
+		subscribe(
+			({response}) => {
+				const output = JSON.parse(response)
+				if(!output.login) return handleError('Error de autenticación.')
+				localStorage.token = response
+
+				browserHistory.push('/')
+				handleSuccess()
+			},
+			error => handleError(error || 'Error de autenticación')
+		)
 	}
 }
 

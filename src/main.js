@@ -5,47 +5,57 @@ import {Router, Route, browserHistory, IndexRoute} from 'react-router'
 import {Provider} from 'react-redux'
 import {store} from './state/store.js'
 // Signup Page
-import Signup from './pages/main/signup.page.js'
-import Login from './pages/main/login.page.js'
-import Home from './pages/main/home.page.js'
+import SignupPage from './pages/main/signup.page.js'
+import LoginPage from './pages/main/login.page.js'
+import HomePage from './pages/main/home.page.js'
 import MainLayout from './components/layout/main.layout.js'
 // Meraki Quotes
-import MerakiPriceList from './pages/meraki_quotes/meraki-price-list.page.js'
+import MerakiPriceListPage from './pages/meraki_quotes/meraki-price-list.page.js'
+// Users
+import UserCreatePage from './pages/users/user-create.page.js'
 
 export default (props) => 
 	<Provider store={store}>
 		<Router history={browserHistory}>
 			<Route path="/" component={MainLayout} onEnter={requireAuth}>
-				<IndexRoute component={Home} />
-				<Route path="/meraki_quotes" onEnter={toHome} />
-				<Route path="/meraki_quotes/price_list" component={MerakiPriceList} />
+				<IndexRoute component={HomePage} />
+				<Route path="meraki_quotes">
+					<IndexRoute onEnter={toMerakiQuotesListPage} />
+					<Route path="price_list" component={MerakiPriceListPage} />
+				</Route>
+				<Route path="users">
+					<IndexRoute onEnter={toUsersListPage}/>
+					<Route path="create" component={UserCreatePage}/>
+				</Route>
 			</Route>
-			<Route path="/login" component={Login} onEnter={alreadyLoggedIn}/>
-			<Route path="/signup" component={Signup} />
+			<Route path="login" component={LoginPage} onEnter={alreadyLoggedIn}/>
+			<Route path="signup" component={SignupPage} />
 		</Router>
 	</Provider>
 
-function alreadyLoggedIn(nextState, replace){
+function replacePathnameWith(url, nextState, replace){
+	replace({
+		pathname: url,
+		state: {nextPathname: nextState.location.pathname}
+	})
+}
+
+function alreadyLoggedIn(...args){
 	if (!!localStorage.token){
-		replace({
-			pathname: '/',
-			state: {nextPathname: nextState.location.pathname}
-		})
+		replacePathnameWith('/', ...args)
 	}
 }
 
-function requireAuth(nextState, replace){
+function requireAuth(...args){
 	if (!localStorage.token){
-		replace({
-			pathname: '/login',
-			state: {nextPathname: nextState.location.pathname}
-		})
+		replacePathnameWith('/login', ...args)
 	}	
 }
 
-function toHome(nextState, replace){
-	replace({
-		pathname: '/meraki_quotes/list',
-		state: {nextPathname: nextState.location.pathname}
-	})
+function toMerakiQuotesListPage(...args){
+	replacePathnameWith('/meraki_quotes/list', ...args)
+}
+
+function toUsersListPage(...args){
+	replacePathnameWith('/users/list', ...args)
 }

@@ -1,6 +1,11 @@
-require('./styles/main.scss');
+require('./styles/main.scss')
+
+require('rx')
+require('rx-dom')
+
 // Config AWS
-import './aws.config.js'
+//require('./aws-sdk.import.js')
+//import './aws.config.js'
 // Main Application Components
 import React from 'react'
 import {render} from 'react-dom'

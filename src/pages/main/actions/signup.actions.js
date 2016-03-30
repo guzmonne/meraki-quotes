@@ -1,8 +1,10 @@
+import {browserHistory} from 'react-router'
 import {
 	DOING_SIGNUP_USER,
 	SIGNUP_USER_SUCCESS,
 	SIGNUP_USER_ERROR
 } from '../../../state/action-types.js'
+import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
 
 //setSignupFormError, doSignupUser
 
@@ -20,23 +22,23 @@ export function signupFormSubmitError(error){
 
 export function doSignupUser(user){
 	return (dispatch, getSTate) => {
-		const lambda = new AWS.Lambda()
-		const handleSuccess = user => dispatch(signupUserSuccess(user))
+		const handleSuccess = response => {
+			if (!!response && !!response.created)
+				browserHistory.push('/')
+			if (!!response && !!response.errorMessage)
+				return handleError(response.errorMessage)
+			dispatch(signupUserSuccess(response))
+		}
 		const handleError = error => dispatch(signupUserError(error))
 
 		dispatch(doingSignupUser());
 
-		lambda.invoke({
-			FunctionName: 'conapps-create-user',
-			Payload: JSON.stringify(user)
-		}, (err, data) => {
-			if (err) return handleError(err);
-			const output = JSON.parse(data.Payload)
-			if (output.created) 
-				handleSuccess(user)
-			else
-				handleError({type: 'email', message: 'Cuenta de correo existente.'})
-		})
+		AwsApiObservers.
+			userCreateObs(user).
+			subscribe(
+				({response}) => handleSuccess(response),
+				error => handleError('Error con el servidor')
+			)
 	}
 }
 
