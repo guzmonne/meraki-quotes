@@ -1,0 +1,14 @@
+{
+  "name": "conapps-users-lambda",
+  "version": "1.0.0",
+  "description": "Lambda functions for the Users table",
+  "main": "users-index.lambda.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Guzman Monne",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.0.0-rc.2"
+  }
+}

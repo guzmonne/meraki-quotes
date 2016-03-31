@@ -101,7 +101,7 @@ function sendVerificationEmail(email, token, fn) {
 exports.handler = function(event, context) {
 	var email         = event.email;
 	var clearPassword = event.password;
-	var username          = event.username;
+	var username      = event.username;
 
 	computeHash(clearPassword, function(err, salt, hash) {
 		if (err) {

@@ -6,7 +6,7 @@ export default () =>
   <Navbar fluid={true}>
     <Navbar.Header>
       <Navbar.Brand>
-        <a href="#">Conapps</a>
+        <a href="#" onClick={e => browserHistory.push('/')}>Conapps</a>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>

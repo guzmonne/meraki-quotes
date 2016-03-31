@@ -10,7 +10,7 @@ export default (props) =>
 		    <NavItem eventKey={1} onClick={() => browserHistory.push('/users/create')}>
 		    	Nuevo Usuario
 	    	</NavItem>
-		    <NavItem eventKey={2} onClick={() => browserHistory.push('/users/list')}>
+		    <NavItem eventKey={2} onClick={() => browserHistory.push('/users/index')}>
 		    	Usuarios
 	    	</NavItem>
 		    <NavItem eventKey={3} onClick={() => browserHistory.push('/users/permissions')}>

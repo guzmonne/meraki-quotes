@@ -23,22 +23,31 @@ const AwsApiObservers = (function(){
 	const sessionLoginObs = body => Rx.DOM.
 		ajax(Object.assign({}, defaultSettings, {
 			method: POST,
-			url: url + 'session/login',
-			body: JSON.stringify(body)
+			url   : url + 'session/login',
+			body  : JSON.stringify(body)
 		})).
 		map(parseResponse)
 
 	const userCreateObs = body => Rx.DOM.
 		ajax(Object.assign({}, defaultSettings, {
 			method: POST,
-			url: url + 'users/create',
+			url   : url + 'users/create',
+			body  : JSON.stringify(body)
+		})).
+		map(parseResponse)
+
+	const usersIndexObs = body => Rx.DOM.
+		ajax(Object.assign({}, defaultSettings, {
+			method: GET,
+			url: url + 'users/index',
 			body: JSON.stringify(body)
 		})).
 		map(parseResponse)
 
 	return {
 		sessionLoginObs,
-		userCreateObs
+		userCreateObs,
+		usersIndexObs
 	}
 })()
 

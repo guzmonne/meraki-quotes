@@ -7,7 +7,6 @@ import {
 // getMerakiDevices
 export function getMerakiDevices(){
 	return (dispatch, getState) => {
-		const lambda = new AWS.Lambda()
 		const handleSuccess = data => dispatch(getMerakiDevicesSuccess(data))
 		const handleError = error => dispatch(getMerakiDevicesError(error))
 
