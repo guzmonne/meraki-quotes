@@ -16,9 +16,6 @@ export default (props) =>
 		    <NavItem eventKey={3} onClick={() => browserHistory.push('/users/permissions')}>
 		    	Permisos
 	    	</NavItem>
-		    <NavItem eventKey={4} onClick={() => browserHistory.push('/users/permissions/create')}>
-		    	Nuevo Permiso
-	    	</NavItem>
 		  </Nav>
 	  </Panel>
 	</div>

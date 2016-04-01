@@ -4,7 +4,9 @@ import {
 	USERS_INDEX_ERROR,
 	DOING_USER_SHOW,
 	USER_SHOW_SUCCESS,
-	USER_SHOW_ERROR
+	USER_SHOW_ERROR,
+	USER_CURRENT_FREE,
+	USER_CURRENT_FUNCTION_EDITABLE_TOGGLE
 } from '../../../state/action-types.js'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
 
@@ -77,5 +79,17 @@ export function userShowError(error){
 	return {
 		type: USER_SHOW_ERROR,
 		error
+	}
+}
+
+export function userCurrentFree(){
+	return {
+		type: USER_CURRENT_FREE
+	}
+}
+
+export function userCurrentFunctionsEditableToggle(){
+	return {
+		type: USER_CURRENT_FUNCTION_EDITABLE_TOGGLE
 	}
 }

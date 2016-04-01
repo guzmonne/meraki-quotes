@@ -4,7 +4,9 @@ import {
 	USERS_INDEX_ERROR,
 	DOING_USER_SHOW,
 	USER_SHOW_SUCCESS,
-	USER_SHOW_ERROR
+	USER_SHOW_ERROR,
+	USER_CURRENT_FUNCTION_EDITABLE_TOGGLE,
+	USER_CURRENT_FREE
 } from '../../../state/action-types.js'
 
 const defaultState = {
@@ -12,6 +14,7 @@ const defaultState = {
 	current: {},
 	total: null,
 	isFetchingUsers: false,
+	isFetchingUser: false,
 	error: {},
 	functions: [],
 	areCurrentFunctionsEditable: false,
@@ -63,6 +66,19 @@ export default function usersReducer(state=defaultState, action){
 				state,
 				{isFetchingUser: false},
 				{error: action.error}
+			)
+		case USER_CURRENT_FREE: 
+			return Object.assign(
+				{},
+				state,
+				{current: {}},
+				{areCurrentFunctionsEditable: false}
+			)
+		case USER_CURRENT_FUNCTION_EDITABLE_TOGGLE:
+			return Object.assign(
+				{},
+				state,
+				{areCurrentFunctionsEditable: !state.areCurrentFunctionsEditable}
 			)
 		default:
 			return state

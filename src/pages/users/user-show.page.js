@@ -1,6 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {doUserShow} from './actions/users.actions.js'
+import {
+	doUserShow,
+	userCurrentFree,
+	userCurrentFunctionsEditableToggle
+} from './actions/users.actions.js'
 import UserShowContainer from '../../components/users/user-show-container.component.js'
 
 class UserShowPage extends React.Component {
@@ -12,10 +16,15 @@ class UserShowPage extends React.Component {
 		this.props.doUserShow(this.props.params.email)
 	}
 
+	componentWillUnmount(){
+		this.props.userCurrentFree()
+	}
+
 	render(){
-		const {doUserShow, users} = this.props
+		const {doUserShow, users, userCurrentFunctionsEditableToggle} = this.props
 		return <UserShowContainer
 			users={users}
+			onToggle={userCurrentFunctionsEditableToggle}
 		/>
 	}
 }
@@ -25,7 +34,9 @@ const select = state => (
 )
 
 const actions = {
-	doUserShow
+	doUserShow,
+	userCurrentFree,
+	userCurrentFunctionsEditableToggle
 }
 
 export default connect(select, actions)(UserShowPage)

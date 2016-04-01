@@ -22,8 +22,8 @@ export default class PermissionsForm extends React.Component {
 					<Col xs={10}>
 						<Input type="select">
 							<option value="0">--seleccione un nuevo permiso--</option>
-							{permissions.map(permission =>
-								<option value={permission}>{permission}</option>
+							{permissions.map((permission, i) =>
+								<option key={i} value={permission}>{permission}</option>
 							)}
 						</Input>
 					</Col>
