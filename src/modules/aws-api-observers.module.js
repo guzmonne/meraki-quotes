@@ -36,18 +36,23 @@ const AwsApiObservers = (function(){
 		})).
 		map(parseResponse)
 
-	const usersIndexObs = body => Rx.DOM.
+	const usersIndexObs = () => Rx.DOM.
 		ajax(Object.assign({}, defaultSettings, {
-			method: GET,
-			url: url + 'users/index',
-			body: JSON.stringify(body)
+			url: url + 'users/index'
+		})).
+		map(parseResponse)
+
+	const userShowObs = email => Rx.DOM.
+		ajax(Object.assign({}, defaultSettings, {
+			url: `${url}users/${email}`
 		})).
 		map(parseResponse)
 
 	return {
 		sessionLoginObs,
 		userCreateObs,
-		usersIndexObs
+		usersIndexObs,
+		userShowObs
 	}
 })()
 

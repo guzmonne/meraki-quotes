@@ -1,5 +1,6 @@
 import React from 'react'
 import {Table, Glyphicon} from 'react-bootstrap'
+import {browserHistory} from 'react-router'
 
 export default (props) =>
 	<Table responsive bordered hover>
@@ -16,7 +17,11 @@ export default (props) =>
 					<td>{user.username}</td>
 					<td>{user.email}</td>
 					<td>
-						<a href="javascript:void(0);">Ver permisos</a>
+						<a 
+							onClick={() => browserHistory.push(`/users/show/${btoa(user.email)}`)}
+							href="javascript:void(0);">
+							Ver permisos
+						</a>
 					</td>
 				</tr>)}
 		</tbody>

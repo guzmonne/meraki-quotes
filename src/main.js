@@ -13,6 +13,7 @@ import MainLayout from './components/layout/main.layout.js'
 import MerakiPriceListPage from './pages/meraki_quotes/meraki-price-list.page.js'
 // Users
 import UserCreatePage from './pages/users/user-create.page.js'
+import UserShowPage from './pages/users/user-show.page.js'
 import UsersIndexPage from './pages/users/users-index.page.js'
 
 export default (props) => 
@@ -28,6 +29,7 @@ export default (props) =>
 					<IndexRoute onEnter={toUsersListPage}/>
 					<Route path="create" component={UserCreatePage}/>
 					<Route path="index" component={UsersIndexPage}/>
+					<Route path="show/:email" component={UserShowPage} />
 				</Route>
 			</Route>
 			<Route path="login" component={LoginPage} onEnter={alreadyLoggedIn}/>
