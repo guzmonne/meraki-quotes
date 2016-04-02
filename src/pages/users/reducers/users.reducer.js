@@ -2,6 +2,12 @@ import {
 	DOING_USERS_INDEX,
 	USERS_INDEX_SUCCESS,
 	USERS_INDEX_ERROR,
+	DOING_USER_PERMISSIONS_INDEX,
+	USER_PERMISSIONS_INDEX_SUCCESS,
+	USER_PERMISSIONS_INDEX_ERROR,
+	DOING_USER_PERMISSIONS_UPDATE,
+	USER_PERMISSIONS_UPDATE_SUCCESS,
+	USER_PERMISSIONS_UPDATE_ERROR,
 	DOING_USER_SHOW,
 	USER_SHOW_SUCCESS,
 	USER_SHOW_ERROR,
@@ -16,7 +22,7 @@ const defaultState = {
 	isFetchingUsers: false,
 	isFetchingUser: false,
 	error: {},
-	functions: [],
+	permissions: [],
 	areCurrentFunctionsEditable: false,
 }
 
@@ -36,6 +42,13 @@ export default function usersReducer(state=defaultState, action){
 				{isFetchingUser: true},
 				{error: null}
 			)
+		case DOING_USER_PERMISSIONS_INDEX:
+			return Object.assign(
+				{},
+				state,
+				{error: false},
+				{isFetchingUserPermissions: true}
+			)
 		case USERS_INDEX_SUCCESS:
 			return Object.assign(
 				{},
@@ -53,6 +66,14 @@ export default function usersReducer(state=defaultState, action){
 				{error: null},
 				{current: action.response.Item}
 			)
+		case USER_PERMISSIONS_INDEX_SUCCESS:
+			return Object.assign(
+				{},
+				state,
+				{permissions: action.permissions},
+				{error: false},
+				{isFetchingUserPermissions: false}
+			)
 		case USERS_INDEX_ERROR:
 			return Object.assign(
 				{},
@@ -67,6 +88,13 @@ export default function usersReducer(state=defaultState, action){
 				{isFetchingUser: false},
 				{error: action.error}
 			)
+		case USER_PERMISSIONS_INDEX_ERROR:
+			return Object.assign(
+				{},
+				state,
+				{error: action.error},
+				{isFetchingUserPermissions: false}
+			)
 		case USER_CURRENT_FREE: 
 			return Object.assign(
 				{},
@@ -80,6 +108,21 @@ export default function usersReducer(state=defaultState, action){
 				state,
 				{areCurrentFunctionsEditable: !state.areCurrentFunctionsEditable}
 			)
+		case DOING_USER_PERMISSIONS_UPDATE:
+			return Object.assign(
+				{},
+				state,
+				{current: Object.assign({}, state.current, {permissions: action.permissions})},
+				{error: null}
+			)
+		case USER_PERMISSIONS_UPDATE_ERROR:
+			return Object.assign(
+				{},
+				state,
+				{current: Object.assign({}, state.current, {permissions: action.permissions})},
+				{error: action.error}
+			)
+		case USER_PERMISSIONS_UPDATE_SUCCESS:
 		default:
 			return state
 	}

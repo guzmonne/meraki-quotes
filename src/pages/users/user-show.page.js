@@ -3,7 +3,9 @@ import {connect} from 'react-redux'
 import {
 	doUserShow,
 	userCurrentFree,
-	userCurrentFunctionsEditableToggle
+	userCurrentFunctionsEditableToggle,
+	doUserPermissionsUpdate,
+	doUserPermissionsIndex
 } from './actions/users.actions.js'
 import UserShowContainer from '../../components/users/user-show-container.component.js'
 
@@ -21,10 +23,18 @@ class UserShowPage extends React.Component {
 	}
 
 	render(){
-		const {doUserShow, users, userCurrentFunctionsEditableToggle} = this.props
+		const {
+			users,
+			doUserShow,
+			userCurrentFunctionsEditableToggle,
+			doUserPermissionsIndex,
+			doUserPermissionsUpdate
+		} = this.props
 		return <UserShowContainer
 			users={users}
 			onToggle={userCurrentFunctionsEditableToggle}
+			onIndexPermissions={doUserPermissionsIndex}
+			onUserPermissionsUpdate={doUserPermissionsUpdate}
 		/>
 	}
 }
@@ -36,7 +46,9 @@ const select = state => (
 const actions = {
 	doUserShow,
 	userCurrentFree,
-	userCurrentFunctionsEditableToggle
+	userCurrentFunctionsEditableToggle,
+	doUserPermissionsIndex,
+	doUserPermissionsUpdate
 }
 
 export default connect(select, actions)(UserShowPage)

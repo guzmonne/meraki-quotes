@@ -20,6 +20,10 @@ const AwsApiObservers = (function(){
 		return output
 	}
 
+	const ajaxObs = settings => Rx.DOM.
+		ajax(Object.assign({}, defaultSettings, settings)).
+		map(parseResponse)
+
 	const sessionLoginObs = body => Rx.DOM.
 		ajax(Object.assign({}, defaultSettings, {
 			method: POST,
@@ -48,11 +52,25 @@ const AwsApiObservers = (function(){
 		})).
 		map(parseResponse)
 
+	const userPermissionsIndexObs = () =>
+		ajaxObs({
+			url: url + 'users/permissions'
+		})
+
+	const userPermissionsUpdateObs = (email, permissions) =>
+		ajaxObs({
+			url    : `${url}/users/permissions/${btoa(email)}`,
+			method : PUT,
+			body   : JSON.stringify({email, permissions})
+		})
+
 	return {
 		sessionLoginObs,
 		userCreateObs,
 		usersIndexObs,
-		userShowObs
+		userShowObs,
+		userPermissionsIndexObs,
+		userPermissionsUpdateObs
 	}
 })()
 

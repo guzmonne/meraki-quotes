@@ -5,7 +5,7 @@ import Spinner from '../helpers/spinner.component.js'
 
 const deleteTooltip = <Tooltip id="eliminar">Eliminar</Tooltip>
 
-export default ({users, onToggle}) => 
+export default ({users, onToggle, onIndexPermissions, onUserPermissionsUpdate}) => 
 	<div className="row UserShow">
 		<div className="col-md-offset-3 col-md-6">
 			{!users.isFetchingUser ? 
@@ -16,7 +16,14 @@ export default ({users, onToggle}) =>
 						<small>{users.current.email}</small>
 					</h2>
 					{!users.areCurrentFunctionsEditable}
-					<button className="btn-warning" onClick={onToggle}>
+					<button 
+						className="btn-warning"
+						onClick={() => {
+							onToggle()
+							if (users.permissions.length === 0)
+								onIndexPermissions()
+						}}
+					>
 						<i className="fa fa-pencil"></i>
 						{' '}Editar Permisos
 					</button>
@@ -32,17 +39,30 @@ export default ({users, onToggle}) =>
 					</h2>
 				</div>
 			}
+			{typeof users.error === 'string' ? 
+				<Panel header={<h3>¡Error!</h3>} bsStyle="primary">
+					{users.error}
+				</Panel>
+				:
+				null
+			}
 			<Panel collapsible expanded={!!users.areCurrentFunctionsEditable}>
-				<PermissionsForm permissions={users.current.functions || []} />
+				<PermissionsForm 
+					onSubmit={onUserPermissionsUpdate}
+					currentPermissions={users.current.permissions || []}
+					permissions={users.permissions || []} />
 			</Panel>
 			<Panel header="Permisos">
 				{!users.isFetchingUser ? 
 						<ListGroup fill>
-							{users.current.functions && users.current.functions.map(permission => 
+							{users.current.permissions && users.current.permissions.map(permission => 
 								<ListGroupItem key={permission}>
 									{permission}
 									<OverlayTrigger placement="right" overlay={deleteTooltip}>
-										<i className="fa fa-times text-danger pull-right pointer"></i>
+										<i 
+											className="fa fa-times text-danger pull-right pointer"
+											onClick={() => onUserPermissionsUpdate(permission)}
+										></i>
 									</OverlayTrigger>
 								</ListGroupItem>
 							)}
