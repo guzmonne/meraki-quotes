@@ -10,9 +10,7 @@ export default class MainLayout extends React.Component {
 		return (
 			<div className="outer">
 				<NavBar></NavBar>
-				<div className="container-fluid">
-					{this.props.children}
-				</div>
+				{this.props.children}
 			</div>
 		)
 	}

@@ -17,7 +17,7 @@ const SpinnerTbody = () =>
 		</tr>
 	</tbody>
 
-const CollectionTbody = ({collection=[]}) => 
+const CollectionTbody = ({collection=[], discount=1}) => 
 	<tbody>
 		{collection.map((product, i) =>
 			<tr key={i}>
@@ -30,12 +30,12 @@ const CollectionTbody = ({collection=[]}) =>
 				<td>{product.PartNumber}</td>
 				<td>{product.Category}</td>
 				<td>{product.Description}</td>
-				<td>{accounting.formatMoney(product.Price, moneyOptions)}</td>
+				<td>{accounting.formatMoney(product.Price * discount, moneyOptions)}</td>
 			</tr>
 		)}
 	</tbody>
 
-export default ({updating, collection}) =>
+export default ({updating, collection, discount=1}) =>
 	<Table responsive bordered>
 
 		<thead>
@@ -48,5 +48,5 @@ export default ({updating, collection}) =>
 			</tr>
 		</thead>
 		{collection.length === 0 && updating ?
-			<SpinnerTbody /> : <CollectionTbody collection={collection} />}
+			<SpinnerTbody /> : <CollectionTbody discount={discount} collection={collection} />}
 	</Table>

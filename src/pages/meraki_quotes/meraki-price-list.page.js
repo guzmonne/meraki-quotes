@@ -1,6 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux';
-import {merakiDevicesIndex} from './actions/meraki-devices.actions.js'
+import {
+	merakiDevicesIndex,
+	selectMerakiDevicesPriceList,
+	doMerakiDevicesCreate,
+	toggleMerakiDevicesCreateModal
+} from './actions/meraki-devices.actions.js'
 import MerakiPriceListContainer from '../../components/meraki_quotes/meraki-price-list-container.component.js'
 
 class MerakiPriceList extends React.Component {
@@ -9,12 +14,21 @@ class MerakiPriceList extends React.Component {
 	}
 
 	render(){
-		const {merakiDevices, merakiDevicesIndex} = this.props
+		const {
+			merakiDevices, 
+			merakiDevicesIndex,
+			selectMerakiDevicesPriceList,
+			doMerakiDevicesCreate,
+			toggleMerakiDevicesCreateModal
+		} = this.props
 
 		return (
 			<MerakiPriceListContainer 
 				merakiDevices={merakiDevices}
 				onUpdate={merakiDevicesIndex}
+				onPriceListSelection={selectMerakiDevicesPriceList}
+				onCreate={doMerakiDevicesCreate}
+				toggleModal={toggleMerakiDevicesCreateModal}
 			/>
 		)
 	}
@@ -25,7 +39,10 @@ const select = state => (
 )
 
 const actions = {
-	merakiDevicesIndex
+	merakiDevicesIndex,
+	selectMerakiDevicesPriceList,
+	doMerakiDevicesCreate,
+	toggleMerakiDevicesCreateModal
 }
 
 export default connect(select, actions)(MerakiPriceList)

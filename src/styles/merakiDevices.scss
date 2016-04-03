@@ -1,5 +1,20 @@
 .MerakiPriceList {
+	img {
+		opacity: 0.75;
+	}
+
+	.row {
+		padding-bottom: 15px;
+	}
+
 	.table-bordered > tbody > tr > td {
 		vertical-align: middle;
+	}
+
+	.table-bordered > tbody > tr:hover {
+		color: black;
+		img {
+			opacity: 1;
+		}
 	}
 }

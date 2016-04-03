@@ -78,6 +78,9 @@ const AwsApiObservers = (function(){
 			url: `${url}/meraki-quotes/meraki-devices/index${(!!paginationKey && paginationKey !== "") ? `?paginationKey=${paginationKey}` : ""}`
 		})
 
+	const merakiDevicesCreateObs = model => 
+		Rx.Observable.just(model)
+
 	return {
 		// SESSION
 		sessionLoginObs,
@@ -88,7 +91,8 @@ const AwsApiObservers = (function(){
 		userPermissionsIndexObs,
 		userPermissionsUpdateObs,
 		// MERAKI DEVICES
-		merakiDevicesIndexObs
+		merakiDevicesIndexObs,
+		merakiDevicesCreateObs
 	}
 })()
 
