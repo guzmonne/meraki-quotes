@@ -1,0 +1,2 @@
+Compress-Archive -LiteralPath ./conapps-merakiDevices-index.js, ./node_modules, ../models/merakiDevices.model.js, ../models/counts.model.js -DestinationPath ./merakiDevicesIndex.zip -CompressionLevel Optimal -Force
+aws lambda update-function-code --function-name conapps-merakiDevices-index --zip-file fileb://merakiDevicesIndex.zip

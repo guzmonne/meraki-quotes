@@ -26,6 +26,7 @@ build/Release
 # Dependency directory
 node_modules
 lambda/users/node_modules
+lambda/merakiDevices/node_modules
 
 # Optional npm cache directory
 .npm

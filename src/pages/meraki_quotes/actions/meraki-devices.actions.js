@@ -1,43 +1,44 @@
 import {
-	DOING_GET_MERAKI_DEVICES,
-	GET_MERAKI_DEVICES_SUCCESS,
-	GET_MERAKI_DEVICES_ERROR
+	DOING_MERAKI_DEVICES_INDEX,
+	MERAKI_DEVICES_INDEX_SUCCESS,
+	MERAKI_DEVICES_INDEX_ERROR
 } from '../../../state/action-types.js'
+import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
 
 // getMerakiDevices
-export function getMerakiDevices(){
+export function merakiDevicesIndex(){
 	return (dispatch, getState) => {
-		const handleSuccess = data => dispatch(getMerakiDevicesSuccess(data))
-		const handleError = error => dispatch(getMerakiDevicesError(error))
+		const handleSuccess = data => dispatch(merakiDevicesIndexSuccess(data))
+		const handleError = error => dispatch(merakiDevicesIndexError(error))
+		const paginationKey = getState().merakiDevices.paginationKey
 
-		dispatch(doingGetMerakiDevices())
+		dispatch(doingMerakiDevicesIndex())
 
-		lambda.invoke({
-			FunctionName: 'conapps-get-meraki-devices'
-		}, (err, data) => {
-			if (err) return handleError(err)
-			const output = JSON.parse(data)
-			handleSuccess(output)
-		})
+		AwsApiObservers.
+			merakiDevicesIndexObs(paginationKey).
+			subscribe(
+				({response}) => {console.log(response); handleSuccess(response)},
+				error => handleError(error)
+			)
 	}
 }
 
-function doingGetMerakiDevices(){
+function doingMerakiDevicesIndex(){
 	return {
-		type: DOING_GET_MERAKI_DEVICES
+		type: DOING_MERAKI_DEVICES_INDEX
 	}
 }
 
-function getMerakiDevicesSuccess(data){
+function merakiDevicesIndexSuccess(data){
 	return {
-		type: GET_MERAKI_DEVICES_SUCCESS,
+		type: MERAKI_DEVICES_INDEX_SUCCESS,
 		data
 	}
 }
 
-function getMerakiDevicesError(error){
+function merakiDevicesIndexError(error){
 	return {
-		type: GET_MERAKI_DEVICES_ERROR,
+		type: MERAKI_DEVICES_INDEX_ERROR,
 		error
 	}
 }

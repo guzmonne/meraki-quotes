@@ -1,33 +1,35 @@
 import {
-	DOING_GET_MERAKI_DEVICES,
-	GET_MERAKI_DEVICES_SUCCESS,
-	GET_MERAKI_DEVICES_ERROR
+	DOING_MERAKI_DEVICES_INDEX,
+	MERAKI_DEVICES_INDEX_SUCCESS,
+	MERAKI_DEVICES_INDEX_ERROR
 } from '../../../state/action-types.js'
 
 const defaultState = {
 	collection: [],
 	isGettingMerakiDevices: false,
-	error: null
+	error: null,
+	paginationKey: null
 }
 
 export default function merakiDevicesReducer(state=defaultState, action){
 	switch(action.type){
-		case DOING_GET_MERAKI_DEVICES:
+		case DOING_MERAKI_DEVICES_INDEX:
 			return Object.assign(
 				{},
 				state,
 				{error: null},
 				{isGettingMerakiDevices: true}
 			)
-		case GET_MERAKI_DEVICES_SUCCESS:
+		case MERAKI_DEVICES_INDEX_SUCCESS:
 			return Object.assign(
 				{},
 				state,
 				{error: null},
 				{isGettingMerakiDevices: false},
-				{collection: action.data}
+				{collection: action.data.Items},
+				{paginationKey: action.data.LastEvaluatedKey}
 			)
-		case GET_MERAKI_DEVICES_ERROR:
+		case MERAKI_DEVICES_INDEX_ERROR:
 			return Object.assign(
 				{},
 				state,

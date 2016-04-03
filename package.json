@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/guzmonne/mcp-admin#readme",
   "dependencies": {
+    "accounting": "^0.4.1",
     "file-loader": "^0.8.5",
     "firebase": "^2.4.1",
     "hjs-webpack": "^7.3.2",
