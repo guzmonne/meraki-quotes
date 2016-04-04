@@ -5,7 +5,9 @@ import {
 	SELECT_MERAKI_DEVICES_PRICE_LIST,
 	TOGGLE_MERAKI_DEVICES_CREATE_MODAL,
 	MERAKI_DEVICES_CREATE_SUCCESS,
-	MERAKI_DEVICES_CREATE_ERROR
+	MERAKI_DEVICES_CREATE_ERROR,
+	SELECT_MERAKI_DEVICE,
+	SET_CURRENT_MERAKI_DEVICE
 } from '../../../state/action-types.js'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
 
@@ -41,6 +43,30 @@ export function doMerakiDevicesCreate(model){
 	}
 }
 
+export function doSetCurrentMerakiDevice(isNew=true){
+	return (dispatch, getState) => {
+		let current = null
+		if (isNew === false){
+			const merakiDevices = getState().merakiDevices
+			const partNumber = merakiDevices.selectedDevices[0]
+			current = merakiDevices.collection.
+				find(x => x.PartNumber === partNumber) 
+		} 
+		dispatch(setCurrentMerakiDevice(current))
+	}
+}
+
+export function doSelectMerakiDevice(device){
+	return (dispatch, getState) => {
+		const selectedDevices = getState().merakiDevices.selectedDevices
+
+		if (selectedDevices.indexOf(device) === -1)
+			dispatch(selectMerakiDevice([...selectedDevices, device]))
+		else
+			dispatch(selectMerakiDevice(selectedDevices.filter(x => x !== device)))
+	}
+}
+
 export function toggleMerakiDevicesCreateModal(){
 	return {
 		type: TOGGLE_MERAKI_DEVICES_CREATE_MODAL
@@ -51,6 +77,20 @@ export function selectMerakiDevicesPriceList(discount){
 	return {
 		type: SELECT_MERAKI_DEVICES_PRICE_LIST,
 		discount
+	}
+}
+
+function selectMerakiDevice(selectedDevices){
+	return {
+		type: SELECT_MERAKI_DEVICE,
+		selectedDevices
+	}
+}
+
+function setCurrentMerakiDevice(current){
+	return {
+		type: SET_CURRENT_MERAKI_DEVICE,
+		current
 	}
 }
 

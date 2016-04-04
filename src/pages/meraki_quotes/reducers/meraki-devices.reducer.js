@@ -5,7 +5,9 @@ import {
 	SELECT_MERAKI_DEVICES_PRICE_LIST,
 	TOGGLE_MERAKI_DEVICES_CREATE_MODAL,
 	MERAKI_DEVICES_CREATE_SUCCESS,
-	MERAKI_DEVICES_CREATE_ERROR
+	MERAKI_DEVICES_CREATE_ERROR,
+	SELECT_MERAKI_DEVICE,
+	SET_CURRENT_MERAKI_DEVICE
 } from '../../../state/action-types.js'
 
 const defaultState = {
@@ -14,7 +16,9 @@ const defaultState = {
 	error: null,
 	paginationKey: null,
 	priceListDiscount: 1,
-	isShowingMerakiDeviceCreateModal: false
+	isShowingMerakiDeviceCreateModal: false,
+	selectedDevices: [],
+	current: null
 }
 
 export default function merakiDevicesReducer(state=defaultState, action){
@@ -58,7 +62,13 @@ export default function merakiDevicesReducer(state=defaultState, action){
 			return Object.assign(
 				{},
 				state,
-				{collection: [action.model, ...state.collection]},
+				{collection: !state.collection.find(x => x.PartNumber === action.model.PartNumber) ? 
+					[action.model, ...state.collection]
+					:
+					state.collection.map(x => x.PartNumber === action.model.PartNumber ? 
+						action.model : x
+					)	
+				},
 				{error: null},
 				{isShowingMerakiDeviceCreateModal: false}
 			)
@@ -71,6 +81,18 @@ export default function merakiDevicesReducer(state=defaultState, action){
 				{isShowingMerakiDeviceCreateModal: false}
 			)
 		}
+		case SELECT_MERAKI_DEVICE:
+			return Object.assign(
+				{},
+				state,
+				{selectedDevices: action.selectedDevices}
+			)
+		case SET_CURRENT_MERAKI_DEVICE:
+			return Object.assign(
+				{},
+				state,
+				{current: action.current}
+			)
 		default:
 			return state
 	}

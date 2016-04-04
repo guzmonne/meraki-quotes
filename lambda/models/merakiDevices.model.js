@@ -8,7 +8,10 @@ var MerakiDevice = vogels.define('MerakiDevice', {
 	tableName: 'ConappsMerakiDevices',
 	schema: {
 		ID: vogels.types.uuid(),
-		Desciption: Joi.string(),
+		PartNumber: Joi.string(),
+		Category: Joi.string(),
+		Description: Joi.string(),
+		ImageUrl: Joi.string(),
 		Price: Joi.number()
 	}
 })

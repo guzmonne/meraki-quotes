@@ -68,18 +68,22 @@ const AwsApiObservers = (function(){
 
 	const userPermissionsUpdateObs = (email, permissions) =>
 		ajaxObs({
-			url    : `${url}/users/permissions/${btoa(email)}`,
+			url    : `${url}users/permissions/${btoa(email)}`,
 			method : PUT,
 			body   : JSON.stringify({email, permissions})
 		})
 
 	const merakiDevicesIndexObs = paginationKey =>
 		ajaxObs({
-			url: `${url}/meraki-quotes/meraki-devices/index${(!!paginationKey && paginationKey !== "") ? `?paginationKey=${paginationKey}` : ""}`
+			url: `${url}meraki-quotes/meraki-devices/index${(!!paginationKey && paginationKey !== "") ? `?paginationKey=${paginationKey}` : ""}`
 		})
 
 	const merakiDevicesCreateObs = model => 
-		Rx.Observable.just(model)
+		ajaxObs({
+			url: `${url}meraki-quotes/meraki-devices/create`,
+			method: POST,
+			body: JSON.stringify(model)
+		})
 
 	return {
 		// SESSION

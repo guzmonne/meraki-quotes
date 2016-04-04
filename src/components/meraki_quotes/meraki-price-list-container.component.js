@@ -16,7 +16,16 @@ import RefreshButton from '../helpers/refresh-button.component.js'
 import PriceListDropdown from './price-list-dropdown.component.js'
 import MerakiDeviceCreateModal from './meraki-device-create-modal.component.js'
 
-export default ({merakiDevices, onUpdate, onPriceListSelection, toggleModal, onCreate}) =>
+export default ({
+	merakiDevices,
+	onUpdate,
+	onPriceListSelection,
+	toggleModal,
+	onCreate,
+	onEdit,
+	setFormDevice,
+	onSelect
+}) =>
 	<Grid fluid className="MerakiPriceList">
 		<Panel>
 			<Row>
@@ -34,9 +43,21 @@ export default ({merakiDevices, onUpdate, onPriceListSelection, toggleModal, onC
 							/>
 						</ButtonGroup>
 						<ButtonGroup>
-							<Button onClick={toggleModal}>
-								<i className="fa fa-plus"></i>
-								{' Nuevo'}
+							<Button onClick={() => {
+								setFormDevice()
+								toggleModal()
+							}}>
+								<i className="fa fa-plus"></i>{' Nuevo'}
+							</Button>
+						</ButtonGroup>
+						<ButtonGroup>
+							<Button onClick={() => {
+								setFormDevice(false)
+								toggleModal()
+							}} 
+							className="btn-warning"
+							disabled={merakiDevices.selectedDevices.length !== 1}>
+								<i className="fa fa-pencil"></i>{' Editar'}
 							</Button>
 						</ButtonGroup>
 					</ButtonToolbar>
@@ -55,7 +76,9 @@ export default ({merakiDevices, onUpdate, onPriceListSelection, toggleModal, onC
 					<MerakiDevicesTable
 						discount={merakiDevices.priceListDiscount}
 						updating={merakiDevices.isGettingMerakiDevices} 
-						collection={merakiDevices.collection} />
+						collection={merakiDevices.collection} 
+						selected={merakiDevices.selectedDevices}
+						onSelect={onSelect}/>
 				</Col>
 			</Row>
 		</Panel>
@@ -65,6 +88,7 @@ export default ({merakiDevices, onUpdate, onPriceListSelection, toggleModal, onC
 			onShow={merakiDevices.isShowingMerakiDeviceCreateModal}
 			onToggle={toggleModal}
 			onSubmit={onCreate}
+			model={merakiDevices.current}
 		/>
 
 	</Grid>

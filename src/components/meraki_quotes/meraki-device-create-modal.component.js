@@ -24,7 +24,10 @@ export default class MerakiDeviceCreateModal extends React.Component {
 	}
 
 	render(){
-		const {onShow, onToggle, model={}} = this.props
+		const {onShow, onToggle} = this.props
+		let {model} = this.props
+
+		if (!model) model = {}
 
 		return (
 			<Modal

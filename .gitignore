@@ -27,6 +27,7 @@ build/Release
 node_modules
 lambda/users/node_modules
 lambda/merakiDevices/node_modules
+lambda/merakiDevices/*.zip
 
 # Optional npm cache directory
 .npm
