@@ -17,6 +17,7 @@ import Refresher from '../helpers/refresher.component.js'
 import RefreshButton from '../helpers/refresh-button.component.js'
 import PriceListDropdown from './price-list-dropdown.component.js'
 import MerakiDeviceCreateModal from './meraki-device-create-modal.component.js'
+import Spinner from '../helpers/spinner.component.js'
 
 export default ({
 	onUpdate,
@@ -27,8 +28,7 @@ export default ({
 	onPriceListSelection,
 	merakiDevices,
 	toggleModal,
-	setFormDevice,
-	setPaginationKey
+	setFormDevice
 }) =>
 	<Grid fluid className="MerakiPriceList">
 		<Panel>
@@ -51,10 +51,7 @@ export default ({
 					<ButtonToolbar>
 						<ButtonGroup>
 							<RefreshButton 
-								onClick={() => {
-									setPaginationKey(null)
-									onUpdate()
-								}}
+								onClick={() => onUpdate(0)}
 								refreshing={merakiDevices.isGettingMerakiDevices}
 							/>
 						</ButtonGroup>
@@ -107,21 +104,34 @@ export default ({
 						onUpdate={onUpdate}
 					/>
 				  <Pager>
-				    <PageItem onClick={() => {
-				    	setPaginationKey(merakiDevices.pagination.prev)
-				    	onUpdate()
-				    }}>
+				    <PageItem
+				    	disabled={merakiDevices.page - 1 < 0 || merakiDevices.isGettingMerakiDevices}
+				    	onSelect={() => onUpdate(-1)}
+				    >
 				    	Anterior
 			    	</PageItem>
 				    {' '}
-				    <PageItem onClick={ () =>{
-				    	setPaginationKey(merakiDevices.pagination.next)
-				    	onUpdate()
-				    }}>
+				    <PageItem 
+				    	disabled={!merakiDevices.pagination[merakiDevices.page + 1] || merakiDevices.isGettingMerakiDevices}
+				    	onSelect={() => onUpdate(1)}
+				    >
 				    	Siguiente
 			    	</PageItem>
 				  </Pager>
 				</Col>
+
+				{merakiDevices.total && 
+					<Col xs={12}>
+						<div className="text-center">
+							<p>
+								{(merakiDevices.page * 10) + 1} 
+								{' al '}
+								{(merakiDevices.page + 1) * 10 > merakiDevices.total ? merakiDevices.total : (merakiDevices.page + 1) * 10}
+								{' de '}
+								{merakiDevices.total}</p>
+						</div>
+					</Col>
+				}
 			</Row>
 		</Panel>
 		{/*MODAL*/}

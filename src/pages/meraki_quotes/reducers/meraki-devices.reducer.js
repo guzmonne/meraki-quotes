@@ -9,8 +9,7 @@ import {
 	SELECT_MERAKI_DEVICE,
 	SET_CURRENT_MERAKI_DEVICE,
 	MERAKI_DEVICES_DESTROY,
-	MERAKI_DEVICES_DESTROY_ERROR,
-	SET_MERAKI_DEVICES_PAGINATION_KEY
+	MERAKI_DEVICES_DESTROY_ERROR
 } from '../../../state/action-types.js'
 
 const defaultState = {
@@ -21,8 +20,9 @@ const defaultState = {
 	isShowingMerakiDeviceCreateModal: false,
 	selectedDevices                 : [],
 	current                         : null,
-	paginationKey                   : null,
-	pagination                      : []
+	pagination                      : [null],
+	page                            : 0,
+	total                           : 0
 }
 
 export default function merakiDevicesReducer(state=defaultState, action){
@@ -40,8 +40,10 @@ export default function merakiDevicesReducer(state=defaultState, action){
 				state,
 				{error: null},
 				{isGettingMerakiDevices: false},
-				{collection: action.response.Items},
-				{pagination: [state.pagination...]}		
+				{collection: action.collection},
+				{pagination: action.pagination},
+				{page: action.page},
+				{total: action.total}
 			)
 		case MERAKI_DEVICES_INDEX_ERROR:
 			return Object.assign(
@@ -111,12 +113,6 @@ export default function merakiDevicesReducer(state=defaultState, action){
 				state,
 				{error: action.error},
 				{collection: action.collection}
-			)
-		case SET_MERAKI_DEVICES_PAGINATION_KEY:
-			return Object.assign(
-				{},
-				state,
-				{paginationKey: action.paginationKey}
 			)
 		default:
 			return state

@@ -17,4 +17,11 @@
 			opacity: 1;
 		}
 	}
+
+	.table-updating > tbody > tr:hover {
+		color: black;
+		img {
+			opacity: 0.75;
+		}
+	}
 }

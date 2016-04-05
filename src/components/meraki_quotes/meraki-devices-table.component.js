@@ -43,25 +43,31 @@ const CollectionTbody = ({collection=[], discount=1, onSelect, selected}) =>
 	</tbody>
 
 export default ({updating, collection, discount=1, onSelect, selected=[]}) =>
-	<Table responsive bordered>
-
-		<thead>
-			<tr>
-				<th></th>
-				<th>Imagen</th>
-				<th>Número de Parte</th>
-				<th>Categoría</th>
-				<th>Descripción</th>
-				<th>Precio</th>
-			</tr>
-		</thead>
-		{collection.length === 0 && updating ?
-			<SpinnerTbody /> 
-			:
-			<CollectionTbody
-				discount={discount}
-				collection={collection}
-				selected={selected}
-				onSelect={onSelect}
-			/>}
-	</Table>
+	<div>
+		{updating && collection.length > 0 &&
+			<span style={({position: 'absolute', top: "40%", left: "48%", fontSize: '50px'})}>
+				<Spinner />
+			</span>
+		}
+		<Table responsive bordered className={!!updating ? "table-updating" : null}>
+			<thead>
+				<tr>
+					<th></th>
+					<th>Imagen</th>
+					<th>Número de Parte</th>
+					<th>Categoría</th>
+					<th>Descripción</th>
+					<th>Precio</th>
+				</tr>
+			</thead>
+			{collection.length === 0 && updating ?
+				<SpinnerTbody /> 
+				:
+				<CollectionTbody
+					discount={discount}
+					collection={collection}
+					selected={selected}
+					onSelect={onSelect}
+				/>}
+		</Table>
+	</div>

@@ -9,24 +9,54 @@ import {
 	SELECT_MERAKI_DEVICE,
 	SET_CURRENT_MERAKI_DEVICE,
 	MERAKI_DEVICES_DESTROY,
-	MERAKI_DEVICES_DESTROY_ERROR,
-	SET_MERAKI_DEVICES_PAGINATION_KEY
+	MERAKI_DEVICES_DESTROY_ERROR
 } from '../../../state/action-types.js'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
+import ActionHelpers from '../../../modules/action-helpers.module.js'
 
 // getMerakiDevices
-export function merakiDevicesIndex(){
+export function merakiDevicesIndex(turnPage=0){
 	return (dispatch, getState) => {
-		const handleSuccess = response => dispatch(merakiDevicesIndexSuccess(response))
+		// [null]
+		// Opciones: -1, 0, 1
+		// -1 -> null -> A -> [null, A]
+		//                     ^
+		//  0 -> null -> A -> [null, A]
+		//                     ^
+		//  1 -> A    -> B -> [null, A, B]
+		//                           ^
+		// -------------------------------                    
+		// [null, A, B]
+		// Opciones: -1, 0, 1
+		// -1 -> null -> A -> [null, A, B] ~ [null, A]
+		//                      ^              ^
+		//  0 -> A    -> B -> [null, A, B]
+		//                           ^
+		//  1 -> B    -> C -> [null, A, B, C]
+		//                              ^
+		// ----------------------------------
+		// [null, A, B] ~ [A, B, C]                                                                                     
+		//        ^           ^
+		const handleSuccess = (...args) => dispatch(merakiDevicesIndexSuccess(...args))
 		const handleError = error => dispatch(merakiDevicesIndexError(error))
-		const paginationKey = getState().merakiDevices.paginationKey
+		
+		const {pagination, page} = getState().merakiDevices
+		const paginationKey = pagination[page + turnPage < 0 ? 0 : page + turnPage];
 
 		dispatch(doingMerakiDevicesIndex())
 
 		AwsApiObservers.
 			merakiDevicesIndexObs(paginationKey).
 			subscribe(
-				({response}) => handleSuccess(response),
+				({response}) => {
+					const {Items, LastEvaluatedKey, Total} = response
+					if (turnPage === -1)
+						return handleSuccess(Items, (page - 1 < 0 ? 0 : page - 1), (pagination.length < 2 ? [null, LastEvaluatedKey] : pagination), Total.count)
+					if (turnPage ===  0)
+						return handleSuccess(Items, page, (pagination.length < 2 ? [null, LastEvaluatedKey] : pagination), Total.count)
+					if (turnPage ===  1)
+						return handleSuccess(Items, page + 1, (!!LastEvaluatedKey ? [...pagination, LastEvaluatedKey] : pagination), Total.count)
+				},
 				error => handleError(error)
 			)
 	}
@@ -95,13 +125,6 @@ export function doMerakiDevicesDestroy(){
 	}
 }
 
-export function setMerakiDevicesPaginationKey(paginationKey){
-	return {
-		type: SET_MERAKI_DEVICES_PAGINATION_KEY,
-		paginationKey
-	}
-}
-
 export function toggleMerakiDevicesCreateModal(){
 	return {
 		type: TOGGLE_MERAKI_DEVICES_CREATE_MODAL
@@ -135,10 +158,13 @@ function doingMerakiDevicesIndex(){
 	}
 }
 
-function merakiDevicesIndexSuccess(response){
+function merakiDevicesIndexSuccess(collection, page, pagination, total){
 	return {
 		type: MERAKI_DEVICES_INDEX_SUCCESS,
-		response
+		collection,
+		pagination,
+		page,
+		total
 	}
 }
 

@@ -6,3 +6,18 @@
 .pointer {
 	cursor: pointer;
 }
+
+.pager li > a:hover, .pager li > a:focus {
+    text-decoration: none;
+    background-color: #ffffff;
+}
+
+.pager li > a:hover, .pager li > a:hover {
+    text-decoration: none;
+    background-color: #d9230f;
+}
+
+.table-updating > tbody > tr > td {
+	background-color: #EFEFEF;
+	color: #AAAAAA;
+}
