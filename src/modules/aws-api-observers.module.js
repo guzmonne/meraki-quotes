@@ -75,7 +75,7 @@ const AwsApiObservers = (function(){
 
 	const merakiDevicesIndexObs = paginationKey =>
 		ajaxObs({
-			url: `${url}meraki-quotes/meraki-devices/index${(!!paginationKey && paginationKey !== "") ? `?paginationKey=${paginationKey}` : ""}`
+			url: `${url}meraki-quotes/meraki-devices/index${(!!paginationKey && paginationKey !== "") ? `?PartNumber=${paginationKey.PartNumber}&Category=${paginationKey.Category}` : ""}`
 		})
 
 	const merakiDevicesCreateObs = model => 
@@ -83,6 +83,13 @@ const AwsApiObservers = (function(){
 			url: `${url}meraki-quotes/meraki-devices/create`,
 			method: POST,
 			body: JSON.stringify(model)
+		})
+
+	const merakiDevicesDestroyObs = devices =>
+		ajaxObs({
+			url: `${url}meraki-quotes/meraki-devices/destroy`,
+			method: DELETE,
+			body: JSON.stringify({devices})
 		})
 
 	return {
@@ -96,7 +103,8 @@ const AwsApiObservers = (function(){
 		userPermissionsUpdateObs,
 		// MERAKI DEVICES
 		merakiDevicesIndexObs,
-		merakiDevicesCreateObs
+		merakiDevicesCreateObs,
+		merakiDevicesDestroyObs
 	}
 })()
 

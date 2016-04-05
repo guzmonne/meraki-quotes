@@ -13,9 +13,14 @@ function fetchMerakiDevices(callback){
 		limit(10)
 		
 	console.log('Checking if paginationKey is defined')
-	if (!!this.paginationKey && this.paginationKey !== "") {
-		console.log('paginationKey = ' + this.paginationKey)
-		query =	query.startKey(this.paginationKey)
+	if (!!this.paginationKey &&
+				this.paginationKey.PartNumber &&
+				this.paginationKey.PartNumber !== "" &&
+				this.paginationKey.Category &&
+				this.paginationKey.Category !== ""
+	) {
+		console.log('paginationKey = ' + JSON.stringify(this.paginationKey))
+		query =	query.startKey(this.paginationKey.PartNumber, this.paginationKey.Category)
 	}
 
 	console.log('Executing merakiDevices scan')
@@ -50,7 +55,10 @@ function fetchMerakiDevicesCount(callback){
 }
 
 exports.handler = function(event, context){
-	var paginationKey = event.paginationKey
+	var paginationKey = {
+		PartNumber: event.PartNumber,
+		Category: event.Category
+	}
 
 	async.
 		parallel([

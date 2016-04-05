@@ -7,18 +7,22 @@ import {
 	MERAKI_DEVICES_CREATE_SUCCESS,
 	MERAKI_DEVICES_CREATE_ERROR,
 	SELECT_MERAKI_DEVICE,
-	SET_CURRENT_MERAKI_DEVICE
+	SET_CURRENT_MERAKI_DEVICE,
+	MERAKI_DEVICES_DESTROY,
+	MERAKI_DEVICES_DESTROY_ERROR,
+	SET_MERAKI_DEVICES_PAGINATION_KEY
 } from '../../../state/action-types.js'
 
 const defaultState = {
-	collection: [],
-	isGettingMerakiDevices: false,
-	error: null,
-	paginationKey: null,
-	priceListDiscount: 1,
+	collection                      : [],
+	isGettingMerakiDevices          : false,
+	error                           : null,
+	priceListDiscount               : 1,
 	isShowingMerakiDeviceCreateModal: false,
-	selectedDevices: [],
-	current: null
+	selectedDevices                 : [],
+	current                         : null,
+	paginationKey                   : null,
+	pagination                      : []
 }
 
 export default function merakiDevicesReducer(state=defaultState, action){
@@ -36,8 +40,8 @@ export default function merakiDevicesReducer(state=defaultState, action){
 				state,
 				{error: null},
 				{isGettingMerakiDevices: false},
-				{collection: action.data.Items},
-				{paginationKey: action.data.LastEvaluatedKey}
+				{collection: action.response.Items},
+				{pagination: [state.pagination...]}		
 			)
 		case MERAKI_DEVICES_INDEX_ERROR:
 			return Object.assign(
@@ -92,6 +96,27 @@ export default function merakiDevicesReducer(state=defaultState, action){
 				{},
 				state,
 				{current: action.current}
+			)
+		case MERAKI_DEVICES_DESTROY:
+			return Object.assign(
+				{},
+				state,
+				{selectedDevices: []},
+				{error: null},
+				{collection: state.collection.filter(x => state.selectedDevices.indexOf(x.PartNumber) === -1)}
+			)
+		case MERAKI_DEVICES_DESTROY_ERROR:
+			return Object.assign(
+				{},
+				state,
+				{error: action.error},
+				{collection: action.collection}
+			)
+		case SET_MERAKI_DEVICES_PAGINATION_KEY:
+			return Object.assign(
+				{},
+				state,
+				{paginationKey: action.paginationKey}
 			)
 		default:
 			return state

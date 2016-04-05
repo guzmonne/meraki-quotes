@@ -8,7 +8,9 @@ import {
 	ButtonGroup,
 	Button,
 	Modal,
-	Input
+	Input,
+	Pager,
+	PageItem
 } from 'react-bootstrap'
 import MerakiDevicesTable from './meraki-devices-table.component.js'
 import Refresher from '../helpers/refresher.component.js'
@@ -17,14 +19,16 @@ import PriceListDropdown from './price-list-dropdown.component.js'
 import MerakiDeviceCreateModal from './meraki-device-create-modal.component.js'
 
 export default ({
-	merakiDevices,
 	onUpdate,
-	onPriceListSelection,
-	toggleModal,
 	onCreate,
 	onEdit,
+	onSelect,
+	onDelete,
+	onPriceListSelection,
+	merakiDevices,
+	toggleModal,
 	setFormDevice,
-	onSelect
+	setPaginationKey
 }) =>
 	<Grid fluid className="MerakiPriceList">
 		<Panel>
@@ -33,12 +37,24 @@ export default ({
 					<h4>Meraki - Lista de Precios</h4>
 				</Col>
 			</Row>
+			{typeof merakiDevices.error === "string" &&
+				<Row>
+					<Col xs={12}>
+						<Panel header="Error" bsStyle="primary">
+							{merakiDevices.error}
+						</Panel>
+					</Col>
+				</Row>
+			}
 			<Row>
 				<Col xs={6}>
 					<ButtonToolbar>
 						<ButtonGroup>
 							<RefreshButton 
-								onClick={onUpdate}
+								onClick={() => {
+									setPaginationKey(null)
+									onUpdate()
+								}}
 								refreshing={merakiDevices.isGettingMerakiDevices}
 							/>
 						</ButtonGroup>
@@ -60,6 +76,15 @@ export default ({
 								<i className="fa fa-pencil"></i>{' Editar'}
 							</Button>
 						</ButtonGroup>
+						<ButtonGroup>
+							<Button 
+								className="btn-primary"
+								onClick={onDelete}
+								disabled={merakiDevices.selectedDevices.length === 0}
+							>
+								<i className="fa fa-trash"></i>{' Eliminar'}
+							</Button>
+						</ButtonGroup>
 					</ButtonToolbar>
 				</Col>
 				<Col xs={6}>
@@ -78,7 +103,24 @@ export default ({
 						updating={merakiDevices.isGettingMerakiDevices} 
 						collection={merakiDevices.collection} 
 						selected={merakiDevices.selectedDevices}
-						onSelect={onSelect}/>
+						onSelect={onSelect}
+						onUpdate={onUpdate}
+					/>
+				  <Pager>
+				    <PageItem onClick={() => {
+				    	setPaginationKey(merakiDevices.pagination.prev)
+				    	onUpdate()
+				    }}>
+				    	Anterior
+			    	</PageItem>
+				    {' '}
+				    <PageItem onClick={ () =>{
+				    	setPaginationKey(merakiDevices.pagination.next)
+				    	onUpdate()
+				    }}>
+				    	Siguiente
+			    	</PageItem>
+				  </Pager>
 				</Col>
 			</Row>
 		</Panel>

@@ -1,6 +1,9 @@
 var vogels = require('vogels'),
     Joi    = require('joi');
 
+// Remove comment before calling a script
+vogels.AWS.config.update({region: "us-east-1"})
+
 var MerakiDevice = vogels.define('MerakiDevice', {
 	hashKey: 'PartNumber',
 	rangeKey: 'Category',

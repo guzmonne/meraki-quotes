@@ -7,14 +7,17 @@ import {
 	MERAKI_DEVICES_CREATE_SUCCESS,
 	MERAKI_DEVICES_CREATE_ERROR,
 	SELECT_MERAKI_DEVICE,
-	SET_CURRENT_MERAKI_DEVICE
+	SET_CURRENT_MERAKI_DEVICE,
+	MERAKI_DEVICES_DESTROY,
+	MERAKI_DEVICES_DESTROY_ERROR,
+	SET_MERAKI_DEVICES_PAGINATION_KEY
 } from '../../../state/action-types.js'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
 
 // getMerakiDevices
 export function merakiDevicesIndex(){
 	return (dispatch, getState) => {
-		const handleSuccess = data => dispatch(merakiDevicesIndexSuccess(data))
+		const handleSuccess = response => dispatch(merakiDevicesIndexSuccess(response))
 		const handleError = error => dispatch(merakiDevicesIndexError(error))
 		const paginationKey = getState().merakiDevices.paginationKey
 
@@ -23,7 +26,7 @@ export function merakiDevicesIndex(){
 		AwsApiObservers.
 			merakiDevicesIndexObs(paginationKey).
 			subscribe(
-				({response}) => {console.log(response); handleSuccess(response)},
+				({response}) => handleSuccess(response),
 				error => handleError(error)
 			)
 	}
@@ -37,7 +40,8 @@ export function doMerakiDevicesCreate(model){
 		AwsApiObservers.
 			merakiDevicesCreateObs(model).
 			subscribe(
-				() => console.log('Model created successfully'),
+				({response}) => !!response.errorMessage ? 
+					dispatch(merakiDevicesCreateError(response.errorMessage, model.PartNumber)) : null,
 				error => dispatch(merakiDevicesCreateError(error, model.PartNumber))
 			)
 	}
@@ -64,6 +68,37 @@ export function doSelectMerakiDevice(device){
 			dispatch(selectMerakiDevice([...selectedDevices, device]))
 		else
 			dispatch(selectMerakiDevice(selectedDevices.filter(x => x !== device)))
+	}
+}
+
+export function doMerakiDevicesDestroy(){
+	return (dispatch, getState) => {
+		const merakiDevices = getState().merakiDevices
+		const {collection, selectedDevices} = merakiDevices
+		const clonedCollection = [...collection]
+
+		dispatch(merakiDevicesDestroy())
+
+		const selectedDevicesPairs = collection.
+			reduce((acc, x) => {
+				return selectedDevices.indexOf(x.PartNumber) > -1 ? [...acc, x] : acc
+			}, []).
+			map(({PartNumber, Category}) => ({PartNumber, Category}))
+
+		AwsApiObservers.
+			merakiDevicesDestroyObs(selectedDevicesPairs).
+			subscribe(
+				response => console.log(response),
+				error => dispatch(merakiDevicesDestroyError(error, clonedCollection)),
+				() => console.log(selectedDevicesPairs)
+			)
+	}
+}
+
+export function setMerakiDevicesPaginationKey(paginationKey){
+	return {
+		type: SET_MERAKI_DEVICES_PAGINATION_KEY,
+		paginationKey
 	}
 }
 
@@ -100,10 +135,10 @@ function doingMerakiDevicesIndex(){
 	}
 }
 
-function merakiDevicesIndexSuccess(data){
+function merakiDevicesIndexSuccess(response){
 	return {
 		type: MERAKI_DEVICES_INDEX_SUCCESS,
-		data
+		response
 	}
 }
 
@@ -126,5 +161,19 @@ function merakiDevicesCreateError(error, partNumber){
 		type: MERAKI_DEVICES_CREATE_ERROR,
 		error,
 		partNumber
+	}
+}
+
+function merakiDevicesDestroy(){
+	return {
+		type: MERAKI_DEVICES_DESTROY
+	}
+}
+
+function merakiDevicesDestroyError(error, collection){
+	return {
+		type: MERAKI_DEVICES_DESTROY_ERROR,
+		error,
+		collection
 	}
 }

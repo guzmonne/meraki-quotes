@@ -28,6 +28,8 @@ node_modules
 lambda/users/node_modules
 lambda/merakiDevices/node_modules
 lambda/merakiDevices/*.zip
+lambda/scripts/node_modules
+lambda/models/node_modules
 
 # Optional npm cache directory
 .npm

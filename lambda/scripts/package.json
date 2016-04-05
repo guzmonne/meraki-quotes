@@ -1,0 +1,20 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "Scripts to handle aws actions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "AWS",
+    "DynamoDB"
+  ],
+  "author": "Guzman Monne",
+  "license": "ISC",
+  "dependencies": {
+    "fast-csv": "^1.1.0",
+    "joi": "^8.0.5",
+    "vogels": "^2.2.0"
+  }
+}

@@ -1,0 +1,354 @@
+MS220-8-HW,Switches,Meraki MS220-8 Cloud Managed 8 Port GigE Switch,985.00
+MS220-8P-HW,Switches,Meraki MS220-8P L2 Cloud Managed 8 Port GigE 124W PoE Switch,1255.00
+MS220-24-HW,Switches,Meraki MS220-24 L2 Cloud Managed 24 Port GigE Switch,2155.00
+MS220-24P-HW,Switches,Meraki MS220-24P L2 Cloud Managed 24 Port GigE 370W PoE Switch,2875.00
+MS220-48-HW,Switches,Meraki MS220-48 L2 Cloud Managed 48 Port GigE Switch,3775.00
+MS220-48LP-HW,Switches,Meraki MS220-48LP L2 Cloud Managed 48 Port GigE 370W PoE Switch,5035.00
+MS220-48FP-HW,Switches,Meraki MS220-48FP L2 Cloud Managed 48 Port GigE 740W PoE Switch,5935.00
+MS320-24-HW,Switches,Meraki MS320-24 L3 Cloud Managed 24 Port GigE Switch,4515.00
+MS320-24P-HW,Switches,Meraki MS320-24P L3 Cloud Managed 24 Port GigE 370W PoE Switch,4975.00
+MS320-48-HW,Switches,Meraki MS320-48 L3 Cloud Managed 48 Port GigE Switch,6655.00
+MS320-48LP-HW,Switches,Meraki MS320-48LP L3 Cloud Managed 48 Port GigE 370W PoE Switch,7725.00
+MS320-48FP-HW,Switches,Meraki MS320-48FP L3 Cloud Managed 48 Port GigE 740W PoE Switch,8485.00
+MS350-24-HW,Switches,Meraki MS350-24 L3 Stck Cld-Mngd 24x GigE Switch,5675.00
+MS350-24P-HW,Switches,Meraki MS350-24P L3 Stck Cld-Mngd 24x GigE 370W PoE Switch,6455.00
+MS350-48-HW,Switches,Meraki MS350-48 L3 Stck Cld-Mngd 48x GigE Switch,9195.00
+MS350-48LP-HW,Switches,Meraki MS350-48LP L3 Stck Cld-Mngd 48x GigE 370W PoE Switch,10665.00
+MS350-48FP-HW,Switches,Meraki MS350-48FP L3 Stck Cld-Mngd 48x GigE 740W PoE Switch,11635.00
+MS410-16-HW,Switches,Meraki MS410-16 Cld-Mngd 16x GigE SFP Switch,8500.00
+MS410-32-HW,Switches,Meraki MS410-32 Cld-Mngd 32x GigE SFP Switch,15000.00
+MS420-24-HW,Switches,Meraki MS420-24 L3 Cloud Managed 24 port SFP+ Aggregation Switch,21595.00
+MS420-48-HW,Switches,Meraki MS420-48 L3 Cloud Managed 48 port SFP+ Aggregation Switch,39595.00
+LIC-MS22-1YR,Switches,"Meraki MS22 Enterprise License and Support, 1 Year",200.00
+LIC-MS22-3YR,Switches,"Meraki MS22 Enterprise License and Support, 3 Year",400.00
+LIC-MS22-5YR,Switches,"Meraki MS22 Enterprise License and Support, 5 Year",600.00
+LIC-MS22-7YR,Switches,"Meraki MS22 Enterprise License and Support, 7 Year",800.00
+LIC-MS22-10YR,Switches,"Meraki MS22 Enterprise License and Support, 10 Year",1200.00
+LIC-MS22P-1YR,Switches,"Meraki MS22P Enterprise License and Support, 1 Year",200.00
+LIC-MS22P-3YR,Switches,"Meraki MS22P Enterprise License and Support, 3 Year",400.00
+LIC-MS22P-5YR,Switches,"Meraki MS22P Enterprise License and Support, 5 Year",600.00
+LIC-MS22P-7YR,Switches,"Meraki MS22P Enterprise License and Support, 7 Year",800.00
+LIC-MS22P-10YR,Switches,"Meraki MS22P Enterprise License and Support, 10 Year",1200.00
+LIC-MS42-1YR,Switches,"Meraki MS42 Enterprise License and Support, 1 Year",200.00
+LIC-MS42-3YR,Switches,"Meraki MS42 Enterprise License and Support, 3 Year",400.00
+LIC-MS42-5YR,Switches,"Meraki MS42 Enterprise License and Support, 5 Year",600.00
+LIC-MS42-7YR,Switches,"Meraki MS42 Enterprise License and Support, 7 Year",800.00
+LIC-MS42-10YR,Switches,"Meraki MS42 Enterprise License and Support, 10 Year",1200.00
+LIC-MS42P-1YR,Switches,"Meraki MS42P Enterprise License and Support, 1 Year",200.00
+LIC-MS42P-3YR,Switches,"Meraki MS42P Enterprise License and Support, 3 Year",400.00
+LIC-MS42P-5YR,Switches,"Meraki MS42P Enterprise License and Support, 5 Year",600.00
+LIC-MS42P-7YR,Switches,"Meraki MS42P Enterprise License and Support, 7 Year",800.00
+LIC-MS42P-10YR,Switches,"Meraki MS42P Enterprise License and Support, 10 Year",1200.00
+LIC-MS220-8-1YR,Switches,"Meraki MS220-8 Enterprise License and Support, 1 Year",55.00
+LIC-MS220-8-3YR,Switches,"Meraki MS220-8 Enterprise License and Support, 3 Year",110.00
+LIC-MS220-8-5YR,Switches,"Meraki MS220-8 Enterprise License and Support, 5 Year",165.00
+LIC-MS220-8-7YR,Switches,"Meraki MS220-8 Enterprise License and Support, 7 Year",220.00
+LIC-MS220-8-10YR,Switches,"Meraki MS220-8 Enterprise License and Support, 10 Year",275.00
+LIC-MS220-8P-1YR,Switches,"Meraki MS220-8P Enterprise License and Support, 1 Year",70.00
+LIC-MS220-8P-3YR,Switches,"Meraki MS220-8P Enterprise License and Support, 3 Year",140.00
+LIC-MS220-8P-5YR,Switches,"Meraki MS220-8P Enterprise License and Support, 5 Year",210.00
+LIC-MS220-8P-7YR,Switches,"Meraki MS220-8P Enterprise License and Support, 7 Year",280.00
+LIC-MS220-8P-10YR,Switches,"Meraki MS220-8P Enterprise License and Support, 10 Year",350.00
+LIC-MS220-24-1YR,Switches,"Meraki MS220-24 Enterprise License and Support, 1 Year",120.00
+LIC-MS220-24-3YR,Switches,"Meraki MS220-24 Enterprise License and Support, 3 Year",240.00
+LIC-MS220-24-5YR,Switches,"Meraki MS220-24 Enterprise License and Support, 5 Year",360.00
+LIC-MS220-24-7YR,Switches,"Meraki MS220-24 Enterprise License and Support, 7 Year",480.00
+LIC-MS220-24-10YR,Switches,"Meraki MS220-24 Enterprise License and Support, 10 Year",600.00
+LIC-MS220-24P-1YR,Switches,"Meraki MS220-24P Enterprise License and Support, 1 Year",160.00
+LIC-MS220-24P-3YR,Switches,"Meraki MS220-24P Enterprise License and Support, 3 Year",320.00
+LIC-MS220-24P-5YR,Switches,"Meraki MS220-24P Enterprise License and Support, 5 Year",480.00
+LIC-MS220-24P-7YR,Switches,"Meraki MS220-24P Enterprise License and Support, 7 Year",640.00
+LIC-MS220-24P-10YR,Switches,"Meraki MS220-24P Enterprise License and Support, 10 Year",800.00
+LIC-MS220-48-1YR,Switches,"Meraki MS220-48 Enterprise License and Support, 1 Year",210.00
+LIC-MS220-48-3YR,Switches,"Meraki MS220-48 Enterprise License and Support, 3 Year",420.00
+LIC-MS220-48-5YR,Switches,"Meraki MS220-48 Enterprise License and Support, 5 Year",630.00
+LIC-MS220-48-7YR,Switches,"Meraki MS220-48 Enterprise License and Support, 7 Year",840.00
+LIC-MS220-48-10YR,Switches,"Meraki MS220-48 Enterprise License and Support, 10 Year",1050.00
+LIC-MS220-48LP-1YR,Switches,"Meraki MS220-48LP Enterprise License and Support, 1 Year",280.00
+LIC-MS220-48LP-3YR,Switches,"Meraki MS220-48LP Enterprise License and Support, 3 Year",560.00
+LIC-MS220-48LP-5YR,Switches,"Meraki MS220-48LP Enterprise License and Support, 5 Year",840.00
+LIC-MS220-48LP-7YR,Switches,"Meraki MS220-48LP Enterprise License and Support, 7 Year",1120.00
+LIC-MS220-48LP-10Y,Switches,"Meraki MS220-48LP Enterprise License and Support, 10 Year",1400.00
+LIC-MS220-48FP-1YR,Switches,"Meraki MS220-48FP Enterprise License and Support, 1 Year",330.00
+LIC-MS220-48FP-3YR,Switches,"Meraki MS220-48FP Enterprise License and Support, 3 Year",660.00
+LIC-MS220-48FP-5YR,Switches,"Meraki MS220-48FP Enterprise License and Support, 5 Year",990.00
+LIC-MS220-48FP-7YR,Switches,"Meraki MS220-48FP Enterprise License and Support, 7 Year",1320.00
+LIC-MS220-48FP-10Y,Switches,"Meraki MS220-48FP Enterprise License and Support, 10 Year",1650.00
+LIC-MS320-24-1YR,Switches,"Meraki MS320-24 Enterprise License and Support, 1 Year",250.00
+LIC-MS320-24-3YR,Switches,"Meraki MS320-24 Enterprise License and Support, 3 Year",500.00
+LIC-MS320-24-5YR,Switches,"Meraki MS320-24 Enterprise License and Support, 5 Year",750.00
+LIC-MS320-24-7YR,Switches,"Meraki MS320-24 Enterprise License and Support, 7 Year",1000.00
+LIC-MS320-24-10YR,Switches,"Meraki MS320-24 Enterprise License and Support, 10 Year",1255.00
+LIC-MS320-24P-1YR,Switches,"Meraki MS320-24P Enterprise License and Support, 1 Year",275.00
+LIC-MS320-24P-3YR,Switches,"Meraki MS320-24P Enterprise License and Support, 3 Year",550.00
+LIC-MS320-24P-5YR,Switches,"Meraki MS320-24P Enterprise License and Support, 5 Year",830.00
+LIC-MS320-24P-7YR,Switches,"Meraki MS320-24P Enterprise License and Support, 7 Year",1105.00
+LIC-MS320-24P-10YR,Switches,"Meraki MS320-24P Enterprise License and Support, 10 Year",1380.00
+LIC-MS320-48-1YR,Switches,"Meraki MS320-48 Enterprise License and Support, 1 Year",370.00
+LIC-MS320-48-3YR,Switches,"Meraki MS320-48 Enterprise License and Support, 3 Year",740.00
+LIC-MS320-48-5YR,Switches,"Meraki MS320-48 Enterprise License and Support, 5 Year",1110.00
+LIC-MS320-48-7YR,Switches,"Meraki MS320-48 Enterprise License and Support, 7 Year",1480.00
+LIC-MS320-48-10YR,Switches,"Meraki MS320-48 Enterprise License and Support, 10 Year",1850.00
+LIC-MS320-48LP-1YR,Switches,"Meraki MS320-48LP Enterprise License and Support, 1 Year",430.00
+LIC-MS320-48LP-3YR,Switches,"Meraki MS320-48LP Enterprise License and Support, 3 Year",860.00
+LIC-MS320-48LP-5YR,Switches,"Meraki MS320-48LP Enterprise License and Support, 5 Year",1290.00
+LIC-MS320-48LP-7YR,Switches,"Meraki MS320-48LP Enterprise License and Support, 7 Year",1715.00
+LIC-MS320-48LP-10Y,Switches,"Meraki MS320-48LP Enterprise License and Support, 10 Year",2150.00
+LIC-MS320-48FP-1YR,Switches,"Meraki MS320-48FP Enterprise License and Support, 1 Year",470.00
+LIC-MS320-48FP-3YR,Switches,"Meraki MS320-48FP Enterprise License and Support, 3 Year",945.00
+LIC-MS320-48FP-5YR,Switches,"Meraki MS320-48FP Enterprise License and Support, 5 Year",1415.00
+LIC-MS320-48FP-7YR,Switches,"Meraki MS320-48FP Enterprise License and Support, 7 Year",1890.00
+LIC-MS320-48FP-10Y,Switches,"Meraki MS320-48FP Enterprise License and Support, 10 Year",2360.00
+LIC-MS350-24-1YR,Switches,"Meraki MS350-24 Enterprise License and Support, 1 Year",330.00
+LIC-MS350-24-3YR,Switches,"Meraki MS350-24 Enterprise License and Support, 3 Year",670.00
+LIC-MS350-24-5YR,Switches,"Meraki MS350-24 Enterprise License and Support, 5 Year",1000.00
+LIC-MS350-24-7YR,Switches,"Meraki MS350-24 Enterprise License and Support, 7 Year",1335.00
+LIC-MS350-24-10YR,Switches,"Meraki MS350-24 Enterprise License and Support, 10 Year",1670.00
+LIC-MS350-24P-1YR,Switches,"Meraki MS350-24P Enterprise License and Support, 1 Year",380.00
+LIC-MS350-24P-3YR,Switches,"Meraki MS350-24P Enterprise License and Support, 3 Year",760.00
+LIC-MS350-24P-5YR,Switches,"Meraki MS350-24P Enterprise License and Support, 5 Year",1140.00
+LIC-MS350-24P-7YR,Switches,"Meraki MS350-24P Enterprise License and Support, 7 Year",1520.00
+LIC-MS350-24P-10YR,Switches,"Meraki MS350-24P Enterprise License and Support, 10 Year",1900.00
+LIC-MS350-48-1YR,Switches,"Meraki MS350-48 Enterprise License and Support, 1 Year",540.00
+LIC-MS350-48-3YR,Switches,"Meraki MS350-48 Enterprise License and Support, 3 Year",1080.00
+LIC-MS350-48-5YR,Switches,"Meraki MS350-48 Enterprise License and Support, 5 Year",1620.00
+LIC-MS350-48-7YR,Switches,"Meraki MS350-48 Enterprise License and Support, 7 Year",2160.00
+LIC-MS350-48-10YR,Switches,"Meraki MS350-48 Enterprise License and Support, 10 Year",2700.00
+LIC-MS350-48LP-1YR,Switches,"Meraki MS350-48LP Enterprise License and Support, 1 Year",630.00
+LIC-MS350-48LP-3YR,Switches,"Meraki MS350-48LP Enterprise License and Support, 3 Year",1255.00
+LIC-MS350-48LP-5YR,Switches,"Meraki MS350-48LP Enterprise License and Support, 5 Year",1880.00
+LIC-MS350-48LP-7YR,Switches,"Meraki MS350-48LP Enterprise License and Support, 7 Year",2510.00
+LIC-MS350-48LP-10Y,Switches,"Meraki MS350-48LP Enterprise License and Support, 10 Year",3135.00
+LIC-MS350-48FP-1YR,Switches,"Meraki MS350-48FP Enterprise License and Support, 1 Year",685.00
+LIC-MS350-48FP-3YR,Switches,"Meraki MS350-48FP Enterprise License and Support, 3 Year",1370.00
+LIC-MS350-48FP-5YR,Switches,"Meraki MS350-48FP Enterprise License and Support, 5 Year",2055.00
+LIC-MS350-48FP-7YR,Switches,"Meraki MS350-48FP Enterprise License and Support, 7 Year",2740.00
+LIC-MS350-48FP-10Y,Switches,"Meraki MS350-48FP Enterprise License and Support, 10 Year",3420.00
+LIC-MS410-16-1YR,Switches,"Meraki MS410-16 Enterprise License and Support, 1 Year",500.00
+LIC-MS410-16-3YR,Switches,"Meraki MS410-16 Enterprise License and Support, 3 Years",1000.00
+LIC-MS410-16-5YR,Switches,"Meraki MS410-16 Enterprise License and Support, 5 Years",1500.00
+LIC-MS410-16-7YR,Switches,"Meraki MS410-16 Enterprise License and Support, 7 Years",2000.00
+LIC-MS410-16-10YR,Switches,"Meraki MS410-16 Enterprise License and Support, 10 Years",3000.00
+LIC-MS410-32-1YR,Switches,"Meraki MS410-32 Enterprise License and Support, 1 Year",880.00
+LIC-MS410-32-3YR,Switches,"Meraki MS410-32 Enterprise License and Support, 3 Years",1765.00
+LIC-MS410-32-5YR,Switches,"Meraki MS410-32 Enterprise License and Support, 5 Years",2645.00
+LIC-MS410-32-7YR,Switches,"Meraki MS410-32 Enterprise License and Support, 7 Years",3530.00
+LIC-MS410-32-10YR,Switches,"Meraki MS410-32 Enterprise License and Support, 10 Years",5290.00
+LIC-MS420-24-1YR,Switches,"Meraki MS420-24 Enterprise License and Support, 1 Year",1200.00
+LIC-MS420-24-3YR,Switches,"Meraki MS420-24 Enterprise License and Support, 3 Year",2400.00
+LIC-MS420-24-5YR,Switches,"Meraki MS420-24 Enterprise License and Support, 5 Year",3600.00
+LIC-MS420-24-7YR,Switches,"Meraki MS420-24 Enterprise License and Support, 7 Year",4800.00
+LIC-MS420-24-10YR,Switches,"Meraki MS420-24 Enterprise License and Support, 10 Year",6000.00
+LIC-MS420-48-1YR,Switches,"Meraki MS420-48 Enterprise License and Support, 1 Year",2200.00
+LIC-MS420-48-3YR,Switches,"Meraki MS420-48 Enterprise License and Support, 3 Year",4400.00
+LIC-MS420-48-5YR,Switches,"Meraki MS420-48 Enterprise License and Support, 5 Year",6600.00
+LIC-MS420-48-7YR,Switches,"Meraki MS420-48 Enterprise License and Support, 7 Year",8800.00
+LIC-MS420-48-10YR,Switches,"Meraki MS420-48 Enterprise License and Support, 10 Year",11000.00
+LIC-SME-1YR,SME,"Cisco Meraki Systems Manager Enterprise Device License, 1 Year",40.00
+LIC-SME-3YR,SME,"Cisco Meraki Systems Manager Enterprise Device License, 3 Year",80.00
+LIC-SME-5YR,SME,"Cisco Meraki Systems Manager Enterprise Device License, 5 Year",120.00
+Z1-HW-US,UTM,Meraki Z1 Cloud Managed Teleworker Gateway (US Plug),395.00
+Z1-HW-EU,UTM,Meraki Z1 Cloud Managed Teleworker Gateway (EU Plug),395.00
+Z1-HW-UK,UTM,Meraki Z1 Cloud Managed Teleworker Gateway (UK Plug),395.00
+Z1-HW-AU,UTM,Meraki Z1 Cloud Managed Teleworker Gateway (AU Plug),395.00
+LIC-Z1-ENT-1YR,UTM,"Meraki Z1 Enterprise License and Support, 1 Year",50.00
+LIC-Z1-ENT-3YR,UTM,"Meraki Z1 Enterprise License and Support, 3 Years",100.00
+LIC-Z1-ENT-5YR,UTM,"Meraki Z1 Enterprise License and Support, 5 Years",150.00
+LIC-Z1-ENT-7YR,UTM,"Meraki Z1 Enterprise License and Support, 7 Years",210.00
+LIC-Z1-ENT-10YR,UTM,"Meraki Z1 Enterprise License and Support, 10 Years",300.00
+MX64-HW,UTM,Meraki MX64 Cloud Managed Security Appliance,595.00
+MX64W-HW,UTM,Meraki MX64W Cloud Managed Security Appliance with 802.11ac,945.00
+MX65-HW,UTM,Meraki MX65 Cloud Managed Security Appliance,945.00
+MX65W-HW,UTM,Meraki MX65W Cloud Managed Security Appliance with 802.11ac,1245.00
+MX80-HW,UTM,Meraki MX80 Cloud Managed Security Appliance,1995.00
+MX84-HW,UTM,Meraki MX84 Cloud Managed Security Appliance,1995.00
+MX100-HW,UTM,Meraki MX100 Cloud Managed Security Appliance,4995.00
+MX400-HW,UTM,Meraki MX400 Cloud Managed Security Appliance,15995.00
+MX600-HW,UTM,Meraki MX600 Cloud Managed Security Appliance,31995.00
+LIC-MX50-ENT-1YR,UTM,"EOS Meraki MX50 Enterprise License, 1 Year",500.00
+LIC-MX50-ENT-3YR,UTM,"EOS Meraki MX50 Enterprise License, 3 Years",1000.00
+LIC-MX50-ENT-5YR,UTM,"EOS Meraki MX50 Enterprise License, 5 Years",1500.00
+LIC-MX50-SEC-1YR,UTM,"EOS Meraki MX50 Advanced Security License, 1 Year",1000.00
+LIC-MX50-SEC-3YR,UTM,"EOS Meraki MX50 Advanced Security License, 3 Years",2000.00
+LIC-MX50-SEC-5YR,UTM,"EOS Meraki MX50 Advanced Security License, 5 Years",3000.00
+LIC-MX60-ENT-1YR,UTM,"EOS Meraki MX60 Enterprise License and Support, 1 Year",250.00
+LIC-MX60-ENT-3YR,UTM,"EOS Meraki MX60 Enterprise License and Support, 3 Years",500.00
+LIC-MX60-ENT-5YR,UTM,"EOS Meraki MX60 Enterprise License and Support, 5 Years",750.00
+LIC-MX60-ENT-7YR,UTM,"EOS Meraki MX60 Enterprise License and Support, 7 Years",1050.00
+LIC-MX60-ENT-10YR,UTM,"EOS Meraki MX60 Enterprise License and Support, 10 Years",1500.00
+LIC-MX60-SEC-1YR,UTM,"EOS Meraki MX60 Advanced Security License and Support, 1 Year",500.00
+LIC-MX60-SEC-3YR,UTM,"EOS Meraki MX60 Advanced Security License and Support, 3 Years",1000.00
+LIC-MX60-SEC-5YR,UTM,"EOS Meraki MX60 Advanced Security License and Support, 5 Years",1500.00
+LIC-MX60-SEC-7YR,UTM,"EOS Meraki MX60 Advanced Security License and Support, 7 Years",2100.00
+LIC-MX60-SEC-10YR,UTM,"EOS Meraki MX60 Advanced Security License and Support, 10 Years",3000.00
+LIC-MX60W-ENT-1YR,UTM,"EOS Meraki MX60W Enterprise License and Support, 1 Year",275.00
+LIC-MX60W-ENT-3YR,UTM,"EOS Meraki MX60W Enterprise License and Support, 3 Years",550.00
+LIC-MX60W-ENT-5YR,UTM,"EOS Meraki MX60W Enterprise License and Support, 5 Years",825.00
+LIC-MX60W-ENT-7YR,UTM,"EOS Meraki MX60W Enterprise License and Support, 7 Years",1155.00
+LIC-MX60W-ENT-10YR,UTM,"EOS Meraki MX60W Enterprise License and Support, 10 Years",1650.00
+LIC-MX60W-SEC-1YR,UTM,"EOS Meraki MX60W Advanced Security License and Support, 1 Year",550.00
+LIC-MX60W-SEC-3YR,UTM,"EOS Meraki MX60W Advanced Security License and Support, 3 Years",1100.00
+LIC-MX60W-SEC-5YR,UTM,"EOS Meraki MX60W Advanced Security License and Support, 5 Years",1650.00
+LIC-MX60W-SEC-7YR,UTM,"EOS Meraki MX60W Advanced Security License and Support, 7 Years",2310.00
+LIC-MX60W-SEC-10YR,UTM,"EOS Meraki MX60W Advanced Security License and Support, 10 Years",3300.00
+LIC-MX64-ENT-1YR,UTM,"Meraki MX64 Enterprise License and Support, 1 Year",300.00
+LIC-MX64-ENT-3YR,UTM,"Meraki MX64 Enterprise License and Support, 3 Years",600.00
+LIC-MX64-ENT-5YR,UTM,"Meraki MX64 Enterprise License and Support, 5 Years",900.00
+LIC-MX64-ENT-7YR,UTM,"Meraki MX64 Enterprise License and Support, 7 Years",1260.00
+LIC-MX64-ENT-10YR,UTM,"Meraki MX64 Enterprise License and Support, 10 Years",1800.00
+LIC-MX64-SEC-1YR,UTM,"Meraki MX64 Advanced Security License and Support, 1 Year",600.00
+LIC-MX64-SEC-3YR,UTM,"Meraki MX64 Advanced Security License and Support, 3 Years",1200.00
+LIC-MX64-SEC-5YR,UTM,"Meraki MX64 Advanced Security License and Support, 5 Years",1800.00
+LIC-MX64-SEC-7YR,UTM,"Meraki MX64 Advanced Security License and Support, 7 Years",2520.00
+LIC-MX64-SEC-10YR,UTM,"Meraki MX64 Advanced Security License and Support, 10 Years",3600.00
+LIC-MX64W-ENT-1YR,UTM,"Meraki MX64W Enterprise License and Support, 1 Year",325.00
+LIC-MX64W-ENT-3YR,UTM,"Meraki MX64W Enterprise License and Support, 3 Years",650.00
+LIC-MX64W-ENT-5YR,UTM,"Meraki MX64W Enterprise License and Support, 5 Years",975.00
+LIC-MX64W-ENT-7YR,UTM,"Meraki MX64W Enterprise License and Support, 7 Years",1365.00
+LIC-MX64W-ENT-10YR,UTM,"Meraki MX64W Enterprise License and Support, 10 Years",1950.00
+LIC-MX64W-SEC-1YR,UTM,"Meraki MX64W Advanced Security License and Support, 1 Year",650.00
+LIC-MX64W-SEC-3YR,UTM,"Meraki MX64W Advanced Security License and Support, 3 Years",1300.00
+LIC-MX64W-SEC-5YR,UTM,"Meraki MX64W Advanced Security License and Support, 5 Years",1950.00
+LIC-MX64W-SEC-7YR,UTM,"Meraki MX64W Advanced Security License and Support, 7 Years",2730.00
+LIC-MX64W-SEC-10YR,UTM,"Meraki MX64W Advanced Security License and Support, 10 Years",3900.00
+LIC-MX65-ENT-1YR,UTM,"Meraki MX65 Enterprise License and Support, 1 Year",325.00
+LIC-MX65-ENT-3YR,UTM,"Meraki MX65 Enterprise License and Support, 3 Years",650.00
+LIC-MX65-ENT-5YR,UTM,"Meraki MX65 Enterprise License and Support, 5 Years",975.00
+LIC-MX65-ENT-7YR,UTM,"Meraki MX65 Enterprise License and Support, 7 Years",1365.00
+LIC-MX65-ENT-10YR,UTM,"Meraki MX65 Enterprise License and Support, 10 Years",1800.00
+LIC-MX65-SEC-1YR,UTM,"Meraki MX65 Advanced Security License and Support, 1 Year",650.00
+LIC-MX65-SEC-3YR,UTM,"Meraki MX65 Advanced Security License and Support, 3 Years",1300.00
+LIC-MX65-SEC-5YR,UTM,"Meraki MX65 Advanced Security License and Support, 5 Years",1950.00
+LIC-MX65-SEC-7YR,UTM,"Meraki MX65 Advanced Security License and Support, 7 Years",2730.00
+LIC-MX65-SEC-10YR,UTM,"Meraki MX65 Advanced Security License and Support, 10 Years",3600.00
+LIC-MX65W-ENT-1YR,UTM,"Meraki MX65W Enterprise License and Support, 1 Year",400.00
+LIC-MX65W-ENT-3YR,UTM,"Meraki MX65W Enterprise License and Support, 3 Years",800.00
+LIC-MX65W-ENT-5YR,UTM,"Meraki MX65W Enterprise License and Support, 5 Years",1200.00
+LIC-MX65W-ENT-7YR,UTM,"Meraki MX65W Enterprise License and Support, 7 Years",1680.00
+LIC-MX65W-ENT-10YR,UTM,"Meraki MX65W Enterprise License and Support, 10 Years",1800.00
+LIC-MX65W-SEC-1YR,UTM,"Meraki MX65W Advanced Security License and Support, 1 Year",800.00
+LIC-MX65W-SEC-3YR,UTM,"Meraki MX65W Advanced Security License and Support, 3 Years",1600.00
+LIC-MX65W-SEC-5YR,UTM,"Meraki MX65W Advanced Security License and Support, 5 Years",2400.00
+LIC-MX65W-SEC-7YR,UTM,"Meraki MX65W Advanced Security License and Support, 7 Years",3360.00
+LIC-MX65W-SEC-10YR,UTM,"Meraki MX65W Advanced Security License and Support, 10 Years",3600.00
+LIC-MX70-ENT-1YR,UTM,"EOS Meraki MX70 Enterprise License, 1 Year",500.00
+LIC-MX70-ENT-3YR,UTM,"EOS Meraki MX70 Enterprise License, 3 Years",1000.00
+LIC-MX70-ENT-5YR,UTM,"EOS Meraki MX70 Enterprise License, 5 Years",1500.00
+LIC-MX70-SEC-1YR,UTM,"EOS Meraki MX70 Advanced Security License, 1 Year",1000.00
+LIC-MX70-SEC-3YR,UTM,"EOS Meraki MX70 Advanced Security License, 3 Years",2000.00
+LIC-MX70-SEC-5YR,UTM,"EOS Meraki MX70 Advanced Security License, 5 Years",3000.00
+LIC-MX80-ENT-1YR,UTM,"Meraki MX80 Enterprise License and Support, 1 Year",1000.00
+LIC-MX80-ENT-3YR,UTM,"Meraki MX80 Enterprise License and Support, 3 Years",2000.00
+LIC-MX80-ENT-5YR,UTM,"Meraki MX80 Enterprise License and Support, 5 Years",3000.00
+LIC-MX80-ENT-7YR,UTM,"Meraki MX80 Enterprise License and Support, 7 Years",4200.00
+LIC-MX80-ENT-10YR,UTM,"Meraki MX80 Enterprise License and Support, 10 Years",6000.00
+LIC-MX80-SEC-1YR,UTM,"Meraki MX80 Advanced Security License and Support, 1 Year",2000.00
+LIC-MX80-SEC-3YR,UTM,"Meraki MX80 Advanced Security License and Support, 3 Years",4000.00
+LIC-MX80-SEC-5YR,UTM,"Meraki MX80 Advanced Security License and Support, 5 Years",6000.00
+LIC-MX80-SEC-7YR,UTM,"Meraki MX80 Advanced Security License and Support, 7 Years",8400.00
+LIC-MX80-SEC-10YR,UTM,"Meraki MX80 Advanced Security License and Support, 10 Years",12000.00
+LIC-MX84-ENT-1YR,UTM,"Meraki MX84 Enterprise License and Support, 1 Year",1000.00
+LIC-MX84-ENT-3YR,UTM,"Meraki MX84 Enterprise License and Support, 3 Years",2000.00
+LIC-MX84-ENT-5YR,UTM,"Meraki MX84 Enterprise License and Support, 5 Years",3000.00
+LIC-MX84-ENT-7YR,UTM,"Meraki MX84 Enterprise License and Support, 7 Years",4200.00
+LIC-MX84-ENT-10YR,UTM,"Meraki MX84 Enterprise License and Support, 10 Years",6000.00
+LIC-MX84-SEC-1YR,UTM,"Meraki MX84 Advanced Security License and Support, 1 Year",2000.00
+LIC-MX84-SEC-3YR,UTM,"Meraki MX84 Advanced Security License and Support, 3 Years",4000.00
+LIC-MX84-SEC-5YR,UTM,"Meraki MX84 Advanced Security License and Support, 5 Years",6000.00
+LIC-MX84-SEC-7YR,UTM,"Meraki MX84 Advanced Security License and Support, 7 Years",8400.00
+LIC-MX84-SEC-10YR,UTM,"Meraki MX84 Advanced Security License and Support, 10 Years",12000.00
+LIC-MX90-ENT-1YR,UTM,"Meraki MX90 Enterprise License and Support, 1 Year",2000.00
+LIC-MX90-ENT-3YR,UTM,"Meraki MX90 Enterprise License and Support, 3 Years",4000.00
+LIC-MX90-ENT-5YR,UTM,"Meraki MX90 Enterprise License and Support, 5 Years",6000.00
+LIC-MX90-ENT-7YR,UTM,"Meraki MX90 Enterprise License and Support, 7 Years",8400.00
+LIC-MX90-ENT-10YR,UTM,"Meraki MX90 Enterprise License and Support, 10 Years",12000.00
+LIC-MX90-SEC-1YR,UTM,"Meraki MX90 Advanced Security License and Support, 1 Year",4000.00
+LIC-MX90-SEC-3YR,UTM,"Meraki MX90 Advanced Security License and Support, 3 Years",8000.00
+LIC-MX90-SEC-5YR,UTM,"Meraki MX90 Advanced Security License and Support, 5 Years",12000.00
+LIC-MX90-SEC-7YR,UTM,"Meraki MX90 Advanced Security License and Support, 7 Years",16800.00
+LIC-MX90-SEC-10YR,UTM,"Meraki MX90 Advanced Security License and Support, 10 Years",24000.00
+LIC-MX100-ENT-1YR,UTM,"Meraki MX100 Enterprise License and Support, 1 Year",2500.00
+LIC-MX100-ENT-3YR,UTM,"Meraki MX100 Enterprise License and Support, 3 Years",5000.00
+LIC-MX100-ENT-5YR,UTM,"Meraki MX100 Enterprise License and Support, 5 Years",7500.00
+LIC-MX100-ENT-7YR,UTM,"Meraki MX100 Enterprise License and Support, 7 Years",10500.00
+LIC-MX100-ENT-10YR,UTM,"Meraki MX100 Enterprise License and Support, 10 Years",15000.00
+LIC-MX100-SEC-1YR,UTM,"Meraki MX100 Advanced Security License and Support, 1 Year",5000.00
+LIC-MX100-SEC-3YR,UTM,"Meraki MX100 Advanced Security License and Support, 3 Years",10000.00
+LIC-MX100-SEC-5YR,UTM,"Meraki MX100 Advanced Security License and Support, 5 Years",15000.00
+LIC-MX100-SEC-7YR,UTM,"Meraki MX100 Advanced Security License and Support, 7 Years",21000.00
+LIC-MX100-SEC-10YR,UTM,"Meraki MX100 Advanced Security License and Support, 10 Years",30000.00
+LIC-MX400-ENT-1YR,UTM,"Meraki MX400 Enterprise License and Support, 1 Year",8000.00
+LIC-MX400-ENT-3YR,UTM,"Meraki MX400 Enterprise License and Support, 3 Years",16000.00
+LIC-MX400-ENT-5YR,UTM,"Meraki MX400 Enterprise License and Support, 5 Years",24000.00
+LIC-MX400-ENT-7YR,UTM,"Meraki MX400 Enterprise License and Support, 7 Years",33600.00
+LIC-MX400-ENT-10YR,UTM,"Meraki MX400 Enterprise License and Support, 10 Years",48000.00
+LIC-MX400-SEC-1YR,UTM,"Meraki MX400 Advanced Security License and Support, 1 Year",16000.00
+LIC-MX400-SEC-3YR,UTM,"Meraki MX400 Advanced Security License and Support, 3 Years",32000.00
+LIC-MX400-SEC-5YR,UTM,"Meraki MX400 Advanced Security License and Support, 5 Years",48000.00
+LIC-MX400-SEC-7YR,UTM,"Meraki MX400 Advanced Security License and Support, 7 Years",67200.00
+LIC-MX400-SEC-10YR,UTM,"Meraki MX400 Advanced Security License and Support, 10 Years",96000.00
+LIC-MX600-ENT-1YR,UTM,"Meraki MX600 Enterprise License and Support, 1 Year",16000.00
+LIC-MX600-ENT-3YR,UTM,"Meraki MX600 Enterprise License and Support, 3 Years",32000.00
+LIC-MX600-ENT-5YR,UTM,"Meraki MX600 Enterprise License and Support, 5 Years",48000.00
+LIC-MX600-ENT-7YR,UTM,"Meraki MX600 Enterprise License and Support, 7 Years",67200.00
+LIC-MX600-ENT-10YR,UTM,"Meraki MX600 Enterprise License and Support, 10 Years",96000.00
+LIC-MX600-SEC-1YR,UTM,"Meraki MX600 Advanced Security License and Support, 1 Year",32000.00
+LIC-MX600-SEC-3YR,UTM,"Meraki MX600 Advanced Security License and Support, 3 Years",64000.00
+LIC-MX600-SEC-5YR,UTM,"Meraki MX600 Advanced Security License and Support, 5 Years",96000.00
+LIC-MX600-SEC-7YR,UTM,"Meraki MX600 Advanced Security License and Support, 7 Years",134400.00
+LIC-MX600-SEC-10YR,UTM,"Meraki MX600 Advanced Security License and Support, 10 Years",192000.00
+IM-8-CU-1GB,Accesories,Meraki 8 x 1 GbE Copper Interface Module for MX400 and MX600,3999.00
+IM-8-SFP-1GB,Accesories,Meraki 8 x 1 GbE SFP Interface Module for MX400 and MX600,4999.00
+IM-2-SFP-10GB,Accesories,Meraki 2 x 10 GbE SFP+ Interface Module for MX400 and MX600,3999.00
+MA-PWR-CORD-EU,Accesories,Meraki AC Power Cord for MX and MS (EU Plug),29.00
+MA-PWR-CORD-UK,Accesories,Meraki AC Power Cord for MX and MS (UK Plug),29.00
+MA-PWR-CORD-AU,Accesories,Meraki AC Power Cord for MX and MS (AU Plug),29.00
+MA-PWR-CORD-US,Accesories,Meraki AC Power Cord for MX and MS (US Plug),29.00
+MA-PWR-250WAC,Accesories,Meraki 250WAC PSU,450.00
+MA-PWR-640WAC,Accesories,Meraki 640WAC PSU,950.00
+MA-PWR-1025WAC,Accesories,Meraki 1025WAC PSU,1450.00
+PWR-MS420-400AC-R,Accesories,Meraki MS420 400WAC front-to-back PSU,2000.00
+MA-PWR-30WAC,Accesories,Meraki MX64 Replacement Power Adapter (30 WAC),65.00
+MA-FAN-18K,Accesories,"Meraki front-to-back fan, 18K RPM",250.00
+MA-FAN-16K,Accesories,"Meraki front-to-back fan, 16K RPM",250.00
+MA-SFP-10GB-LR,Accesories,Meraki 10G Base LR Single-Mode,3995.00
+MA-SFP-10GB-LRM,Accesories,Meraki 10G Base LRM Multi-Mode,995.00
+MA-SFP-10GB-SR,Accesories,Meraki 10G Base SR Multi-Mode,995.00
+MA-SFP-1GB-LX10,Accesories,Meraki 1000Base LX10 Single-Mode,995.00
+MA-SFP-1GB-SX,Accesories,Meraki 1000Base SX Multi-Mode,500.00
+MA-SFP-1GB-TX,Accesories,Meraki 1 GbE SFP Copper Module,395.00
+MA-CBL-TA-1M,Accesories,"Meraki 10 GbE Twinax Cable with SFP+ Modules, 1 Meter",100.00
+MA-CBL-TA-3M,Accesories,"Meraki 10 GbE Twinax Cable with SFP+ Modules, 3 Meter",150.00
+MA-CBL-40G-50CM,Accesories,"Meraki 40GbE QSFP Cable, 0.5 Meter",100.00
+MA-CBL-40G-1M,Accesories,"Meraki 40GbE QSFP Cable, 1 Meter",200.00
+MA-CBL-40G-3M,Accesories,"Meraki 40GbE QSFP Cable, 3 Meter",300.00
+MR18-HW,Wireless,Meraki MR18 Cloud Managed AP,649.00
+MR26-HW,Wireless,Meraki MR26 Cloud Managed AP,1099.00
+MR32-HW,Wireless,Meraki MR32 Cloud Managed AP,799.00
+MR34-HW,Wireless,Meraki MR34 Cloud Managed AP,1399.00
+MR42-HW,Wireless,Meraki MR42 Cloud Managed AP,1099.00
+MR62-HW,Wireless,Meraki MR62 Cloud Managed AP,699.00
+MR66-HW,Wireless,Meraki MR66 Cloud Managed AP,1299.00
+MR72-HW,Wireless,Meraki MR72 Cloud Managed AP,1599.00
+LIC-ENT-1YR,Wireless,"Meraki MR Enterprise License, 1 Year",150.00
+LIC-ENT-3YR,Wireless,"Meraki MR Enterprise License, 3 Years",300.00
+LIC-ENT-5YR,Wireless,"Meraki MR Enterprise License, 5 Years",450.00
+LIC-ENT-7YR,Wireless,"Meraki MR Enterprise License, 7 Years",630.00
+LIC-ENT-10YR,Wireless,"Meraki MR Enterprise License, 10 Years",900.00
+MA-INJ-4-US,Accesories,Meraki MR 802.3at PoE Injector (US Plug),149.00
+MA-INJ-4-EU,Accesories,Meraki MR 802.3at PoE Injector (EU Plug),149.00
+MA-INJ-4-UK,Accesories,Meraki MR 802.3at PoE Injector (UK Plug),149.00
+MA-INJ-4-AU,Accesories,Meraki MR 802.3at PoE Injector (AU Plug),149.00
+AC-MR-1-US,Accesories,Meraki AC Adapter for MR Wireless Access Points (US Plug),29.00
+AC-MR-1-EU,Accesories,Meraki AC Adapter for MR Wireless Access Points (EU Plug),29.00
+AC-MR-1-UK,Accesories,Meraki AC Adapter for MR Wireless Access Points (UK Plug),29.00
+AC-MR-1-AU,Accesories,Meraki AC Adapter for MR Wireless Access Points (AU Plug),29.00
+MA-PWR-30W-US,Accesories,Meraki AC Adapter for MR Wireless Access Points (US Plug),29.00
+MA-PWR-30W-EU,Accesories,Meraki AC Adapter for MR Wireless Access Points (EU Plug),29.00
+MA-PWR-30W-UK,Accesories,Meraki AC Adapter for MR Wireless Access Points (UK Plug),29.00
+MA-PWR-30W-AU,Accesories,Meraki AC Adapter for MR Wireless Access Points (AU Plug),29.00
+ANT-10,Accesories,"Meraki 5/7 dBi, Dual Band Omni Antennas, N-type, Set of 2",99.00
+MA-ANT-20,Accesories,Meraki Dual-band Omni Antennas,199.00
+MA-ANT-21,Accesories,Meraki 5GHz Sector Antenna,349.00
+MA-ANT-23,Accesories,Meraki 2.4GHz Sector Antenna,349.00
+MA-ANT-25,Accesories,Meraki Dual Band Patch Antenna,349.00

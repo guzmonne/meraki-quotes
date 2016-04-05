@@ -1,8 +1,5 @@
 console.log('Loading function...')
 
-var vogels = require('vogels'),
-		Joi    = require('joi')
-
 var MerakiDevice = require('./merakiDevices.model.js')
 
 exports.handler = function(event, context){

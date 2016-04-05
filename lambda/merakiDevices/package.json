@@ -4,9 +4,10 @@
   "description": "Meraki Devices Lamnda functions",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "index": "Compress-Archive -LiteralPath ./conapps-merakiDevices-index.js, ./node_modules -DestinationPath ./merakiDevicesIndex.zip" 
-  },
+    "test": "echo \"Error: no test specified\" && exit 2",
+    "create": "./merakiDevicesCreate.sh",
+    "index": "./merakiDevicesIndex.sh" 
+	},
   "author": "Guzman Monne",
   "license": "ISC",
   "dependencies": {
