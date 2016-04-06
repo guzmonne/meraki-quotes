@@ -6,6 +6,7 @@ var Counts = vogels.define('Counts', {
 	timestamps: true,
 	tableName: 'ConappsCounts',
 	schema: {
+		table: Joi.string(),
 		count: Joi.number()
 	}
 })

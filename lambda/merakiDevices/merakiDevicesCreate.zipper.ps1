@@ -1,2 +1,17 @@
+Write-Host "/****************************************/"
+Write-Host "/* MERAKI DEVICES CREATE LAMBDA FUNCTION */"
+Write-Host "/****************************************/"
+Write-Host ""
+Write-Host "Compressing Files"
+Write-Host "-----------------"
 Compress-Archive -LiteralPath ./conapps-merakiDevices-create.js, ./node_modules, ../models/merakiDevices.model.js -DestinationPath ./merakiDevicesCreate.zip -CompressionLevel Optimal -Force
+Write-Host ""
+Write-Host "Done!"
+Write-Host ""
+Write-Host "Uploading Zip to AWS"
+Write-Host "--------------------"
+Write-Host ""
 aws lambda update-function-code --function-name conapps-merakiDevices-create --zip-file fileb://merakiDevicesCreate.zip
+Write-Host ""
+Write-Host "Done!"
+Write-Host ""

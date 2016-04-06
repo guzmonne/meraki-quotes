@@ -5,8 +5,8 @@ var vogels = require('vogels'),
 vogels.AWS.config.update({region: "us-east-1"})
 
 var MerakiDevice = vogels.define('MerakiDevice', {
-	hashKey: 'PartNumber',
-	rangeKey: 'Category',
+	hashKey: 'Category',
+	rangeKey: 'PartNumber',
 	timestamps: true,
 	tableName: 'ConappsMerakiDevices',
 	schema: {

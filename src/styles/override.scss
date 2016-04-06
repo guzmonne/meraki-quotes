@@ -21,3 +21,31 @@
 	background-color: #EFEFEF;
 	color: #AAAAAA;
 }
+
+.index-count {
+  padding-left: 0;
+  margin: 18px 0;
+  list-style: none;
+  text-align: center;
+
+  p {
+  	line-height: 30px
+  }
+}
+
+.page-size {
+	margin: 18px 0;
+	line-height: 30px;
+}
+
+.table {
+	input[type="radio"], input[type="checkbox"] {
+		transform: scale(1.5)
+	}
+}
+
+.has-feedback i {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+}

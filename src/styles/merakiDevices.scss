@@ -11,6 +11,7 @@
 		vertical-align: middle;
 	}
 
+	.table-bordered > tbody > tr.selected,
 	.table-bordered > tbody > tr:hover {
 		color: black;
 		img {

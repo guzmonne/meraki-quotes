@@ -44,9 +44,9 @@ export default class MerakiDeviceCreateModal extends React.Component {
 						<Input defaultValue={model.Category || ""}ref="Category" type="select" label="Categoría" >
 							<option value="">--seleccione una categoría--</option>
 							<option value="Wireless">Wireless</option>
-							<option value="Swithes">Swithes</option>
+							<option value="Switches">Switches</option>
 							<option value="UTM">UTM</option>
-							<option value="Accesorios">Accesorios</option>
+							<option value="Accesories">Accesories</option>
 						</Input>
 						<Input defaultValue={model.Description || ""} ref="Description" type="text" label="Descripción" placeholder="Descripción" />
 						<Input defaultValue={model.Price || 0}ref="Price" type="number" label="Precio" />

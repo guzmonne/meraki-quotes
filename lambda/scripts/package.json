@@ -13,6 +13,7 @@
   "author": "Guzman Monne",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.0.0-rc.2",
     "fast-csv": "^1.1.0",
     "joi": "^8.0.5",
     "vogels": "^2.2.0"

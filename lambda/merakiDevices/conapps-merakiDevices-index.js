@@ -1,6 +1,5 @@
-var vogels = require('vogels'),
-    Joi    = require('joi'),
-    async  = require('async');
+var async  = require('async');
+var _      = require('lodash')
 
 var MerakiDevice = require('./merakiDevices.model.js')
 var Counts       = require('./counts.model.js')
@@ -8,9 +7,18 @@ var Counts       = require('./counts.model.js')
 function fetchMerakiDevices(callback){
 	console.log('Fetching Meraki Devices')
 
-	var query = MerakiDevice.
-		scan().
-		limit(10)
+	var pageSize = this.pageSize || 10
+
+	var scan = MerakiDevice.scan()
+		
+	if (!!this.query){
+		console.log('Query = ' + this.query)
+		scan = scan.where('PartNumber').contains(this.query)
+	} else {
+		console.log('PageSize = ' + pageSize)
+		scan = scan.limit(pageSize)
+	}
+
 		
 	console.log('Checking if paginationKey is defined')
 	if (!!this.paginationKey &&
@@ -20,11 +28,11 @@ function fetchMerakiDevices(callback){
 				this.paginationKey.Category !== ""
 	) {
 		console.log('paginationKey = ' + JSON.stringify(this.paginationKey))
-		query =	query.startKey(this.paginationKey.PartNumber, this.paginationKey.Category)
+		scan =	scan.startKey(this.paginationKey.Category, this.paginationKey.PartNumber)
 	}
 
 	console.log('Executing merakiDevices scan')
-	query.
+	scan.
 		exec(function(err, data){
 			if (err){
 				console.log('Error while fetching MerakiDevices')
@@ -56,13 +64,19 @@ function fetchMerakiDevicesCount(callback){
 
 exports.handler = function(event, context){
 	var paginationKey = {
-		PartNumber: event.PartNumber,
-		Category: event.Category
+		PartNumber : event.PartNumber,
+		Category   : event.Category
 	}
+	var pageSize = event.PageSize
+	var query    = event.Query 
 
 	async.
 		parallel([
-			fetchMerakiDevices.bind({paginationKey: paginationKey}),
+			fetchMerakiDevices.bind({
+				paginationKey : paginationKey,
+				pageSize      : pageSize,
+				query         : query
+			}),
 			fetchMerakiDevicesCount
 		], function(err, results){
 			if (err){
@@ -74,7 +88,7 @@ exports.handler = function(event, context){
 			console.log('Async parallel calls successful')
 			var merakiDevices = results[0]
 			var count = results[1]
-
+			var _pageSize = (parseInt(pageSize) || 10)
 			merakiDevices.Total = count;
 
 			context.succeed(merakiDevices)

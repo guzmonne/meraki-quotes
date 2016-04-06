@@ -7,7 +7,9 @@ import {
 	toggleMerakiDevicesCreateModal,
 	doSetCurrentMerakiDevice,
 	doSelectMerakiDevice,
-	doMerakiDevicesDestroy
+	doMerakiDevicesDestroy,
+	setMerakiDevicesPageSize,
+	setMerakiDevicesQueryString
 } from './actions/meraki-devices.actions.js'
 import MerakiPriceListContainer from '../../components/meraki_quotes/meraki-price-list-container.component.js'
 
@@ -25,7 +27,9 @@ class MerakiPriceList extends React.Component {
 			toggleMerakiDevicesCreateModal,
 			doSetCurrentMerakiDevice,
 			doSelectMerakiDevice,
-			doMerakiDevicesDestroy
+			doMerakiDevicesDestroy,
+			setMerakiDevicesPageSize,
+			setMerakiDevicesQueryString
 		} = this.props
 
 		return (
@@ -38,6 +42,8 @@ class MerakiPriceList extends React.Component {
 				setFormDevice={doSetCurrentMerakiDevice}
 				onSelect={doSelectMerakiDevice}
 				onDelete={doMerakiDevicesDestroy}
+				setPageSize={setMerakiDevicesPageSize}
+				setQueryString={setMerakiDevicesQueryString}
 			/>
 		)
 	}
@@ -54,7 +60,9 @@ const actions = {
 	toggleMerakiDevicesCreateModal,
 	doSetCurrentMerakiDevice,
 	doSelectMerakiDevice,
-	doMerakiDevicesDestroy
+	doMerakiDevicesDestroy,
+	setMerakiDevicesPageSize,
+	setMerakiDevicesQueryString
 }
 
 export default connect(select, actions)(MerakiPriceList)

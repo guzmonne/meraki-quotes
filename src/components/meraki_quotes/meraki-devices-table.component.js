@@ -20,7 +20,7 @@ const SpinnerTbody = () =>
 const CollectionTbody = ({collection=[], discount=1, onSelect, selected}) => 
 	<tbody>
 		{collection.map((product, i) =>
-			<tr key={i}>
+			<tr key={i} className={selected.indexOf(product.PartNumber) !== -1 ? "selected": ""}>
 				<td className="text-center">
 					<input
 						type="checkbox"

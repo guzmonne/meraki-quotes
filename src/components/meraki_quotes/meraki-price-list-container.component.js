@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 import {
 	Grid,
 	Row,
@@ -18,6 +19,8 @@ import RefreshButton from '../helpers/refresh-button.component.js'
 import PriceListDropdown from './price-list-dropdown.component.js'
 import MerakiDeviceCreateModal from './meraki-device-create-modal.component.js'
 import Spinner from '../helpers/spinner.component.js'
+import PageSizeForm from '../helpers/page-size-form.component.js'
+import InlineSearchForm from '../helpers/inline-search-form.component.js'
 
 export default ({
 	onUpdate,
@@ -28,7 +31,9 @@ export default ({
 	onPriceListSelection,
 	merakiDevices,
 	toggleModal,
-	setFormDevice
+	setFormDevice,
+	setPageSize,
+	setQueryString
 }) =>
 	<Grid fluid className="MerakiPriceList">
 		<Panel>
@@ -84,7 +89,13 @@ export default ({
 						</ButtonGroup>
 					</ButtonToolbar>
 				</Col>
-				<Col xs={6}>
+				<Col xs={3}>
+					<InlineSearchForm onChange={queryString => {
+						setQueryString(queryString)
+						onUpdate(0)
+					}}/>
+				</Col>
+				<Col xs={3}>
 					<span className="pull-right">
 				    <PriceListDropdown 
 				    	discount={merakiDevices.priceListDiscount}
@@ -103,35 +114,47 @@ export default ({
 						onSelect={onSelect}
 						onUpdate={onUpdate}
 					/>
-				  <Pager>
-				    <PageItem
-				    	disabled={merakiDevices.page - 1 < 0 || merakiDevices.isGettingMerakiDevices}
-				    	onSelect={() => onUpdate(-1)}
-				    >
-				    	Anterior
-			    	</PageItem>
-				    {' '}
-				    <PageItem 
-				    	disabled={!merakiDevices.pagination[merakiDevices.page + 1] || merakiDevices.isGettingMerakiDevices}
-				    	onSelect={() => onUpdate(1)}
-				    >
-				    	Siguiente
-			    	</PageItem>
-				  </Pager>
 				</Col>
-
-				{merakiDevices.total && 
-					<Col xs={12}>
-						<div className="text-center">
+				<Col xs={4}>
+					<PageSizeForm onSelect={pageSize => {
+						setPageSize(pageSize)
+						onUpdate(0)
+					}} />
+				</Col>
+				<Col xs={4}>
+					{merakiDevices.total ? 
+						<div className="text-center index-count">
 							<p>
-								{(merakiDevices.page * 10) + 1} 
+								{(merakiDevices.page * merakiDevices.pageSize) + 1} 
 								{' al '}
-								{(merakiDevices.page + 1) * 10 > merakiDevices.total ? merakiDevices.total : (merakiDevices.page + 1) * 10}
+								{(merakiDevices.page + 1) * merakiDevices.pageSize > merakiDevices.total ? merakiDevices.total : (merakiDevices.page + 1) * merakiDevices.pageSize}
 								{' de '}
-								{merakiDevices.total}</p>
+								{merakiDevices.queryString === "" ? merakiDevices.total : merakiDevices.count}
+							</p>
 						</div>
-					</Col>
-				}
+						:
+						null
+					}
+				</Col>
+				<Col xs={4}>
+					<div className="pull-right">
+					  <Pager>
+					    <PageItem
+					    	disabled={merakiDevices.page - 1 < 0 || merakiDevices.isGettingMerakiDevices}
+					    	onSelect={() => onUpdate(-1)}
+					    >
+					    	Anterior
+				    	</PageItem>
+					    {' '}
+					    <PageItem 
+					    	disabled={(merakiDevices.page + 1) * merakiDevices.pageSize > merakiDevices.total || merakiDevices.isGettingMerakiDevices}
+					    	onSelect={() => onUpdate(1)}
+					    >
+					    	Siguiente
+				    	</PageItem>
+					  </Pager>
+					</div>
+				</Col>
 			</Row>
 		</Panel>
 		{/*MODAL*/}

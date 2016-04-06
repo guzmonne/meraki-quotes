@@ -9,7 +9,9 @@ import {
 	SELECT_MERAKI_DEVICE,
 	SET_CURRENT_MERAKI_DEVICE,
 	MERAKI_DEVICES_DESTROY,
-	MERAKI_DEVICES_DESTROY_ERROR
+	MERAKI_DEVICES_DESTROY_ERROR,
+	SET_MERAKI_DEVICES_PAGE_SIZE,
+	SET_MERAKI_DEVICES_QUERY_STRING
 } from '../../../state/action-types.js'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
 import ActionHelpers from '../../../modules/action-helpers.module.js'
@@ -40,22 +42,22 @@ export function merakiDevicesIndex(turnPage=0){
 		const handleSuccess = (...args) => dispatch(merakiDevicesIndexSuccess(...args))
 		const handleError = error => dispatch(merakiDevicesIndexError(error))
 		
-		const {pagination, page} = getState().merakiDevices
+		const {pagination, page, pageSize, queryString} = getState().merakiDevices
 		const paginationKey = pagination[page + turnPage < 0 ? 0 : page + turnPage];
 
 		dispatch(doingMerakiDevicesIndex())
 
 		AwsApiObservers.
-			merakiDevicesIndexObs(paginationKey).
+			merakiDevicesIndexObs(paginationKey, pageSize, queryString).
 			subscribe(
 				({response}) => {
-					const {Items, LastEvaluatedKey, Total} = response
+					const {Items, LastEvaluatedKey, Total, Count} = response
 					if (turnPage === -1)
-						return handleSuccess(Items, (page - 1 < 0 ? 0 : page - 1), (pagination.length < 2 ? [null, LastEvaluatedKey] : pagination), Total.count)
+						return handleSuccess(Items, (page - 1 < 0 ? 0 : page - 1), (pagination.length < 2 ? [null, LastEvaluatedKey] : pagination), Total.count, Count)
 					if (turnPage ===  0)
-						return handleSuccess(Items, page, (pagination.length < 2 ? [null, LastEvaluatedKey] : pagination), Total.count)
+						return handleSuccess(Items, page, (pagination.length < 2 ? [null, LastEvaluatedKey] : pagination), Total.count, Count)
 					if (turnPage ===  1)
-						return handleSuccess(Items, page + 1, (!!LastEvaluatedKey ? [...pagination, LastEvaluatedKey] : pagination), Total.count)
+						return handleSuccess(Items, page + 1, (!!LastEvaluatedKey ? [...pagination, LastEvaluatedKey] : pagination), Total.count, Count)
 				},
 				error => handleError(error)
 			)
@@ -138,6 +140,20 @@ export function selectMerakiDevicesPriceList(discount){
 	}
 }
 
+export function setMerakiDevicesPageSize(pageSize){
+	return {
+		type: SET_MERAKI_DEVICES_PAGE_SIZE,
+		pageSize
+	}
+}
+
+export function setMerakiDevicesQueryString(queryString){
+	return {
+		type: SET_MERAKI_DEVICES_QUERY_STRING,
+		queryString
+	}
+}
+
 function selectMerakiDevice(selectedDevices){
 	return {
 		type: SELECT_MERAKI_DEVICE,
@@ -158,13 +174,14 @@ function doingMerakiDevicesIndex(){
 	}
 }
 
-function merakiDevicesIndexSuccess(collection, page, pagination, total){
+function merakiDevicesIndexSuccess(collection, page, pagination, total, count){
 	return {
 		type: MERAKI_DEVICES_INDEX_SUCCESS,
 		collection,
 		pagination,
 		page,
-		total
+		total,
+		count
 	}
 }
 

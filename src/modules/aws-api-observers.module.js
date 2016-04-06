@@ -73,10 +73,27 @@ const AwsApiObservers = (function(){
 			body   : JSON.stringify({email, permissions})
 		})
 
-	const merakiDevicesIndexObs = paginationKey =>
-		ajaxObs({
-			url: `${url}meraki-quotes/meraki-devices/index${(!!paginationKey && paginationKey !== "") ? `?PartNumber=${paginationKey.PartNumber}&Category=${paginationKey.Category}` : ""}`
+	const merakiDevicesIndexObs = (paginationKey, pageSize=10, query) => {
+		let queryString
+
+		paginationKey = (!!paginationKey && !!paginationKey.PartNumber && !!paginationKey.Category) ? 
+			`PartNumber=${paginationKey.PartNumber}&Category=${paginationKey.Category}` : "" 
+		pageSize = typeof pageSize === "number" ? `PageSize=${pageSize}` : ""
+
+		if (!!paginationKey || !!pageSize || query)
+			queryString = '?'
+
+		if (!!paginationKey)
+			queryString = `${queryString}${paginationKey}`
+		if (!!pageSize)
+			queryString = `${queryString}${pageSize}`
+		if (!!query)
+			queryString = `${queryString}&Query=${query}`
+
+		return ajaxObs({
+			url: `${url}meraki-quotes/meraki-devices/index${queryString}`
 		})
+	}
 
 	const merakiDevicesCreateObs = model => 
 		ajaxObs({
