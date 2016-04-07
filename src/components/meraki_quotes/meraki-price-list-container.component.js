@@ -115,46 +115,52 @@ export default ({
 						onUpdate={onUpdate}
 					/>
 				</Col>
-				<Col xs={4}>
-					<PageSizeForm onSelect={pageSize => {
-						setPageSize(pageSize)
-						onUpdate(0)
-					}} />
-				</Col>
-				<Col xs={4}>
-					{merakiDevices.total ? 
-						<div className="text-center index-count">
-							<p>
-								{(merakiDevices.page * merakiDevices.pageSize) + 1} 
-								{' al '}
-								{(merakiDevices.page + 1) * merakiDevices.pageSize > merakiDevices.total ? merakiDevices.total : (merakiDevices.page + 1) * merakiDevices.pageSize}
-								{' de '}
-								{merakiDevices.queryString === "" ? merakiDevices.total : merakiDevices.count}
-							</p>
+				{merakiDevices.queryString === "" &&
+					<Col xs={4}>
+						<PageSizeForm onSelect={pageSize => {
+							setPageSize(pageSize)
+							onUpdate(0)
+						}} />
+					</Col>
+				}
+				{merakiDevices.queryString === "" &&
+					<Col xs={4}>
+						{merakiDevices.total ? 
+							<div className="text-center index-count">
+								<p>
+									{(merakiDevices.page * merakiDevices.pageSize) + 1} 
+									{' al '}
+									{(merakiDevices.page + 1) * merakiDevices.pageSize > merakiDevices.total ? merakiDevices.total : (merakiDevices.page + 1) * merakiDevices.pageSize}
+									{' de '}
+									{merakiDevices.queryString === "" ? merakiDevices.total : merakiDevices.count}
+								</p>
+							</div>
+							:
+							null
+						}
+					</Col>
+				}
+				{merakiDevices.queryString === "" &&
+					<Col xs={4}>
+						<div className="pull-right">
+						  <Pager>
+						    <PageItem
+						    	disabled={merakiDevices.page - 1 < 0 || merakiDevices.isGettingMerakiDevices}
+						    	onSelect={() => onUpdate(-1)}
+						    >
+						    	Anterior
+					    	</PageItem>
+						    {' '}
+						    <PageItem 
+						    	disabled={(merakiDevices.page + 1) * merakiDevices.pageSize > merakiDevices.total || merakiDevices.isGettingMerakiDevices}
+						    	onSelect={() => onUpdate(1)}
+						    >
+						    	Siguiente
+					    	</PageItem>
+						  </Pager>
 						</div>
-						:
-						null
-					}
-				</Col>
-				<Col xs={4}>
-					<div className="pull-right">
-					  <Pager>
-					    <PageItem
-					    	disabled={merakiDevices.page - 1 < 0 || merakiDevices.isGettingMerakiDevices}
-					    	onSelect={() => onUpdate(-1)}
-					    >
-					    	Anterior
-				    	</PageItem>
-					    {' '}
-					    <PageItem 
-					    	disabled={(merakiDevices.page + 1) * merakiDevices.pageSize > merakiDevices.total || merakiDevices.isGettingMerakiDevices}
-					    	onSelect={() => onUpdate(1)}
-					    >
-					    	Siguiente
-				    	</PageItem>
-					  </Pager>
-					</div>
-				</Col>
+					</Col>
+				}
 			</Row>
 		</Panel>
 		{/*MODAL*/}

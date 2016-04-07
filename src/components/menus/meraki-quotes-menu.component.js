@@ -10,7 +10,7 @@ export default (props) =>
 		    <NavItem eventKey={1} onClick={() => browserHistory.push('/meraki_quotes/new')}>
 		    	Nuevo Quote
 	    	</NavItem>
-		    <NavItem eventKey={2} onClick={() => browserHistory.push('/meraki_quotes/list')}>
+		    <NavItem eventKey={2} onClick={() => browserHistory.push('/meraki_quotes/index')}>
 		    	Mis Quotes
 	    	</NavItem>
 		    <NavItem eventKey={3} onClick={() => browserHistory.push('/meraki_quotes/shared')}>

@@ -18,6 +18,7 @@ import {
 const defaultState = {
 	collection: [],
 	current: {},
+	active: {},
 	total: null,
 	isFetchingUsers: false,
 	isFetchingUser: false,

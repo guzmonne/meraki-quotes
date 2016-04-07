@@ -9,6 +9,15 @@
   "author": "Guzman Monne",
   "license": "ISC",
   "dependencies": {
-    "async": "^2.0.0-rc.2"
+    "async": "^2.0.0-rc.2",
+    "jsonwebtoken": "^5.7.0",
+    "njwt": "^0.2.3",
+    "node-forge": "^0.6.39",
+    "node-uuid": "^1.4.7",
+    "aws-sdk": "2.2.x",
+    "bunyan": "1.5.x",
+    "joi": "5.x.x",
+    "lodash": "3.10.x",
+    "vogels": "2.1.x"
   }
 }

@@ -11,6 +11,7 @@ import HomePage from './pages/main/home.page.js'
 import MainLayout from './components/layout/main.layout.js'
 // Meraki Quotes
 import MerakiPriceListPage from './pages/meraki_quotes/meraki-price-list.page.js'
+import MerakiQuotesIndex from './pages/meraki_quotes/meraki-quotes-index.page.js'
 // Users
 import UserCreatePage from './pages/users/user-create.page.js'
 import UserShowPage from './pages/users/user-show.page.js'
@@ -24,6 +25,7 @@ export default (props) =>
 				<Route path="meraki_quotes">
 					<IndexRoute onEnter={toMerakiQuotesListPage} />
 					<Route path="price_list" component={MerakiPriceListPage} />
+					<Route path="index" component={MerakiQuotesIndex} />
 				</Route>
 				<Route path="users">
 					<IndexRoute onEnter={toUsersListPage}/>

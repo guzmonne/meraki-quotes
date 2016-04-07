@@ -1,12 +1,11 @@
-import {awsConfig} from '../../../modules/aws.module.js'
 import {browserHistory} from 'react-router'
 import {
 	DOING_LOGIN_USER,
 	LOGIN_USER_SUCCESS,
 	LOGIN_USER_ERROR
 } from '../../../state/action-types.js'
+import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
 
-import Rx from 'rx-dom'
 
 export function doLoginUser(user){
 	return (dispatch, getState) => {
@@ -15,25 +14,20 @@ export function doLoginUser(user){
 
 		dispatch(doingLoginUser())
 
-		Rx.DOM.ajax({
-			method: 'POST',
-			url: 'https://8ewstzbc9l.execute-api.us-east-1.amazonaws.com/test/session/login',
-			headers: {
-				'Auth': 'allow'
-			},
-			body: JSON.stringify(user)
-		}).
-		subscribe(
-			({response}) => {
-				const output = JSON.parse(response)
-				if(!output.login) return handleError('Error de autenticación.')
-				localStorage.token = response
+		AwsApiObservers.
+			sessionLoginObs(user).
+			subscribe(
+				({response}) => {
+					console.log(response)
+					if(!response.login)
+						return handleError('Error de autenticación.')
+					localStorage.token = response.token
 
-				browserHistory.push('/')
-				handleSuccess()
-			},
-			error => handleError(error || 'Error de autenticación')
-		)
+					browserHistory.push('/')
+					handleSuccess()
+				},
+				error => handleError(error || 'Error de autenticación')
+			)
 	}
 }
 

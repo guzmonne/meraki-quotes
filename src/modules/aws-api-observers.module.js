@@ -1,6 +1,6 @@
 import Rx from 'rx-dom'
 
-const AwsApiObservers = (function(){
+const AwsApiObservers = function(){
 	/*
 		CONSTANTS
 	 */
@@ -13,7 +13,7 @@ const AwsApiObservers = (function(){
 	const defaultSettings = {
 		method: GET,
 		headers: {
-			'Auth': 'allow'
+			'Authorization': `Bearer ${localStorage.token}`
 		}
 	}
 	/*
@@ -123,6 +123,6 @@ const AwsApiObservers = (function(){
 		merakiDevicesCreateObs,
 		merakiDevicesDestroyObs
 	}
-})()
+}
 
-export default AwsApiObservers
+export default new AwsApiObservers()

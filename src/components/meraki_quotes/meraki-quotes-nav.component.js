@@ -8,7 +8,7 @@ export default () =>
       <MenuItem onClick={() => browserHistory.push('/meraki_quotes/new')} eventKey={2.1}>
       	Nuevo Quote
     	</MenuItem>
-      <MenuItem onClick={() => browserHistory.push('/meraki_quotes/list')} eventKey={2.2}>
+      <MenuItem onClick={() => browserHistory.push('/meraki_quotes/index')} eventKey={2.2}>
       	Mis Quotes
     	</MenuItem>
       <MenuItem onClick={() => browserHistory.push('/meraki_quotes/shared')} eventKey={2.3}>
