@@ -1,0 +1,18 @@
+{
+  "name": "conapps-meraki-quotes-lambda",
+  "version": "1.0.0",
+  "description": "Conapps - Meraki Quotes Lambda Functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Guzman Monne",
+  "license": "ISC",
+  "dependencies": {
+    "joi": "^8.0.5",
+    "lodash": "^4.9.0",
+    "rx": "^4.1.0",
+    "rx-node": "^1.0.2",
+    "vogels": "^2.2.0"
+  }
+}

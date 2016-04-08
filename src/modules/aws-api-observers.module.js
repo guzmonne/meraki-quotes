@@ -10,12 +10,12 @@ const AwsApiObservers = function(){
 	const DELETE = 'DELETE'
 
 	const url = 'https://8ewstzbc9l.execute-api.us-east-1.amazonaws.com/test/'
-	const defaultSettings = {
+	const defaultSettings = () => ({
 		method: GET,
 		headers: {
-			'Authorization': `Bearer ${localStorage.token}`
+			'Authorization': `Bearer ${getToken()}`
 		}
-	}
+	})
 	/*
 		PRIVATE METHODS
 	 */
@@ -26,13 +26,15 @@ const AwsApiObservers = function(){
 	}
 
 	const ajaxObs = settings => Rx.DOM.
-		ajax(Object.assign({}, defaultSettings, settings)).
+		ajax(Object.assign({}, defaultSettings(), settings)).
 		map(parseResponse)
+	
+	const getToken = () => localStorage.token
 	/*
 		SESSION PUBLIC OBSERVABLE CONSTRUCTORS
 	 */
 	const sessionLoginObs = body => Rx.DOM.
-		ajax(Object.assign({}, defaultSettings, {
+		ajax(Object.assign({}, defaultSettings(), {
 			method: POST,
 			url   : url + 'session/login',
 			body  : JSON.stringify(body)
@@ -42,7 +44,7 @@ const AwsApiObservers = function(){
 		USERS PUBLIC OBSERVABLE CONSTRUCTORS
 	 */
 	const userCreateObs = body => Rx.DOM.
-		ajax(Object.assign({}, defaultSettings, {
+		ajax(Object.assign({}, defaultSettings(), {
 			method: POST,
 			url   : url + 'users/create',
 			body  : JSON.stringify(body)
@@ -50,13 +52,13 @@ const AwsApiObservers = function(){
 		map(parseResponse)
 
 	const usersIndexObs = () => Rx.DOM.
-		ajax(Object.assign({}, defaultSettings, {
+		ajax(Object.assign({}, defaultSettings(), {
 			url: url + 'users/index'
 		})).
 		map(parseResponse)
 
 	const userShowObs = email => Rx.DOM.
-		ajax(Object.assign({}, defaultSettings, {
+		ajax(Object.assign({}, defaultSettings(), {
 			url: `${url}users/${email}`
 		})).
 		map(parseResponse)
@@ -109,6 +111,17 @@ const AwsApiObservers = function(){
 			body: JSON.stringify({devices})
 		})
 
+	// ------------- //
+	// MERAKI QUOTES //
+  // ------------- //
+  
+  const merakiQuotesCreateObs = quote =>
+  	ajaxObs({
+  		url: `${url}meraki-quotes/create`,
+  		method: POST,
+  		body: JSON.stringify({quote})
+  	})
+
 	return {
 		// SESSION
 		sessionLoginObs,
@@ -121,7 +134,9 @@ const AwsApiObservers = function(){
 		// MERAKI DEVICES
 		merakiDevicesIndexObs,
 		merakiDevicesCreateObs,
-		merakiDevicesDestroyObs
+		merakiDevicesDestroyObs,
+		// MERAKI QUOTES
+		merakiQuotesCreateObs
 	}
 }
 

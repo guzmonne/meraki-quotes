@@ -68,6 +68,7 @@ exports.handler = function(event, context){
 	var email         = event.email
 	var clearPassword = event.password
 
+	console.log('Trying to login user with email: ' + email)
 	getUser(email, function(err, user){
 		if (err) {
 			console.log(err)

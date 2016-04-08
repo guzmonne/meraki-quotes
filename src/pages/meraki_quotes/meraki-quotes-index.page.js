@@ -1,13 +1,24 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {doMerakiQuotesIndex, doMerakiQuotesCreate} from './actions/meraki-quotes.actions.js'
+import {
+	doMerakiQuotesIndex,
+	doMerakiQuotesCreate,
+	toggleMerakiQuotesCreateModal
+} from './actions/meraki-quotes.actions.js'
 import MerakiQuotesIndexContainer from '../../components/meraki_quotes/meraki-quotes-index-container.component.js'
 
 class MerakiQuotesIndexPage extends React.Component {
 	render(){
-		const {doMerakiQuotesIndex, doMerakiQuotesCreate, merakiQuotes} = this.props
+		const {
+			merakiQuotes,
+			doMerakiQuotesIndex,
+			doMerakiQuotesCreate,
+			toggleMerakiQuotesCreateModal
+		} = this.props
 		return <MerakiQuotesIndexContainer
-			// Props
+			onCreate={doMerakiQuotesCreate}
+			toggleModal={toggleMerakiQuotesCreateModal}
+			state={merakiQuotes}
 		/>
 	}
 }
@@ -20,7 +31,9 @@ const select = state => (
 )
 
 const actions = {
-	doMerakiQuotesIndex, doMerakiQuotesCreate
+	doMerakiQuotesIndex,
+	doMerakiQuotesCreate,
+	toggleMerakiQuotesCreateModal
 }
 
 export default connect(select, actions)(MerakiQuotesIndexPage)

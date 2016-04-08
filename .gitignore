@@ -25,15 +25,16 @@ build/Release
 
 # Dependency directory
 node_modules
-lambda/users/node_modules
-lambda/merakiDevices/node_modules
-lambda/merakiDevices/*.zip
 lambda/scripts/node_modules
 lambda/models/node_modules
-lambda/counts/node_modules
-lambda/counts/*.zip
 lambda/users/node_modules
 lambda/users/*.zip
+lambda/merakiDevices/node_modules
+lambda/merakiDevices/*.zip
+lambda/merakiQuotes/node_modules
+lambda/merakiQuotes/*.zip
+lambda/counts/node_modules
+lambda/counts/*.zip
 
 # Optional npm cache directory
 .npm
