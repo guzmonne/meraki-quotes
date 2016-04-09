@@ -1,0 +1,17 @@
+Write-Host "/****************************************/"
+Write-Host "/* MERAKI DEVICES INDEX LAMBDA FUNCTION */"
+Write-Host "/****************************************/"
+Write-Host ""
+Write-Host "Compressing Files"
+Write-Host "-----------------"
+Compress-Archive -LiteralPath ./conapps-user-auth.js, ./node_modules, ../models/session.model.js -DestinationPath ./usersAuth.zip -CompressionLevel Optimal -Force
+Write-Host ""
+Write-Host "Done!"
+Write-Host ""
+Write-Host "Uploading Zip to AWS"
+Write-Host "--------------------"
+Write-Host ""
+aws lambda update-function-code --function-name conapps-merakiDevices-index --zip-file fileb://usersAuth.zip
+Write-Host ""
+Write-Host "Done!"
+Write-Host ""

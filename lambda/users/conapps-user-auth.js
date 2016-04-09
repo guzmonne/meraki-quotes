@@ -60,7 +60,7 @@ exports.handler = function(event, context){
 				return
 			}
 			console.log('Success!')
-			context.succeed(generatePolicy('user', 'Allow', event.methodArn));
+			context.succeed(generatePolicy(body.jti, 'Allow', event.methodArn));
 		})
 	})
 }

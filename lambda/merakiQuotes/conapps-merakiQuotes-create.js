@@ -16,9 +16,8 @@ exports.handler = function(event, context, callback){
 	const quote = event.quote
 	const Authorization = event.Authorization
 
-	console.log(event)
-
-	console.log(quote, Authorization)
+	console.log(JSON.stringify(event))
+	console.log(JSON.stringify(context))
 
 	const invalidQuoteErrorMessage = 'Quote invalido.'
 	const createErrorMessage = 'Error al crear el nuevo quote'
