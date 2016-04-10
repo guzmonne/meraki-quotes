@@ -4,14 +4,14 @@ Write-Host "/****************************************/"
 Write-Host ""
 Write-Host "Compressing Files"
 Write-Host "-----------------"
-Compress-Archive -LiteralPath ./conapps-user-auth.js, ./node_modules, ../models/session.model.js -DestinationPath ./usersAuth.zip -CompressionLevel Optimal -Force
+Compress-Archive -LiteralPath ./conapps-merakiQuotes-index.js, ../modules/auth.module.js, ./node_modules, ../models/merakiQuotes.model.js -DestinationPath ./merakiQuotesIndex.zip -CompressionLevel Optimal -Force
 Write-Host ""
 Write-Host "Done!"
 Write-Host ""
 Write-Host "Uploading Zip to AWS"
 Write-Host "--------------------"
 Write-Host ""
-aws lambda update-function-code --function-name conapps-user-auth --zip-file fileb://usersAuth.zip
+aws lambda update-function-code --function-name conapps-merakiQuotes-index --zip-file fileb://merakiQuotesIndex.zip
 Write-Host ""
 Write-Host "Done!"
 Write-Host ""

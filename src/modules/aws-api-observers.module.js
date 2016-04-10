@@ -11,10 +11,12 @@ const AwsApiObservers = function(){
 
 	const url = 'https://8ewstzbc9l.execute-api.us-east-1.amazonaws.com/test/'
 	const defaultSettings = () => ({
-		method: GET,
-		headers: {
-			'Authorization': `Bearer ${getToken()}`
-		}
+		method       : GET,
+		responseType : 'json',
+		headers      : {
+			'Authorization': `Bearer ${getToken()}`,
+			'Content-Type': 'application/json'
+		},
 	})
 	/*
 		PRIVATE METHODS
@@ -26,43 +28,38 @@ const AwsApiObservers = function(){
 	}
 
 	const ajaxObs = settings => Rx.DOM.
-		ajax(Object.assign({}, defaultSettings(), settings)).
-		map(parseResponse)
+		ajax(Object.assign({}, defaultSettings(), settings))
 	
 	const getToken = () => localStorage.token
 	/*
 		SESSION PUBLIC OBSERVABLE CONSTRUCTORS
 	 */
-	const sessionLoginObs = body => Rx.DOM.
-		ajax(Object.assign({}, defaultSettings(), {
+	const sessionLoginObs = body => 
+		ajaxObs({
 			method: POST,
 			url   : url + 'session/login',
 			body  : JSON.stringify(body)
-		})).
-		map(parseResponse)
+		})
 	/*
 		USERS PUBLIC OBSERVABLE CONSTRUCTORS
 	 */
-	const userCreateObs = body => Rx.DOM.
-		ajax(Object.assign({}, defaultSettings(), {
+	const userCreateObs = body =>
+		ajaxObs({
 			method: POST,
 			url   : url + 'users/create',
 			body  : JSON.stringify(body)
-		})).
-		map(parseResponse)
+		})
 
-	const usersIndexObs = () => Rx.DOM.
-		ajax(Object.assign({}, defaultSettings(), {
+	const usersIndexObs = () =>
+		ajaxObs({
 			url: url + 'users/index'
-		})).
-		map(parseResponse)
+		})
 
-	const userShowObs = email => Rx.DOM.
-		ajax(Object.assign({}, defaultSettings(), {
+	const userShowObs = email => 
+		ajaxObs({
 			url: `${url}users/${email}`
-		})).
-		map(parseResponse)
-
+		})
+		
 	const userPermissionsIndexObs = () =>
 		ajaxObs({
 			url: url + 'users/permissions'
@@ -70,9 +67,9 @@ const AwsApiObservers = function(){
 
 	const userPermissionsUpdateObs = (email, permissions) =>
 		ajaxObs({
-			url    : `${url}users/permissions/${btoa(email)}`,
-			method : PUT,
-			body   : JSON.stringify({email, permissions})
+			url          : `${url}users/permissions/${btoa(email)}`,
+			method       : PUT,
+			body         : JSON.stringify({email, permissions})
 		})
 
 	const merakiDevicesIndexObs = (paginationKey, pageSize=10, query) => {

@@ -53,11 +53,29 @@ export function merakiDevicesIndex(turnPage=0){
 				({response}) => {
 					const {Items, LastEvaluatedKey, Total, Count} = response
 					if (turnPage === -1)
-						return handleSuccess(Items, (page - 1 < 0 ? 0 : page - 1), (pagination.length < 2 ? [null, LastEvaluatedKey] : pagination), Total.count, Count)
+						return handleSuccess(
+							Items,
+							(page - 1 < 0 ? 0 : page - 1),
+							(pagination.length < 2 ? [null, LastEvaluatedKey] : pagination),
+							(!!Total && !!Total.count ? Total.count : 0),
+							Count
+						)
 					if (turnPage ===  0)
-						return handleSuccess(Items, page, (pagination.length < 2 ? [null, LastEvaluatedKey] : pagination), Total.count, Count)
+						return handleSuccess(
+							Items,
+							page,
+							(pagination.length < 2 ? [null, LastEvaluatedKey] : pagination),
+							(!!Total && !!Total.count ? Total.count : 0),
+							Count
+						)
 					if (turnPage ===  1)
-						return handleSuccess(Items, page + 1, (!!LastEvaluatedKey ? [...pagination, LastEvaluatedKey] : pagination), Total.count, Count)
+						return handleSuccess(
+							Items,
+							page + 1,
+							(!!LastEvaluatedKey ? [...pagination, LastEvaluatedKey] : pagination),
+							(!!Total && !!Total.count ? Total.count : 0),
+							Count
+						)
 				},
 				error => handleError(error)
 			)
