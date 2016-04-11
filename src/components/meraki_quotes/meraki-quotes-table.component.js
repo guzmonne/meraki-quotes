@@ -5,7 +5,7 @@ import Spinner from '../helpers/spinner.component.js'
 const SpinnerTbody = () => 
 	<tbody>
 		<tr>
-			<td colSpan="4" className="text-center">
+			<td colSpan="3" className="text-center">
 				<Spinner></Spinner>
 			</td>
 		</tr>
@@ -22,7 +22,6 @@ const CollectionTbody = ({collection=[], discount=1, onSelect, selected}) =>
 						onChange={() => onSelect(model.ID)}
 					/>
 				</td>
-				<td>{model.ID}</td>
 				<td>{model.Name}</td>
 				<td>{model.Description}</td>
 			</tr>
@@ -40,7 +39,6 @@ export default ({updating, collection, discount=1, onSelect, selected=[]}) =>
 			<thead>
 				<tr>
 					<th></th>
-					<th>ID</th>
 					<th>Nombre</th>
 					<th>Descripción</th>
 				</tr>

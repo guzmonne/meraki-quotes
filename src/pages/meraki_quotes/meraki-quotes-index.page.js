@@ -8,6 +8,10 @@ import {
 import MerakiQuotesIndexContainer from '../../components/meraki_quotes/meraki-quotes-index-container.component.js'
 
 class MerakiQuotesIndexPage extends React.Component {
+	componentWillMount(){
+		this.props.doMerakiQuotesIndex(0)
+	}
+
 	render(){
 		const {
 			merakiQuotes,
@@ -17,6 +21,7 @@ class MerakiQuotesIndexPage extends React.Component {
 		} = this.props
 		return <MerakiQuotesIndexContainer
 			onCreate={doMerakiQuotesCreate}
+			onUpdate={doMerakiQuotesIndex}
 			toggleModal={toggleMerakiQuotesCreateModal}
 			state={merakiQuotes}
 		/>

@@ -5,8 +5,8 @@ var vogels = require('vogels'),
 //vogels.AWS.config.update({region: "us-east-1"})
 
 var MerakiQuote = vogels.define('MerakiQuote', {
-	hashKey: 'ID',
-	rangeKey: 'UserID',
+	hashKey: 'UserID',
+	rangeKey: 'createdAt',
 	timestamps: true,
 	tableName: 'ConappsMerakiQuotes',
 	schema: {

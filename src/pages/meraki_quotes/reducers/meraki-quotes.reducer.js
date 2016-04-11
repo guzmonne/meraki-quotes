@@ -2,7 +2,10 @@ import {
 	TOGGLE_MERAKI_QUOTES_CREATE_MODAL,
 	DOING_MERAKI_QUOTES_CREATE,
 	MERAKI_QUOTES_CREATE_SUCCESS,
-	MERAKI_QUOTES_CREATE_ERROR
+	MERAKI_QUOTES_CREATE_ERROR,
+	DOING_MERAKI_QUOTES_INDEX,
+	MERAKI_QUOTES_INDEX_SUCCESS,
+	MERAKI_QUOTES_INDEX_ERROR
 } from '../../../state/action-types.js'
 
 const defaultState = {
@@ -21,6 +24,9 @@ const defaultState = {
 
 export default function merakiQuotesReducer(state=defaultState, action){
 	switch(action.type){
+		// -----------------------------
+		// MERAKI CREATE ACTION REDUCERS
+		// -----------------------------
 		case TOGGLE_MERAKI_QUOTES_CREATE_MODAL:
 			return Object.assign(
 				{},
@@ -50,6 +56,35 @@ export default function merakiQuotesReducer(state=defaultState, action){
 				{error: action.error},
 				{isCreatingMerakiQuote: false}
 			)
+		// -----------------------------
+		// MERAKI INDEX ACTION REDUCERS
+		// -----------------------------
+		case DOING_MERAKI_QUOTES_INDEX:
+			return Object.assign(
+				{},
+				state,
+				{error: null},
+				{isGettingMerakiQuotes: true}
+			)
+		case MERAKI_QUOTES_INDEX_SUCCESS:
+			return Object.assign(
+				{},
+				state,
+				{error: null},
+				{collection: action.collection},
+				{pagination: action.pagination},
+				{page: action.page},
+				{count: action.count}
+			)
+		case MERAKI_QUOTES_INDEX_ERROR:
+			return Object.assign(
+				{},
+				state,
+				{error: action.error}
+			)
+		// -------
+		// DEFAULT
+		// -------
 		default:
 			return state
 	}

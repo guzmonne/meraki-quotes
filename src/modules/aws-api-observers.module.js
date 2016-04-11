@@ -1,4 +1,5 @@
 import Rx from 'rx-dom'
+import _  from 'lodash'
 
 const AwsApiObservers = function(){
 	/*
@@ -119,6 +120,25 @@ const AwsApiObservers = function(){
   		body: JSON.stringify({quote})
   	})
 
+  const merakiQuotesIndexObs = (PageSize, createdAt) => {
+  	const options = [PageSize, createdAt].
+  		map((x, i) => !!x ? `${i === 0 ? 'PageSize' : 'createdAt'}=${x}` : null).
+  		filter(x => x !== null).
+  		join('&')
+
+  	console.log(options)
+
+  	let _url = `${url}meraki-quotes/index`
+
+  	if (_.isString(options) && options !== ""){
+  		_url = `${_url}?${options}`
+  	}
+
+  	return ajaxObs({
+  		url: _url
+  	})
+  }
+
 	return {
 		// SESSION
 		sessionLoginObs,
@@ -133,7 +153,8 @@ const AwsApiObservers = function(){
 		merakiDevicesCreateObs,
 		merakiDevicesDestroyObs,
 		// MERAKI QUOTES
-		merakiQuotesCreateObs
+		merakiQuotesCreateObs,
+		merakiQuotesIndexObs
 	}
 }
 

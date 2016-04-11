@@ -10,13 +10,21 @@ const _  = require('lodash')
 console.log('Loading models...')
 const MerakiQuote = require('./merakiQuotes.model.js')
 
-const scanQuotes = function(UserID, startKey, fn) {
-	console.log('Creating quote...')
-	let query = MerakiQuote.
-		scan().
-		where('UserID').equals(UserID).
+const queryQuotes = function(UserID, PageSize, startKey, fn) {
+	if (!UserID){
+		const msg = 'UserID not provided'
+		console.log(msg)
+		fn(msg, null)
+		return
+	}
 
-	if (!_.isUndefined(startKey) && !_.isFunction(startKey))
+	let query = MerakiQuote.
+		query(UserID).
+		descending().
+		limit(PageSize || 2).
+		attributes(['Name', 'Description', 'ID'])
+
+	if (!!startKey && !!startKey.createdAt && !!startKey.UserID)
 		query = query.startKey(startKey)
 
 	query.exec(fn)
@@ -25,6 +33,10 @@ const scanQuotes = function(UserID, startKey, fn) {
 exports.handler = function(event, context, callback){
 	const startKey = event.startKey
 	const Authorization = event.Authorization
+	const PageSize = event.PageSize
+	const LastEvaluatedKey = {
+		createdAt: event.createdAt,
+	}
 
 	const invaliAuthTokenErrorMessage = 'Invalid Authorization token.'
 	const scanErrorMessage            = 'Error al consultar la base de datos.'
@@ -41,7 +53,11 @@ exports.handler = function(event, context, callback){
 		subscribe(
 			UserID => {
 				console.log('UserID = ' + UserID)
-				scanQuotes(UserID, startKey, (err, data) => {
+				if (!!LastEvaluatedKey){
+					console.log('Formatting LastEvaluatedKey')
+					LastEvaluatedKey.UserID = UserID
+				}
+				queryQuotes(UserID, PageSize, LastEvaluatedKey, (err, data) => {
 					if (err) {
 						console.log(scanErrorMessage + err)
 						return callback(scanErrorMessage)

@@ -49,7 +49,7 @@ export default ({
 					</Row>
 			  	<Row>
 						<Col xs={12}>
-							<MerakiQuotesTable collection={collection}/>
+							<MerakiQuotesTable collection={state.collection}/>
 						</Col>
 			  	</Row>
 			  	<Row>			  		
