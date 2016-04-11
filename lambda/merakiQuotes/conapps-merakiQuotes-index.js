@@ -1,3 +1,5 @@
+'use strict'
+
 console.log('Loading custom modules...')
 const Auth = require('./auth.module.js')
 
