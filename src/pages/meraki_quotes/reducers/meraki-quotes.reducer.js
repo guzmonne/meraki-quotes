@@ -5,7 +5,9 @@ import {
 	MERAKI_QUOTES_CREATE_ERROR,
 	DOING_MERAKI_QUOTES_INDEX,
 	MERAKI_QUOTES_INDEX_SUCCESS,
-	MERAKI_QUOTES_INDEX_ERROR
+	MERAKI_QUOTES_INDEX_ERROR,
+	SET_MERAKI_QUOTES_PAGE_SIZE,
+	SET_MERAKI_QUOTES_QUERY_STRING
 } from '../../../state/action-types.js'
 
 const defaultState = {
@@ -71,6 +73,7 @@ export default function merakiQuotesReducer(state=defaultState, action){
 				{},
 				state,
 				{error: null},
+				{isGettingMerakiQuotes: false},
 				{collection: action.collection},
 				{pagination: action.pagination},
 				{page: action.page},
@@ -80,7 +83,20 @@ export default function merakiQuotesReducer(state=defaultState, action){
 			return Object.assign(
 				{},
 				state,
+				{isGettingMerakiQuotes: false},
 				{error: action.error}
+			)
+		case SET_MERAKI_QUOTES_PAGE_SIZE:
+			return Object.assign(
+				{},
+				state,
+				{pageSize: action.pageSize}
+			)
+		case SET_MERAKI_QUOTES_QUERY_STRING:
+			return Object.assign(
+				{},
+				state,
+				{queryString: action.queryString}
 			)
 		// -------
 		// DEFAULT

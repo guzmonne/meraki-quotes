@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router'
 import {Table, Input} from 'react-bootstrap'
 import Spinner from '../helpers/spinner.component.js'
 
@@ -22,7 +23,7 @@ const CollectionTbody = ({collection=[], discount=1, onSelect, selected}) =>
 						onChange={() => onSelect(model.ID)}
 					/>
 				</td>
-				<td>{model.Name}</td>
+				<td><Link to={`/meraki_quotes/edit/${model.ID}`}>{model.Name}</Link></td>
 				<td>{model.Description}</td>
 			</tr>
 		)}

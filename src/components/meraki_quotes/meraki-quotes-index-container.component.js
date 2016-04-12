@@ -23,7 +23,10 @@ export default ({
 	collection=[],
 	page="index",
 	onCreate,
-	toggleModal
+	onUpdate,
+	toggleModal,
+	setPageSize,
+	setQueryString
 }) =>
 	<Grid className="MerakiQuotesIndex">
 		<Row>
@@ -43,28 +46,34 @@ export default ({
 							<MerakiQuotesIndexToolbar onCreate={toggleModal} />
 						</Col>
 						<Col xs={4}>
-							{/* TODO - Append the onChange function */}
-							<InlineSearchForm onChange={() => {}} />
+							<InlineSearchForm placeholder={'Buscar nombre...'} onChange={queryString => {
+								setQueryString(queryString)
+								onUpdate(0)
+							}} />
 						</Col>
 					</Row>
 			  	<Row>
 						<Col xs={12}>
-							<MerakiQuotesTable collection={state.collection}/>
+							<MerakiQuotesTable 
+								collection={state.collection}
+								updating={state.isGettingMerakiQuotes}
+							/>
 						</Col>
 			  	</Row>
 			  	<Row>			  		
-						<Col xs={5}>
+						<Col xs={6}>
 							{/* TODO - Append the onSelect function */}
-							<PageSizeForm onSelect={() => {}} />
+							<PageSizeForm onSelect={pageSize => {setPageSize(pageSize); onUpdate(0)}} />
 						</Col>
-						<Col xs={2}>
-							{/* TODO - Append the necessary parameters */}
-							<ItemCount />
-						</Col>
-						<Col xs={4} xsOffset={1}>
+						<Col xs={6}>
 							<div className="pull-right">
 								{/* TODO - Append the necessary parameters */}
-								<PrevNextPagination />
+								<PrevNextPagination 
+									updating={state.isGettingMerakiQuotes}
+									page={state.page}
+									lastPage={state.pagination.length - 1}
+									onUpdate={onUpdate}
+								/>
 							</div>
 						</Col>
 			  	</Row>

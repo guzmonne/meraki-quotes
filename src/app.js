@@ -11,4 +11,10 @@ import React from 'react'
 import {render} from 'react-dom'
 import MainApp from './main.js'
 
+import _ from 'lodash'
+import Rx from 'rx-dom'
+
+window._ = _
+window.Rx = Rx
+
 render(<MainApp />, document.getElementById('root'))

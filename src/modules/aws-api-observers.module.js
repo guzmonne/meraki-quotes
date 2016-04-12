@@ -112,6 +112,21 @@ const AwsApiObservers = function(){
 	// ------------- //
 	// MERAKI QUOTES //
   // ------------- //
+  const merakiQuotesIndexOptions = (PageSize, createdAt, QueryString) =>
+  	[
+  		{
+  			name: 'PageSize',
+  			value: PageSize
+  		},
+  		{
+  			name: 'createdAt',
+  			value: createdAt
+  		}, 
+  		{
+  			name: 'QueryString',
+  			value: QueryString
+  		}
+  	]
   
   const merakiQuotesCreateObs = quote =>
   	ajaxObs({
@@ -120,13 +135,11 @@ const AwsApiObservers = function(){
   		body: JSON.stringify({quote})
   	})
 
-  const merakiQuotesIndexObs = (PageSize, createdAt) => {
-  	const options = [PageSize, createdAt].
-  		map((x, i) => !!x ? `${i === 0 ? 'PageSize' : 'createdAt'}=${x}` : null).
+  const merakiQuotesIndexObs = (PageSize, createdAt, QueryString) => {
+  	const options = merakiQuotesIndexOptions(PageSize, createdAt, QueryString).
+  		map(x => !!x.value ? `${x.name}=${x.value}` : null).
   		filter(x => x !== null).
   		join('&')
-
-  	console.log(options)
 
   	let _url = `${url}meraki-quotes/index`
 

@@ -5,8 +5,11 @@ import {
 	MERAKI_QUOTES_CREATE_ERROR,
 	DOING_MERAKI_QUOTES_INDEX,
 	MERAKI_QUOTES_INDEX_SUCCESS,
-	MERAKI_QUOTES_INDEX_ERROR
+	MERAKI_QUOTES_INDEX_ERROR,
+	SET_MERAKI_QUOTES_PAGE_SIZE,
+	SET_MERAKI_QUOTES_QUERY_STRING
 } from '../../../state/action-types.js'
+import _ from 'lodash'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
 
 
@@ -107,7 +110,7 @@ function doingMerakiQuotesCreate(){
  */
 export function doMerakiQuotesIndex(turnPage=0){
 	return (dispatch, getState) => {
-		const {pageSize, pagination, page} = getState().merakiQuotes
+		const {pageSize, pagination, page, queryString} = getState().merakiQuotes
 		// Calculate the next page based on the input and the current page
 		const nextPage = (page + turnPage) < 0 ? 0 : page + turnPage
 		// Setting createdAt value to select the correct page
@@ -117,25 +120,45 @@ export function doMerakiQuotesIndex(turnPage=0){
 		dispatch(doingMerakiQuotesIndex())
 
 		AwsApiObservers.
-			merakiQuotesIndexObs(pageSize, createdAt).
+			merakiQuotesIndexObs(pageSize, createdAt, queryString).
 			subscribe(
 				// onNext
 				({response}) => {
+					// Check to see if an error message was returned
+					const {errorMessage} = response
+					if (!!errorMessage){
+						console.log(errorMessage)
+						dispatch(handleMerakiQuotesError(MERAKI_QUOTES_INDEX_ERROR, {error: errorMessage}))
+						return
+					}
+
 					const {Items, LastEvaluatedKey, Count} = response
-					const createdAt = !!LastEvaluatedKey ? LastEvaluatedKey.createdAt : undefined 
+					const createdAt = !!LastEvaluatedKey ? LastEvaluatedKey.createdAt : undefined
 					let options = {collection: Items}
 					if (turnPage === -1) {
+						// The page can't be negative, else move the page back one step
 						options.page = page - 1 < 0 ? 0 : page - 1
-						options.pagination = pagination.length < 2 ? [null, createdAt || null] : pagination
+						// Make sure to filter undefined values from the pagination array.
+						// If this is not done pagination breaks.
+						options.pagination = pagination.length < 2 ? [null, createdAt].filter(x => !_.isUndefined(x) ) : pagination
+						// Save the number of objects retuned. Not being used ATM
 						options.count = Count
 					}
 					if (turnPage ===  0) {
+						// Page doesn't change.
 						options.page = page
-						options.pagination = pagination.length < 2 ? [null, createdAt || null] : pagination
-						options.count = Count	
+						// Make sure to filter undefined values from the pagination array.
+						// If this is not done pagination breaks.
+						options.pagination = [...pagination.slice(0, pagination.length), createdAt].filter(x => !_.isUndefined(x))
+						// Save the number of objects retuned. Not being used ATM
+						options.count = Count
 					}
 					if (turnPage === 1){
+						// Move the page forward by one step
 						options.page = page + 1
+						// Make sure to filter undefined values from the pagination array.
+						// If this is not done pagination breaks.
+						// Add the new createdAt value to pagination array.
 						options.pagination = !!createdAt ? [...pagination, createdAt] : pagination
 						options.count = Count
 					}
@@ -144,6 +167,24 @@ export function doMerakiQuotesIndex(turnPage=0){
 				// onError
 				error => dispatch(handleMerakiQuotesError(MERAKI_QUOTES_INDEX_ERROR, error))
 			)
+	}
+}
+
+/**
+ * Sets the current Meraki Quotes index size
+ * @param {Number} pageSize New page size
+ */
+export function setMerakiQuotesPageSize(pageSize){
+	return {
+		type: SET_MERAKI_QUOTES_PAGE_SIZE,
+		pageSize
+	}
+}
+
+export function setMerakiQuotesQueryString(queryString){
+	return {
+		type: SET_MERAKI_QUOTES_QUERY_STRING,
+		queryString
 	}
 }
 

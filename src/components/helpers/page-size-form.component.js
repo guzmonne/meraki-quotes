@@ -1,7 +1,7 @@
 import React from 'react'
 import {Input} from 'react-bootstrap'
 
-export default class PageSizeForm extends React.Component {
+class PageSizeForm extends React.Component {
 	constructor(){
 		super()
 
@@ -17,7 +17,8 @@ export default class PageSizeForm extends React.Component {
 	render(){
 		return (
 			<form className="form-horizontal page-size" onSubmit={this.submit}>
-				<Input onChange={this.submit} type="select" labelClassName="col-xs-2" wrapperClassName="col-xs-4" ref="pageSize">
+				<Input onChange={this.submit} type="select" labelClassName="col-xs-2" wrapperClassName="col-xs-4" ref="pageSize" defaultValue="10">
+					<option value="5">5</option>
 					<option value="10">10</option>
 					<option value="50">50</option>
 					<option value="100">100</option>
@@ -28,3 +29,9 @@ export default class PageSizeForm extends React.Component {
 		)
 	}
 }
+
+PageSizeForm.propTypes = {
+	onSelect: React.PropTypes.func
+} 
+
+export default PageSizeForm

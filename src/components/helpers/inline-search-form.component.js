@@ -3,7 +3,7 @@ import {Input} from 'react-bootstrap'
 import Rx from 'rx'
 import _ from 'lodash'
 
-export default class IlineSearchForm extends React.Component {
+class InlineSearchForm extends React.Component {
 	constructor(){
 		super()
 	
@@ -14,7 +14,7 @@ export default class IlineSearchForm extends React.Component {
 	componentWillMount(){
 		this.onChangeObs = this.onChangeSubject.
 			filter(x => _.isString(x)).
-			map(x => x.toUpperCase()).
+			map(x => _.isFunction(this.props.transform) ? this.props.transform(x) : x).
 			debounce(1000).
 			distinctUntilChanged().
 			subscribe(this.props.onChange)
@@ -30,7 +30,7 @@ export default class IlineSearchForm extends React.Component {
 		return (
 			<Input 
 				type="text"
-				placeholder="Buscar..."
+				placeholder={this.props.placeholder || "Buscar..."}
 				hasFeedback
 				feedbackIcon={<i className="fa fa-search"></i>}
 				onChange={this.submit}
@@ -39,3 +39,11 @@ export default class IlineSearchForm extends React.Component {
 		)
 	}
 }
+
+InlineSearchForm.propTypes = {
+	onChange: React.PropTypes.func,
+	transform: React.PropTypes.func,
+	placeholder: React.PropTypes.string
+}
+
+export default InlineSearchForm

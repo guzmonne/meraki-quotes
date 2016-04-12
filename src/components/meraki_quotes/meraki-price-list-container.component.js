@@ -90,10 +90,13 @@ export default ({
 					</ButtonToolbar>
 				</Col>
 				<Col xs={3}>
-					<InlineSearchForm onChange={queryString => {
-						setQueryString(queryString)
-						onUpdate(0)
-					}}/>
+					<InlineSearchForm 
+						transform={(x) => _.isString(x) ? x.toUpperCase() : x}
+						onChange={queryString => {
+							setQueryString(queryString)
+							onUpdate(0)
+						}}
+					/>
 				</Col>
 				<Col xs={3}>
 					<span className="pull-right">
