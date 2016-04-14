@@ -1,7 +1,15 @@
 const _  = require('lodash')
 const Rx = require('rx')
 
-exports.getUserIDFromAuthObs = function(auth) {
+const Users = require('./user.model.js')
+
+const getUserFromAuthObs = function(auth){
+	return getUserIDFromAuthObs(auth).
+		do(UserID => console.log(UserID)).
+		flatMap(UserID => getUserObs(UserID))
+}
+
+const getUserIDFromAuthObs = function(auth) {
 	if (!_.isString(auth)){
 		return Rx.Observable.throw('Token must be a string')
 	}
@@ -41,4 +49,20 @@ const getBodyKeyFromAuth = function(key, auth) {
 
 			return body[key]
 		})
+}
+
+const getUserObs = (UserID) => Rx.Observable.create(function(observer){
+	return Users.
+		query(UserID).
+		usingIndex('ID-index').
+		exec((err, data) => {
+			if (err) return observer.onError(err)
+			observer.onNext(data)
+			observer.onCompleted()
+		})
+})
+
+module.exports = {
+	getUserFromAuthObs: getUserFromAuthObs,
+	getUserIDFromAuthObs: getUserIDFromAuthObs
 }

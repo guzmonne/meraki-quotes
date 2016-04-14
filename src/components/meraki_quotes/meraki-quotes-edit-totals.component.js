@@ -55,7 +55,7 @@ export default class MerakiQuotesEditTotals extends React.Component {
 				</Panel>
 				<Panel>
 					<h5 className="text-primary">
-						<strong>Solución Administrada</strong>
+						<strong>Solución Tradicional</strong>
 					</h5>
 					<Row className="MerakiQuotesEdit__total_row">
 						<Col xs={6}>

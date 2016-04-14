@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 import {Row, Col} from 'react-bootstrap'
 
 export default ({model, user}) =>
@@ -10,12 +11,12 @@ export default ({model, user}) =>
 				</a>
 			</h4>
 		</Col>
-		<Col sm={4}>
+		<Col sm={5}>
 			<dt>Quote ID</dt>
 			{/* TODO: Remove placeholder */}
 			<dd>{model.ID || '862a40df-8f2c-4d19-ac73-46d7553ca4f9'}</dd>
 		</Col>
-		<Col sm={4}>
+		<Col sm={3}>
 			<dt>Creado Por</dt>
 			{/* TODO: Remove placeholder */}
 			<dd>{user.Name || 'Guzman Monne'}</dd>
@@ -23,6 +24,6 @@ export default ({model, user}) =>
 		<Col sm={4}>
 			<dt>Creado</dt>
 			{/* TODO: Remove placeholder */}
-			<dd>{model.createdAt || (new Date()).toString().split('').slice(0, 33).join('')}</dd>
+			<dd>{moment(model.createdAt).format('DD/MM/YYYY HH:mm:ss') || (new Date()).toString().slice(0, 33)}</dd>
 		</Col>
 	</Row>

@@ -16,9 +16,6 @@ exports.handler = function(event, context, callback){
 	const quote = event.quote
 	const Authorization = event.Authorization
 
-	console.log(JSON.stringify(event))
-	console.log(JSON.stringify(context))
-
 	const invalidQuoteErrorMessage = 'Quote invalido.'
 	const createErrorMessage = 'Error al crear el nuevo quote'
 
@@ -28,11 +25,18 @@ exports.handler = function(event, context, callback){
 
 	console.log('Getting current user id...')
 	Auth.
-		getUserIDFromAuthObs(Authorization).
+		getUserFromAuthObs(Authorization).
+		do(data => console.log(JSON.stringify(data))).
+//  getUserIDFromAuthObs(Authorization).
 		subscribe(
-			UserID => {
+			data => {
+				const User = data.Items[0]
+				const UserID = User.get('ID')
+				const UserName = User.get('username')
 				console.log('UserID = ' + UserID)
+				console.log('UserName = ' + UserName)
 				quote.UserID = UserID
+				quote.UserName = UserName
 				createQuote(quote, (err, data) => {
 					if (err) {
 						console.log(createErrorMessage + err)

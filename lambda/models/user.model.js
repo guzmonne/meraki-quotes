@@ -10,12 +10,18 @@ var User = vogels.define('User', {
 		email       : Joi.string().email(),
 		passwordHash: Joi.string(),
 		passwordSalt: Joi.string(),
-		permissions : Joi.array().
-			includes(Joi.string()),
+		permissions : Joi.array(),
 		username   : Joi.string(),
 		verified   : Joi.boolean().default(true),
 		verifyToken: Joi.string()
-	}
+	},
+	indexes: [
+		{
+			hashKey: 'ID',
+			name: 'ID-index',
+			type: 'global'
+		}
+	]
 })
 
 module.exports = User

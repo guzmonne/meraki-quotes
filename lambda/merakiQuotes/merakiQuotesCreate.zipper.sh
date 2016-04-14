@@ -3,7 +3,7 @@ echo ""
 echo "**************************************************"
 echo "Zipping files"
 echo "**************************************************"
-zip -j merakiQuoteCreate.zip ../models/merakiQuotes.model.js ../modules/auth.module.js
+zip -j merakiQuoteCreate.zip ../models/merakiQuotes.model.js ../models/user.model.js ../modules/auth.module.js
 zip -r merakiQuoteCreate.zip ./node_modules/ conapps-merakiQuotes-create.js
 echo ""
 if [ "$1" == "--no-upload" ]; then

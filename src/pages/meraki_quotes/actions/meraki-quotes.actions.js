@@ -7,7 +7,10 @@ import {
 	MERAKI_QUOTES_INDEX_SUCCESS,
 	MERAKI_QUOTES_INDEX_ERROR,
 	SET_MERAKI_QUOTES_PAGE_SIZE,
-	SET_MERAKI_QUOTES_QUERY_STRING
+	SET_MERAKI_QUOTES_QUERY_STRING,
+	DOING_MERAKI_QUOTES_GET,
+	MERAKI_QUOTES_GET_SUCCESS,
+	MERAKI_QUOTES_GET_ERROR
 } from '../../../state/action-types.js'
 import _ from 'lodash'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
@@ -211,6 +214,63 @@ function merakiQuotesIndexSuccess(options){
 }
 
 ////////////////////////////////
+
+// MERAKI QUOTES GET
+
+/**
+ * Actions that gets a single quote from the DB
+ * If the ID param is sent as an object it is considered an options
+ * object. The only abailable option now is 'reset' to set the
+ * current MerakiQuote to an empty object.
+ * @param  {Object || String} ID Quote ID or options Object
+ * @return {ActionDispatcher}    
+ */
+export function doMerakiQuotesGet(ID){
+	if (_.isObject(ID)){
+		const options = ID;
+		if (!!options.reset)
+			return merakiQuotesGetSuccess({})
+	}
+
+	return (dispatch, getState) => {
+		dispatch(doingMerakiQuotesGet())
+
+		AwsApiObservers.
+			merakiQuotesGetObs(ID).
+			subscribe(
+				({response}) => {
+					console.log(response)
+					dispatch(merakiQuotesGetSuccess(response))
+				},
+				error => dispatch(handleMerakiQuotesError(MERAKI_QUOTES_GET_ERROR, error))
+			)
+	}
+}
+
+/**
+ * Action to toggle the updatign value
+ * @return {Action} 
+ */
+function doingMerakiQuotesGet(){
+	return {
+		type: DOING_MERAKI_QUOTES_GET
+	}
+}
+
+/**
+ * Action to set the gotten quote
+ * @param  {MerakiQuote} quote Object representing a Meraki Quote
+ * @return {Action}
+ */
+function merakiQuotesGetSuccess(quote){
+	return {
+		type: MERAKI_QUOTES_GET_SUCCESS,
+		quote
+	}
+}
+
+////////////////////////////////
+
 
 // ERROR HANDLING
 
