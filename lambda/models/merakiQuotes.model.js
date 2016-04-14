@@ -16,7 +16,7 @@ var MerakiQuote = vogels.define('MerakiQuote', {
 		Description: Joi.string(),
 		Devices: Joi.array(),
 		Discount: Joi.number(),
-		Deal: Joi.boolean(),
+		DealApproved: Joi.boolean(),
 		SWMargin: Joi.number(),
 		HWMargin: Joi.number(),
 		ServiceMargin: Joi.number(),

@@ -28,62 +28,48 @@ export default ({
 	setPageSize,
 	setQueryString
 }) =>
-	<Grid className="MerakiQuotesIndex">
-		<Row>
-			<Col sm={3}>
-				<MerakiQuotesMenu />
-			</Col>
-			<Col sm={9}>
-			  <Row>
-			  	<Col smOffset={9} sm={3}>
-			  		<MerakiQuotesBreadcrumbs page={page} />
-			  	</Col>
-			  </Row>
-				<Panel>
-					<Row>
-						<Col xs={8} className="MerakiQuotesIndex__buttons-toolbar">
-							{/* TODO - Append the onCreate function */}
-							<MerakiQuotesIndexToolbar onCreate={toggleModal} />
-						</Col>
-						<Col xs={4}>
-							<InlineSearchForm placeholder={'Buscar nombre...'} onChange={queryString => {
-								setQueryString(queryString)
-								onUpdate(0)
-							}} />
-						</Col>
-					</Row>
-			  	<Row>
-						<Col xs={12}>
-							<MerakiQuotesTable 
-								collection={state.collection}
-								updating={state.isGettingMerakiQuotes}
-							/>
-						</Col>
-			  	</Row>
-			  	<Row>			  		
-						<Col xs={6}>
-							{/* TODO - Append the onSelect function */}
-							<PageSizeForm onSelect={pageSize => {setPageSize(pageSize); onUpdate(0)}} />
-						</Col>
-						<Col xs={6}>
-							<div className="pull-right">
-								{/* TODO - Append the necessary parameters */}
-								<PrevNextPagination 
-									updating={state.isGettingMerakiQuotes}
-									page={state.page}
-									lastPage={state.pagination.length - 1}
-									onUpdate={onUpdate}
-								/>
-							</div>
-						</Col>
-			  	</Row>
-				</Panel>
-			</Col>
-		</Row>
-		{/* Meraki Quote create modal */}
-		<MerakiQuoteCreateModal
-			onShow={state.isShowingMerakiQuotesCreateModal}
-			onToggle={toggleModal}
-			onSubmit={onCreate}
-		/>
-	</Grid>
+		<Panel>
+			<Row>
+				<Col xs={8} className="MerakiQuotesIndex__buttons-toolbar">
+					{/* TODO - Append the onCreate function */}
+					<MerakiQuotesIndexToolbar onCreate={toggleModal} />
+				</Col>
+				<Col xs={4}>
+					<InlineSearchForm placeholder={'Buscar nombre...'} onChange={queryString => {
+						setQueryString(queryString)
+						onUpdate(0)
+					}} />
+				</Col>
+			</Row>
+	  	<Row>
+				<Col xs={12}>
+					<MerakiQuotesTable 
+						collection={state.collection}
+						updating={state.isGettingMerakiQuotes}
+					/>
+				</Col>
+	  	</Row>
+	  	<Row>			  		
+				<Col xs={6}>
+					{/* TODO - Append the onSelect function */}
+					<PageSizeForm onSelect={pageSize => {setPageSize(pageSize); onUpdate(0)}} />
+				</Col>
+				<Col xs={6}>
+					<div className="pull-right">
+						{/* TODO - Append the necessary parameters */}
+						<PrevNextPagination 
+							updating={state.isGettingMerakiQuotes}
+							page={state.page}
+							lastPage={state.pagination.length - 1}
+							onUpdate={onUpdate}
+						/>
+					</div>
+				</Col>
+	  	</Row>
+			{/* Meraki Quote create modal */}
+			<MerakiQuoteCreateModal
+				onShow={state.isShowingMerakiQuotesCreateModal}
+				onToggle={toggleModal}
+				onSubmit={onCreate}
+			/>
+		</Panel>

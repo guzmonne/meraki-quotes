@@ -15,5 +15,5 @@ export default ({onClick, refreshing, updateText, updatingText, buttonProps}) =>
 		{!refreshing ? 
 			` ${updateText || 'Actualizar'}`
 			:
-			` ${updatingText || 'Actualizando'}`}
+			` ${updatingText || 'Actualizar'}`}
 	</Button>

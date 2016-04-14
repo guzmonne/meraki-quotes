@@ -21,7 +21,8 @@ const defaultState = {
 	total                           : 0,
 	pageSize                        : 10,
 	queryString                     : "",
-	count                           : 0
+	count                           : 0,
+	current                         : {}
 }
 
 export default function merakiQuotesReducer(state=defaultState, action){

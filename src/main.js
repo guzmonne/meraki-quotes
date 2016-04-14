@@ -8,10 +8,13 @@ import {store} from './state/store.js'
 import SignupPage from './pages/main/signup.page.js'
 import LoginPage from './pages/main/login.page.js'
 import HomePage from './pages/main/home.page.js'
+// Main Layouts
 import MainLayout from './components/layout/main.layout.js'
 // Meraki Quotes
+import MerakiQuotesLayout from './components/layout/meraki-quotes.layout.js'
 import MerakiPriceListPage from './pages/meraki_quotes/meraki-price-list.page.js'
 import MerakiQuotesIndex from './pages/meraki_quotes/meraki-quotes-index.page.js'
+import MerakiQuotesEdit from './pages/meraki_quotes/meraki-quotes-edit.page.js'
 // Users
 import UserCreatePage from './pages/users/user-create.page.js'
 import UserShowPage from './pages/users/user-show.page.js'
@@ -22,10 +25,11 @@ export default (props) =>
 		<Router history={browserHistory}>
 			<Route path="/" component={MainLayout} onEnter={requireAuth}>
 				<IndexRoute component={HomePage} />
-				<Route path="meraki_quotes">
-					<IndexRoute onEnter={toMerakiQuotesListPage} />
+				<Route path="meraki_quotes" component={MerakiQuotesLayout}>
+					<IndexRoute component={MerakiQuotesIndex} />
 					<Route path="price_list" component={MerakiPriceListPage} />
-					<Route path="index" component={MerakiQuotesIndex} />
+					<Route path="index" onEnter={toMerakiQuotesListPage}/>
+					<Route path="edit/:ID" component={MerakiQuotesEdit} />
 				</Route>
 				<Route path="users">
 					<IndexRoute onEnter={toUsersListPage}/>
@@ -59,7 +63,7 @@ function requireAuth(...args){
 }
 
 function toMerakiQuotesListPage(...args){
-	replacePathnameWith('/meraki_quotes/list', ...args)
+	replacePathnameWith('/meraki_quotes', ...args)
 }
 
 function toUsersListPage(...args){
