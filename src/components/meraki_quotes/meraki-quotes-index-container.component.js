@@ -68,7 +68,7 @@ export default ({
 	  	</Row>
 			{/* Meraki Quote create modal */}
 			<MerakiQuoteCreateModal
-				onShow={state.isShowingMerakiQuotesCreateModal}
+				show={state.isShowingMerakiQuotesCreateModal}
 				onToggle={toggleModal}
 				onSubmit={onCreate}
 			/>

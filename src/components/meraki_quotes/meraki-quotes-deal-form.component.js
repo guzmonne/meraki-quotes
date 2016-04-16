@@ -3,7 +3,7 @@ import {Input} from 'react-bootstrap'
 
 class MerakiQuotesDealForm extends React.Component {
 	render(){
-		const {onChange, defaultValue} = this.props
+		const {onUpdate, value} = this.props
 
 		return (
 			<form className="form-horizontal">
@@ -11,10 +11,10 @@ class MerakiQuotesDealForm extends React.Component {
 					ref="deal"
 					onChange={() => {
 						const DealApproved = this.refs.deal.getChecked()
-						onChange({DealApproved})
+						onUpdate({DealApproved})
 					}}
 					type="checkbox"
-					defaultValue={defaultValue}
+					value={value}
 					label="Deal"
 				/>
 			</form>
@@ -23,8 +23,8 @@ class MerakiQuotesDealForm extends React.Component {
 }
 
 MerakiQuotesDealForm.propTypes = {
-	onChange: React.PropTypes.func,
-	defaultValue: React.PropTypes.bool
+	onUpdate: React.PropTypes.func,
+	value: React.PropTypes.bool
 }
 
 export default MerakiQuotesDealForm

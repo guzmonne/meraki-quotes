@@ -10,7 +10,10 @@ import {
 	SET_MERAKI_QUOTES_QUERY_STRING,
 	DOING_MERAKI_QUOTES_GET,
 	MERAKI_QUOTES_GET_SUCCESS,
-	MERAKI_QUOTES_GET_ERROR
+	MERAKI_QUOTES_GET_ERROR,
+	DOING_MERAKI_QUOTES_UPDATE,
+	MERAKI_QUOTES_UPDATE_SUCCESS,
+	MERAKI_QUOTES_UPDATE_ERROR
 } from '../../../state/action-types.js'
 
 const defaultState = {
@@ -19,6 +22,7 @@ const defaultState = {
 	error                           : null,
 	isShowingMerakiQuotesCreateModal: false,
 	isCreatingMerakiQuote           : false,
+	isUpdatignQuote                 : false,
 	pagination                      : [null],
 	page                            : 0,
 	total                           : 0,
@@ -126,6 +130,29 @@ export default function merakiQuotesReducer(state=defaultState, action){
 				{isGettingMerakiQuote: false},
 				{error: action.error}
 			)	
+		// ------------------------------
+		// MERAKI UPDATE ACTIONS REDUCERS
+		// ------------------------------
+		case DOING_MERAKI_QUOTES_UPDATE: 
+			return Object.assign(
+				{},
+				state,
+				{isUpdatignQuote: true},
+				{current: Object.assign({}, state.current, action.patch)}
+			)
+		case MERAKI_QUOTES_UPDATE_SUCCESS:
+			return Object.assign(
+				{},
+				state,
+				{isUpdatignQuote: false}
+			)
+		case MERAKI_QUOTES_UPDATE_ERROR:
+			return Object.assign(
+				{},
+				state,
+				{isUpdatignQuote: false},
+				{error: action.error}
+			)
 		// -------
 		// DEFAULT
 		// -------

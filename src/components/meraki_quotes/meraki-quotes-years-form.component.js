@@ -3,7 +3,7 @@ import {Input} from 'react-bootstrap'
 
 class MerakiQuotesYearsForm extends React.Component {
 	render(){
-		const {onChange, defaultValue} = this.props
+		const {onUpdate, value} = this.props
 
 		return (
 			<form className="form-horizontal" onSubmit={() => {}}>
@@ -13,18 +13,18 @@ class MerakiQuotesYearsForm extends React.Component {
 					ref="years"
 					onChange={() => {
 						const LicenceYears = parseInt(this.refs.years.getValue()); 
-						onChange({LicenceYears})
+						onUpdate({LicenceYears})
 					}}
-					defaultValue={defaultValue}
+					value={value || 1}
 					labelClassName="col-xs-3"
 					wrapperClassName="col-xs-9"
 					className="MerakiQuotesEdit__years"
 					>
-					<option value="1">1</option>
-					<option value="3">3</option>
-					<option value="5">5</option>
-					<option value="7">7</option>
-					<option value="10">10</option>
+					<option value={1}>1</option>
+					<option value={3}>3</option>
+					<option value={5}>5</option>
+					<option value={7}>7</option>
+					<option value={10}>10</option>
 				</Input>
 			</form>
 		)
@@ -32,8 +32,8 @@ class MerakiQuotesYearsForm extends React.Component {
 }
 
 MerakiQuotesYearsForm.propTypes = {
-	onChange: React.PropTypes.func,
-	defaultValue: React.PropTypes.number
+	onUpdate: React.PropTypes.func,
+	value: React.PropTypes.number
 }
 
 export default MerakiQuotesYearsForm

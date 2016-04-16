@@ -5,7 +5,7 @@ import {
 	Button
 } from 'react-bootstrap'
 
-export default class MerakiQuoteCreateModal extends React.Component {
+class MerakiQuotesCreateModal extends React.Component {
 	constructor(){
 		super()
 		
@@ -25,16 +25,16 @@ export default class MerakiQuoteCreateModal extends React.Component {
 	}
 
 	render(){
-		const {onShow, onToggle} = this.props
+		const {show, onToggle, title} = this.props
 		let {model={}} = this.props
 
 		return (
 			<Modal
-				show={onShow}
+				show={show}
 				onHide={onToggle}
 			>
 				<Modal.Header closeButton>
-					<Modal.Title>Meraki - Nuevo Quote</Modal.Title>
+					<Modal.Title>{title || 'Meraki - Nuevo Quote'}</Modal.Title>
 				</Modal.Header>
 
 				<Modal.Body>
@@ -65,3 +65,13 @@ export default class MerakiQuoteCreateModal extends React.Component {
 		)
 	}
 }
+
+MerakiQuotesCreateModal.propTypes = {
+	show: React.PropTypes.bool,
+	onToggle: React.PropTypes.func,
+	onSubmit: React.PropTypes.func,
+	model: React.PropTypes.object,
+	title: React.PropTypes.string
+}
+
+export default MerakiQuotesCreateModal

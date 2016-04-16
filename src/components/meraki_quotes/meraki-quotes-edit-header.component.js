@@ -2,12 +2,14 @@ import React from 'react'
 import moment from 'moment'
 import {Row, Col} from 'react-bootstrap'
 
-export default ({model, user}) =>
+const MerakiQuotesEditHeader = ({model, user, toggleModal}) =>
 	<Row>
 		<Col sm={12}>
 			<h4>
-				<a className="text-info" href="javascript:void(0);">
-					<strong>Quote:</strong> {model.Name || 'Quote name goes here...'}
+				<a className="text-info" href="javascript:void(0);" onClick={toggleModal}>
+					<strong> {model.Name || 'Quote name goes here...'}</strong>
+					<br/>
+					<small>{model.Description || 'Descripción'}</small>
 				</a>
 			</h4>
 		</Col>
@@ -27,3 +29,11 @@ export default ({model, user}) =>
 			<dd>{moment(model.createdAt).format('DD/MM/YYYY HH:mm:ss') || (new Date()).toString().slice(0, 33)}</dd>
 		</Col>
 	</Row>
+
+MerakiQuotesEditHeader.propTypes = {
+	model: React.PropTypes.object,
+	user: React.PropTypes.object,
+	toggleModal: React.PropTypes.func
+}
+
+export default MerakiQuotesEditHeader

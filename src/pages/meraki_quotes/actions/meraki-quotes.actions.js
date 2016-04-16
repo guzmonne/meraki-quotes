@@ -10,7 +10,10 @@ import {
 	SET_MERAKI_QUOTES_QUERY_STRING,
 	DOING_MERAKI_QUOTES_GET,
 	MERAKI_QUOTES_GET_SUCCESS,
-	MERAKI_QUOTES_GET_ERROR
+	MERAKI_QUOTES_GET_ERROR,
+	DOING_MERAKI_QUOTES_UPDATE,
+	MERAKI_QUOTES_UPDATE_SUCCESS,
+	MERAKI_QUOTES_UPDATE_ERROR
 } from '../../../state/action-types.js'
 import _ from 'lodash'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
@@ -271,6 +274,68 @@ function merakiQuotesGetSuccess(quote){
 
 ////////////////////////////////
 
+// MERAKI QUOTES UPDATE
+
+/**
+ * Constant that stores the valid Meraki Quote Schema
+ * @type {Array}
+ */
+const merakiQuoteUpdatableKeys = [
+	'Name',
+	'Description',
+	'Devices',
+	'Discount',
+	'DealApproved',
+	'SoftwareMargin',
+	'HardwareMargin',
+	'ServiceMargin',
+	'AdminMargin',
+	'ServiceLevel',
+	'LicenceYears',
+	'SharedWith'
+]
+
+/**
+ * Action that updates the current Meraki Quote via a PATCH
+ * request, carrying the updated keys on its body.
+ * @param  {Object} patch A piece of a Meraki Quote to update the current one.
+ * @return {Action Dispatcher}       
+ */
+export function doMerakiQuotesUpdate(patch){
+	return dispatch => {
+		// patch must be an object
+		if (!_.isObject(patch)) return
+		// Only allow certain keys
+		patch = _.pick(patch, merakiQuoteUpdatableKeys)
+		// Check wether the modified patch object is empty
+		if (Object.keys(patch).length === 0) return
+
+		dispatch(doingMerakiQuotesUpdate(patch))
+
+		Rx.Observable.
+			just({done: true}).
+			delay(2000).
+			subscribe(
+				() => dispatch(merakiQuotesUpdateSuccess()),
+				error => dispatch(handleMerakiQuotesError(MERAKI_QUOTES_UPDATE_ERROR, error))
+			)
+	}
+}
+
+function doingMerakiQuotesUpdate(patch){
+	return {
+		type: DOING_MERAKI_QUOTES_UPDATE,
+		patch
+	}
+}
+
+function merakiQuotesUpdateSuccess(){
+	return {
+		type: MERAKI_QUOTES_UPDATE_SUCCESS
+	}
+}
+
+////////////////////////////////
 
 // ERROR HANDLING
 

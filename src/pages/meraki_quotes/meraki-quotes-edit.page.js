@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {
+	toggleMerakiQuotesCreateModal,
 	doMerakiQuotesGet,
-	doMerakiQuoteUpdate
+	doMerakiQuotesUpdate,
 } from './actions/meraki-quotes.actions.js'
 import MerakiQuotesEditContainer from '../../components/meraki_quotes/meraki-quotes-edit-container.component.js'
 
@@ -16,12 +17,19 @@ class MerakiQuotesEdit extends React.Component {
 	}
 
 	render(){
-		const {doMerakiQuotesGet, doMerakiQuoteUpdate, merakiQuotes} = this.props
+		const {
+			doMerakiQuotesGet,
+			doMerakiQuotesUpdate,
+			toggleMerakiQuotesCreateModal,
+			merakiQuotes
+		} = this.props
+		
 		return <MerakiQuotesEditContainer
 			onFetch={doMerakiQuotesGet}
-			onUpdate={doMerakiQuoteUpdate}
+			onUpdate={doMerakiQuotesUpdate}
 			state={merakiQuotes}
 			model={merakiQuotes.current}
+			toggleModal={toggleMerakiQuotesCreateModal}
 		/>
 	}
 }
@@ -31,8 +39,9 @@ const select = state => (
 )
 
 const actions = {
+	toggleMerakiQuotesCreateModal,
 	doMerakiQuotesGet,
-	doMerakiQuoteUpdate
+	doMerakiQuotesUpdate
 }
 
 export default connect(select, actions)(MerakiQuotesEdit)

@@ -8,26 +8,26 @@ import MerakiQuotesEditActions from './meraki-quotes-edit-actions.component.js'
 
 export default class MerakiQuotesEditSettings extends React.Component {
 	render(){
-		const {model} = this.props
+		const {model, onUpdate} = this.props
 
 		return (
 			<Row className="MerakiQuotesEdit__settings_row">
 				<Col sm={2}>
 					<MerakiQuotesYearsForm
-						defaultValue={model.Years || 1}
-						onChange={years => console.log(years)}
+						value={model.LicenceYears || 1}
+						onUpdate={onUpdate}
 					/>
 				</Col>
 				<Col sm={1}>
 					<MerakiQuotesDealForm
-						defaultValue={model.DealApproved || true}
-						onChange={deal => console.log(deal)}
+						value={model.DealApproved || true}
+						onUpdate={onUpdate}
 					/>
 				</Col>
 				<Col sm={4}>
 					<MerakiQuotesDiscountForm 
-						defaultValue={model.Discount || 43}
-						onChange={discount => console.log(discount)}
+						value={model.Discount || 0.43}
+						onUpdate={onUpdate}
 					/>
 				</Col>
 				<Col sm={5}>

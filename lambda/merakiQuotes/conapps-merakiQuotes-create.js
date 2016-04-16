@@ -12,6 +12,10 @@ const createQuote = function(quote, fn) {
 	MerakiQuote.create(quote, fn)
 }
 
+const DEFAULT_DISCOUNT       = 0.35
+const DEFAULT_MARGIN         = 0.20
+const DEFAULT_SERVICE_MARGIN = 0.50
+
 exports.handler = function(event, context, callback){
 	const quote = event.quote
 	const Authorization = event.Authorization
@@ -37,6 +41,15 @@ exports.handler = function(event, context, callback){
 				console.log('UserName = ' + UserName)
 				quote.UserID = UserID
 				quote.UserName = UserName
+				quote.Devices = []
+				quote.Discount = DEFAULT_DISCOUNT
+				quote.DealApproved = false
+				quote.SoftwareMargin = DEFAULT_MARGIN
+				quote.HardwareMargin = DEFAULT_MARGIN
+				quote.ServiceMargin = DEFAULT_SERVICE_MARGIN
+				quote.AdminMargin = DEFAULT_SERVICE_MARGIN
+				quote.ServiceLevel = '9x5xNBD'
+				quote.LicenceYears = 3
 				createQuote(quote, (err, data) => {
 					if (err) {
 						console.log(createErrorMessage + err)
