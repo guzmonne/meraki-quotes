@@ -1,5 +1,6 @@
 import {
 	TOGGLE_MERAKI_QUOTES_CREATE_MODAL,
+	TOGGLE_SELECTION_ON_MERAKI_DEVICES,
 	DOING_MERAKI_QUOTES_CREATE,
 	MERAKI_QUOTES_CREATE_SUCCESS,
 	MERAKI_QUOTES_CREATE_ERROR,
@@ -297,19 +298,35 @@ const merakiQuoteUpdatableKeys = [
 /**
  * Action that updates the current Meraki Quote via a PATCH
  * request, carrying the updated keys on its body.
- * @param  {Object} patch A piece of a Meraki Quote to update the current one.
+ * @param  {Object} patch A piece of a Meraki Quote to update the current one or a device object to update.
+ * @param  {Number} patch Index of the Meraki Quote Device to update.
  * @return {Action Dispatcher}       
  */
-export function doMerakiQuotesUpdate(patch){
-	return dispatch => {
+export function doMerakiQuotesUpdate(patch, index){
+	return (dispatch, getState) => {
 		// patch must be an object
 		if (!_.isObject(patch)) return
-		// Only allow certain keys
-		patch = _.pick(patch, merakiQuoteUpdatableKeys)
-		// Check wether the modified patch object is empty
-		if (Object.keys(patch).length === 0) return
+		// A device is being updated instead of a patch of the quote.
+		if (_.isNumber(index)){
+			const Devices = getState().merakiQuotes.current.Devices.map((device, i) =>
+				i === index ? patch : device
+			)
+			patch = {Devices}
+		} else {
+			// Only allow certain keys
+			patch = _.pick(patch, merakiQuoteUpdatableKeys)
+			// Check wether the modified patch object is empty
+			if (Object.keys(patch).length === 0) return
+		}
+
+		console.log(patch)
 
 		dispatch(doingMerakiQuotesUpdate(patch))
+
+		// We need to remove the selected option before updating it on the DB
+		if (patch.Devices && _.isArray(patch.Devices)){
+			patch.Devices = patch.Devices.map(device => _.omit(device, ['selected']))
+		}
 
 		Rx.Observable.
 			just({done: true}).
@@ -321,6 +338,11 @@ export function doMerakiQuotesUpdate(patch){
 	}
 }
 
+/**
+ * Action that toggles the Meraki Quotes updating flag
+ * @param  {Object} patch Piece of Quote to be saved and applied instantly
+ * @return {Action}       
+ */
 function doingMerakiQuotesUpdate(patch){
 	return {
 		type: DOING_MERAKI_QUOTES_UPDATE,
@@ -328,9 +350,45 @@ function doingMerakiQuotesUpdate(patch){
 	}
 }
 
+/**
+ * Action that toggles the Meraki Quotes updating flag after a successful API call
+ * @return {Action} 
+ */
 function merakiQuotesUpdateSuccess(){
 	return {
 		type: MERAKI_QUOTES_UPDATE_SUCCESS
+	}
+}
+
+export function toggleSelectionOnMerakiDevices(index){
+	return (dispatch, getState) => {
+		const merakiQuotes = getState().merakiQuotes
+		const currentDevices = merakiQuotes.current.Devices
+		let selectedAll = merakiQuotes.selectedAll
+		let Devices = []
+		if (_.isString(index) && index === 'all'){
+			selectedAll = !selectedAll
+			Devices = currentDevices.map(device => {
+				device.selected = selectedAll
+				return device
+			})
+		} else {
+			// Check to see wether the passed in number is an index
+			if (!_.isNumber(index)) return
+			Devices = currentDevices.map((device, i) => {
+				if (i === index){
+					device.selected = !device.selected
+				}
+				return device
+			})
+			selectedAll = false
+		}
+
+		dispatch({
+			type: TOGGLE_SELECTION_ON_MERAKI_DEVICES,
+			Devices,
+			selectedAll
+		})
 	}
 }
 

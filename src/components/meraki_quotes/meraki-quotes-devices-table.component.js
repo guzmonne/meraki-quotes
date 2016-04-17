@@ -33,12 +33,13 @@ const SubTotal = ({device, discount, margin, intro}) =>
 		quantity={device.Qty || 1}
 	/>
 
-const DeviceRow = ({device, discount, margin, intro}) => 
+const DeviceRow = ({device, discount, margin, intro, onUpdate, index, onSelect}) => 
 	<tr>
 		<td>
 			<input
 				type="checkbox"
-				onChange={() => {}}
+				onChange={() => onSelect(index)}
+				checked={!!device.selected}
 			/>
 		</td>
 		<td>
@@ -61,6 +62,7 @@ const DeviceRow = ({device, discount, margin, intro}) =>
 			<Input 
 				type="text"
 				defaultValue={device.Qty}
+				onChange={e => onUpdate(Object.assign({}, device, {Qty: +e.target.value}), index)}
 			/>
 		</td>
 		<td className="text-center text-muted">
@@ -72,6 +74,7 @@ const DeviceRow = ({device, discount, margin, intro}) =>
 			<Input 
 				type="text"
 				defaultValue={device.Intro * 100}
+				onChange={e => onUpdate(Object.assign({}, device, {Intro: +e.target.value/100}), index)}
 			/>
 		</td>
 		<td className="text-center text-muted">
@@ -97,21 +100,33 @@ const DeviceRow = ({device, discount, margin, intro}) =>
 		</td>
 	</tr>
 
-const MerakiQuotesDevicesTableTbody = ({collection=[], discount, margin, intro}) =>
+const MerakiQuotesDevicesTableTbody = ({collection=[], discount, margin, intro, onUpdate, onSelect}) =>
 	!_.isArray(collection) || collection.length === 0 ? 
 		<tbody><tr><td className="text-center" colSpan="9">Lista de equipos vacía.</td></tr></tbody>
 	:
 		<tbody>
-			{collection.map((device, i) => <DeviceRow key={i} device={device} discount={discount} margin={margin} intro={intro} />)}
+			{collection.map((device, i) => 
+				<DeviceRow
+					key={device.PartNumber + i}
+					onUpdate={onUpdate}
+					onSelect={onSelect}
+					device={device}
+					discount={discount}
+					margin={margin}
+					intro={intro}
+					index={i}
+				/>
+			)}
 		</tbody>
 
-const MerakiQuotesDevicesTableThead = () =>
+const MerakiQuotesDevicesTableThead = ({onSelect, selectedAll}) =>
 	<thead>
 		<tr>
 			<th width={tableWidths.select}>
 				<input
 					type="checkbox"
-					onChange={() => {}}
+					onChange={() => onSelect('all')}
+					checked={selectedAll}
 				/>
 			</th>
 			<th>Hardware</th>
@@ -139,13 +154,15 @@ const MerakiQuotesDevicesTableThead = () =>
 		</tr>
 	</thead>
 
-export default ({collection, discount=0.43, intro=0.25, margin=0.20}) =>
+export default ({collection, discount=0.43, intro=0.25, margin=0.20, onUpdate, onSelect, selectedAll}) =>
 	<Table className="MerakiQuotesDevicesTable">
-		<MerakiQuotesDevicesTableThead />
+		<MerakiQuotesDevicesTableThead onSelect={onSelect} selectedAll={selectedAll} />
 		<MerakiQuotesDevicesTableTbody 
 			collection={collection}
 			discount={discount}
 			intro={intro}
 			margin={margin}
+			onUpdate={onUpdate}
+			onSelect={onSelect}
 		/>
 	</Table>

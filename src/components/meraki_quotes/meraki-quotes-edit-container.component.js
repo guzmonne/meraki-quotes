@@ -20,6 +20,7 @@ export default ({
 	children,
 	state,
 	onUpdate,
+	onSelect,
 	onFetch,
 	page="index",
 	toggleModal,
@@ -40,12 +41,17 @@ export default ({
 			}}
 		/>
 
-		<MerakiQuotesEditSettings model={model} onUpdate={onUpdate} />
+		<MerakiQuotesEditSettings model={model} onUpdate={onUpdate} onRemoveDevice={() => {
+			onUpdate({Devices: [...model.Devices.filter(device => device.selected !== true)]})
+		}}/>
 
 		<Row>
 			<Col xs={12}>
 				<MerakiQuotesDevicesTable 
 					collection={model.Devices || []}
+					onUpdate={onUpdate}
+					onSelect={onSelect}
+					selectedAll={state.selectedAll}
 				/>
 			</Col>
 		</Row>

@@ -13,7 +13,8 @@ import {
 	MERAKI_QUOTES_GET_ERROR,
 	DOING_MERAKI_QUOTES_UPDATE,
 	MERAKI_QUOTES_UPDATE_SUCCESS,
-	MERAKI_QUOTES_UPDATE_ERROR
+	MERAKI_QUOTES_UPDATE_ERROR,
+	TOGGLE_SELECTION_ON_MERAKI_DEVICES
 } from '../../../state/action-types.js'
 
 const defaultState = {
@@ -29,7 +30,8 @@ const defaultState = {
 	pageSize                        : 10,
 	queryString                     : "",
 	count                           : 0,
-	current                         : {}
+	current                         : {},
+	selectedAll                     : false
 }
 
 export default function merakiQuotesReducer(state=defaultState, action){
@@ -152,6 +154,13 @@ export default function merakiQuotesReducer(state=defaultState, action){
 				state,
 				{isUpdatignQuote: false},
 				{error: action.error}
+			)
+		case TOGGLE_SELECTION_ON_MERAKI_DEVICES:
+			return Object.assign(
+				{},
+				state,
+				{current: Object.assign({}, state.current, {Devices: action.Devices})},
+				{selectedAll: action.selectedAll}
 			)
 		// -------
 		// DEFAULT

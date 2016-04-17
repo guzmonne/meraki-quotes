@@ -48,6 +48,7 @@ class MerakiQuotesSearchForm extends React.Component {
 		this.onSearchStringFocus = this.onSearchStringFocus.bind(this)
 		this.onToggleDropdown = this.onToggleDropdown.bind(this)
 		this.onDeviceSelect = this.onDeviceSelect.bind(this)
+		this.getSelected = this.getSelected.bind(this)
 		this.submit = this.submit.bind(this)
 		this.state = {
 			filteredCollection: [],
@@ -100,18 +101,22 @@ class MerakiQuotesSearchForm extends React.Component {
 
 	onDeviceSelect(device){
 		setTimeout(() => {
-			this.setState({
-				searchString: device.PartNumber,
-				selected: device
-			})
-			console.log(this.state)
+			this.setState({searchString: device.PartNumber})
 		})
+	}
+
+	getSelected(){
+		return this.props.devices.find(x => x.PartNumber === this.state.searchString)
 	}
 
 	submit(){
 		const qty = parseInt(this.refs.qyt.getValue())
-		const selected = Object.assign({}, this.state.selected)
+		let selected = this.getSelected()
 
+		if (!selected)
+			return
+
+		selected = Object.assign({}, selected)
 		selected.Qty = qty
 		selected.Intro = 0.2
 
@@ -148,7 +153,7 @@ class MerakiQuotesSearchForm extends React.Component {
 					/>
 				</Col>
 				<Col sm={2}>
-					<Button block onClick={this.submit}>
+					<Button block onClick={this.submit} disabled={!this.getSelected()}>
 						<i className="fa fa-plus"></i>{' Agregar'}
 					</Button>
 				</Col>

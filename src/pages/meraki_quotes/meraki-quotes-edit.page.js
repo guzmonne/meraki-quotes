@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {
 	toggleMerakiQuotesCreateModal,
+	toggleSelectionOnMerakiDevices,
 	doMerakiQuotesGet,
 	doMerakiQuotesUpdate,
 } from './actions/meraki-quotes.actions.js'
@@ -25,6 +26,7 @@ class MerakiQuotesEdit extends React.Component {
 			doMerakiQuotesUpdate,
 			doMerakiDevicesGetAll,
 			toggleMerakiQuotesCreateModal,
+			toggleSelectionOnMerakiDevices,
 			merakiQuotes,
 			merakiDevices
 		} = this.props
@@ -32,6 +34,7 @@ class MerakiQuotesEdit extends React.Component {
 		return <MerakiQuotesEditContainer
 			onFetch={doMerakiQuotesGet}
 			onUpdate={doMerakiQuotesUpdate}
+			onSelect={toggleSelectionOnMerakiDevices}
 			state={merakiQuotes}
 			model={merakiQuotes.current}
 			toggleModal={toggleMerakiQuotesCreateModal}
@@ -50,6 +53,7 @@ const select = state => (
 
 const actions = {
 	toggleMerakiQuotesCreateModal,
+	toggleSelectionOnMerakiDevices,
 	doMerakiQuotesGet,
 	doMerakiQuotesUpdate,
 	doMerakiDevicesGetAll
