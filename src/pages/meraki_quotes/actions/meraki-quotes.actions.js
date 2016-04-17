@@ -51,7 +51,6 @@ export function doMerakiQuotesCreate(quote){
 
 		AwsApiObservers.
 			merakiQuotesCreateObs(quote).
-			do(x => console.log(x)).
 			subscribe(
 				({response}) => handleSuccess(response),
 				error => handleError(error)

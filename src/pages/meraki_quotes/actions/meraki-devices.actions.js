@@ -11,7 +11,10 @@ import {
 	MERAKI_DEVICES_DESTROY,
 	MERAKI_DEVICES_DESTROY_ERROR,
 	SET_MERAKI_DEVICES_PAGE_SIZE,
-	SET_MERAKI_DEVICES_QUERY_STRING
+	SET_MERAKI_DEVICES_QUERY_STRING,
+	DOING_MERAKI_DEVICES_GETALL,
+	MERAKI_DEVICES_GETALL_SUCCESS,
+	MERAKI_DEVICES_GETALL_ERROR
 } from '../../../state/action-types.js'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
 import ActionHelpers from '../../../modules/action-helpers.module.js'
@@ -236,5 +239,53 @@ function merakiDevicesDestroyError(error, collection){
 		type: MERAKI_DEVICES_DESTROY_ERROR,
 		error,
 		collection
+	}
+}
+
+////////////////////////////////
+/// MERAKI DEVICES GETALL
+////////////////////////////////
+
+export function doMerakiDevicesGetAll(){
+	return dispatch => {
+		dispatch(doingMerakiDevicesGetAll())
+
+		AwsApiObservers.
+			merakiDevicesGetAllObs().
+			subscribe(
+				({response}) => {
+					if (!!response.errorMessage){
+						console.log(response.errorMessage)
+						dispatch(merakiDevicesGetAllError(response.errorMessage))
+						return
+					}
+					if (!!response.Items){
+						dispatch(merakiDevicesGetAllSuccess(response.Items))
+						return
+					}
+					dispatch(merakiDevicesGetAllError('No Items found on response'))
+				},
+				error => dispatch(merakiDevicesGetAllError(error))
+			)
+	}
+}
+
+function doingMerakiDevicesGetAll(){
+	return {
+		type: DOING_MERAKI_DEVICES_GETALL
+	}
+}
+
+function merakiDevicesGetAllSuccess (collection){
+	return {
+		type: MERAKI_DEVICES_GETALL_SUCCESS,
+		collection
+	}
+}
+
+function merakiDevicesGetAllError(error){
+	return {
+		type: MERAKI_DEVICES_GETALL_ERROR,
+		error
 	}
 }

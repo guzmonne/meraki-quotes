@@ -1,68 +1,35 @@
 import React from 'react'
 import {Row, Col, Input, DropdownButton, Button, MenuItem} from 'react-bootstrap'
 import accounting from 'accounting'
+import Rx from 'rx'
+import _ from 'lodash'
 
 const moneyOptions = {
 	decimal: ',',
 	thousand: '.'
 }
 
-const devices = [
-	{
-	  "Category": "Switches",
-	  "createdAt": "2016-04-06T03:08:36.958Z",
-	  "Description": "Meraki MS320-48 L3 Cloud Managed 48 Port GigE Switch",
-	  "ID": "bcb68846-b97b-4cdb-9ccc-4b6199d6a6b0",
-	  "ImageUrl": "https://www.meraki.com/img/products/icons/ms320-48.jpg",
-	  "PartNumber": "MS320-48-HW",
-	  "Price": 6655,
-	  "Qty": 10,
-	  "Intro": 0.2
-	},
-	{
-	  "Category": "Switches",
-	  "createdAt": "2016-04-06T03:21:22.487Z",
-	  "Description": "Meraki MS410-16 Cld-Mngd 16x GigE SFP Switch",
-	  "ID": "95698dff-ad8e-4288-ab78-6b3a7c4b04fc",
-	  "ImageUrl": "https://www.meraki.com/img/products/icons/ms410-16.jpg",
-	  "PartNumber": "MS410-16-HW",
-	  "Price": 8500,
-	  "Qty": 2,
-	  "Intro": 0.2
-	},
-	{
-	  "Category": "Wireless",
-	  "createdAt": "2016-04-06T03:37:50.956Z",
-	  "Description": "Meraki MR32 Cloud Managed AP",
-	  "ID": "ec8d6b7d-d820-40f9-b5a2-d20f20cd62a9",
-	  "ImageUrl": "https://www.meraki.com/img/products/icons/mr32.jpg",
-	  "PartNumber": "MR32-HW",
-	  "Price": 799,
-	  "Qty": 100,
-	  "Intro": 0.2
-	},
-	{
-	  "Category": "UTM",
-	  "createdAt": "2016-04-06T03:36:06.382Z",
-	  "Description": "Meraki MX64W Cloud Managed Security Appliance with 802.11ac",
-	  "ID": "9359a018-c900-47f6-a971-bf24e45b8dc2",
-	  "ImageUrl": "https://www.meraki.com/img/products/appliances/overview/models/overview-model-mx64w.jpg",
-	  "PartNumber": "MX64W-HW",
-	  "Price": 945,
-	  "Qty": 4,
-	  "Intro": 0.2
-	}
-]
-
-const CaretButton = ({collection}) =>
-	<DropdownButton pullRight title="" id="MerakiQuotesDevicesOptions" open={true}>
+const MerakiQuotesDevicesDropdownOptions = ({collection, onToggle, open, onSelect}) =>
+	<DropdownButton pullRight onToggle={onToggle} open={open} title="" id="MerakiQuotesDevicesOptions">
 		{collection.map((x, i) => 
-			<MenuItem href="javascript:void(0)" key={i} className="MerakiDeviceOption">
-				<table width="500px">
+			<MenuItem
+				href="javascript:void(0)"
+				key={i}
+				className="MerakiDeviceOption"
+				onSelect={() => {
+					console.log('Clicked')
+					onSelect(x)
+				}}
+			>
+				<table width="600px">
 					<tbody>
 						<tr>
 							<td width="25%">{x.PartNumber}</td>
-							<td width="60%">{x.Description.length > 35 ? x.Description.slice(0, 35) + '...' : x.Description }</td>
+							<td width="60%">{x.Description.length > 60 ? 
+								x.Description.replace(`Meraki ${x.PartNumber.replace('-HW', '')}`, '').slice(0, 60) + '...' 
+								: 
+								x.Description.replace(`Meraki ${x.PartNumber.replace('-HW', '')}`, '') }
+							</td>
 							<td width="15%">{accounting.formatMoney(x.Price, moneyOptions)}</td>
 						</tr>
 					</tbody>
@@ -71,25 +38,117 @@ const CaretButton = ({collection}) =>
 		)}
 	</DropdownButton>
 
-export default class MerakiQuotesSearchForm extends React.Component {
+MerakiQuotesDevicesDropdownOptions.displayName = 'MerakiQuotesDevicesDropdownOptions'
+
+class MerakiQuotesSearchForm extends React.Component {
+	constructor(){
+		super()
+		this.collectionSubject = new Rx.Subject()
+		this.onSearchStringChange = this.onSearchStringChange.bind(this)
+		this.onSearchStringFocus = this.onSearchStringFocus.bind(this)
+		this.onToggleDropdown = this.onToggleDropdown.bind(this)
+		this.onDeviceSelect = this.onDeviceSelect.bind(this)
+		this.submit = this.submit.bind(this)
+		this.state = {
+			filteredCollection: [],
+			isOpen: false,
+			searchString: '',
+			selected: {}
+		}
+	}
+
+	componentWillMount(){
+		this.collectionSubject.
+			map(collection => !_.isArray(collection) ? [] : collection).
+			flatMap(collection => Rx.Observable.
+				fromArray(collection).
+				filter(model => model.PartNumber.indexOf('LIC') === -1).
+				filter(model => model.PartNumber.indexOf(this.state.searchString.toUpperCase()) > -1).
+				take(10).
+				reduce((acc, model) => [...acc, model], [])
+			).
+			subscribe(
+				collection => this.setState({
+					filteredCollection: collection
+				})
+			)
+	}
+
+	componentWillReceiveProps(nextProps){
+		this.collectionSubject.onNext(nextProps.devices)
+	}
+
+	onSearchStringChange(){
+		const searchString = this.refs.searchString.getValue()
+		const isOpen = searchString !== ''	
+
+		this.setState({searchString, isOpen})
+		setTimeout(() => 
+			this.collectionSubject.onNext(this.props.devices)
+		)
+	}
+
+	onSearchStringFocus(){
+		const searchString = this.refs.searchString.getValue()
+
+		this.setState({isOpen: this.state.isOpen || searchString !== ''})
+	}
+
+	onToggleDropdown(isOpen){
+		this.setState({isOpen})
+	}
+
+	onDeviceSelect(device){
+		setTimeout(() => {
+			this.setState({
+				searchString: device.PartNumber,
+				selected: device
+			})
+			console.log(this.state)
+		})
+	}
+
+	submit(){
+		const qty = parseInt(this.refs.qyt.getValue())
+		const selected = Object.assign({}, this.state.selected)
+
+		selected.Qty = qty
+		selected.Intro = 0.2
+
+		this.props.onAdd(selected)
+	}
+
 	render(){
+		const {devices=[], updating} = this.props
+		const {filteredCollection, isOpen, searchString} = this.state
+
 		return (
 			<Row className="MerakiQuotesEdit__device_search_form">
 				<Col sm={8}>
 					<Input 
 						type="text"
 						placeholder="Buscar equipos por modelo o descripción"
-						buttonAfter={<CaretButton collection={devices}></CaretButton>}
+						ref="searchString"
+						onChange={this.onSearchStringChange}
+						value={searchString}
+						buttonAfter={<MerakiQuotesDevicesDropdownOptions 
+							collection={filteredCollection}
+							onToggle={this.onToggleDropdown}
+							open={isOpen}
+							onSelect={this.onDeviceSelect}
+						/>}
+						disabled={updating}
 					/>
 				</Col>
 				<Col sm={2}>
 					<Input 
 						type="number"
 						defaultValue={1}
+						ref="qyt"
 					/>
 				</Col>
 				<Col sm={2}>
-					<Button block>
+					<Button block onClick={this.submit}>
 						<i className="fa fa-plus"></i>{' Agregar'}
 					</Button>
 				</Col>
@@ -97,3 +156,10 @@ export default class MerakiQuotesSearchForm extends React.Component {
 		)
 	}
 }
+
+MerakiQuotesSearchForm.propTypes = {
+	devices: React.PropTypes.array,
+	updating: React.PropTypes.bool
+}
+
+export default MerakiQuotesSearchForm

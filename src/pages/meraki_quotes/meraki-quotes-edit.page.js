@@ -5,11 +5,14 @@ import {
 	doMerakiQuotesGet,
 	doMerakiQuotesUpdate,
 } from './actions/meraki-quotes.actions.js'
+import {doMerakiDevicesGetAll} from './actions/meraki-devices.actions.js'
 import MerakiQuotesEditContainer from '../../components/meraki_quotes/meraki-quotes-edit-container.component.js'
 
 class MerakiQuotesEdit extends React.Component {
 	componentWillMount(){
 		this.props.doMerakiQuotesGet(this.props.params.ID)
+		if (this.props.merakiDevices.all.length === 0)
+			this.props.doMerakiDevicesGetAll()
 	}
 
 	componentWillUnmount(){
@@ -20,8 +23,10 @@ class MerakiQuotesEdit extends React.Component {
 		const {
 			doMerakiQuotesGet,
 			doMerakiQuotesUpdate,
+			doMerakiDevicesGetAll,
 			toggleMerakiQuotesCreateModal,
-			merakiQuotes
+			merakiQuotes,
+			merakiDevices
 		} = this.props
 		
 		return <MerakiQuotesEditContainer
@@ -30,18 +35,24 @@ class MerakiQuotesEdit extends React.Component {
 			state={merakiQuotes}
 			model={merakiQuotes.current}
 			toggleModal={toggleMerakiQuotesCreateModal}
+			devices={merakiDevices.all}
+			isGettingMerakiDevices={merakiDevices.isGettingMerakiDevices}
 		/>
 	}
 }
 
 const select = state => (
-	{merakiQuotes: state.merakiQuotes}
+	{
+		merakiQuotes: state.merakiQuotes,
+		merakiDevices: state.merakiDevices
+	}
 )
 
 const actions = {
 	toggleMerakiQuotesCreateModal,
 	doMerakiQuotesGet,
-	doMerakiQuotesUpdate
+	doMerakiQuotesUpdate,
+	doMerakiDevicesGetAll
 }
 
 export default connect(select, actions)(MerakiQuotesEdit)

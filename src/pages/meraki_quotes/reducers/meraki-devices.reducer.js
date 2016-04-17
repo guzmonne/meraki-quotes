@@ -11,11 +11,15 @@ import {
 	MERAKI_DEVICES_DESTROY,
 	MERAKI_DEVICES_DESTROY_ERROR,
 	SET_MERAKI_DEVICES_PAGE_SIZE,
-	SET_MERAKI_DEVICES_QUERY_STRING
+	SET_MERAKI_DEVICES_QUERY_STRING,
+	DOING_MERAKI_DEVICES_GETALL,
+	MERAKI_DEVICES_GETALL_SUCCESS,
+	MERAKI_DEVICES_GETALL_ERROR
 } from '../../../state/action-types.js'
 
 const defaultState = {
 	collection                      : [],
+	all                             : [],
 	isGettingMerakiDevices          : false,
 	error                           : null,
 	priceListDiscount               : 1,
@@ -132,6 +136,30 @@ export default function merakiDevicesReducer(state=defaultState, action){
 				{},
 				state,
 				{queryString: action.queryString}
+			)
+		//////////////////////////////////////
+		/// MERAKI DEVICE GET ALL
+		//////////////////////////////////////
+		case DOING_MERAKI_DEVICES_GETALL:
+			return Object.assign(
+				{},
+				state,
+				{doingMerakiDevicesGetAll: true}
+			)
+		case MERAKI_DEVICES_GETALL_SUCCESS:
+			return Object.assign(
+				{},
+				state,
+				{doingMerakiDevicesGetAll: false},
+				{error: null},
+				{all: action.collection}
+			)
+		case MERAKI_DEVICES_GETALL_ERROR:
+			return Object.assign(
+				{},
+				state,
+				{doingMerakiDevicesGetAll: false},
+				{error: action.error}
 			)
 		default:
 			return state

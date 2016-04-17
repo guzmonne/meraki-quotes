@@ -73,6 +73,10 @@ const AwsApiObservers = function(){
 			body         : JSON.stringify({email, permissions})
 		})
 
+	// -------------- //
+	// MERAKI DEVICES //
+  // -------------- //
+
 	const merakiDevicesIndexObs = (paginationKey, pageSize=10, query) => {
 		let queryString
 
@@ -107,6 +111,11 @@ const AwsApiObservers = function(){
 			url: `${url}meraki-quotes/meraki-devices/destroy`,
 			method: DELETE,
 			body: JSON.stringify({devices})
+		})
+
+	const merakiDevicesGetAllObs = () =>
+		ajaxObs({
+			url: `${url}meraki-quotes/meraki-devices/all`
 		})
 
 	// ------------- //
@@ -170,6 +179,7 @@ const AwsApiObservers = function(){
 		merakiDevicesIndexObs,
 		merakiDevicesCreateObs,
 		merakiDevicesDestroyObs,
+		merakiDevicesGetAllObs,
 		// MERAKI QUOTES
 		merakiQuotesCreateObs,
 		merakiQuotesIndexObs,

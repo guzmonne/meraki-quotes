@@ -23,22 +23,29 @@ export default ({
 	onFetch,
 	page="index",
 	toggleModal,
-	// TODO: Pass in this model from the page
 	model={},
+	devices=[],
+	isGettingMerakiDevices=false,
 	// TODO: Remove this line for the actual current user implementation
 	user={}
 }) =>
 	<Panel className="MerakiQuotesEdit">
 		<MerakiQuotesEditHeader toggleModal={toggleModal} model={model} user={user}/>
 		
-		<MerakiQuotesDeviceSearchForm />
+		<MerakiQuotesDeviceSearchForm
+			devices={devices}
+			updating={isGettingMerakiDevices} 
+			onAdd={device => {
+				onUpdate({Devices: [...(model.Devices || []), device]})
+			}}
+		/>
 
 		<MerakiQuotesEditSettings model={model} onUpdate={onUpdate} />
 
 		<Row>
 			<Col xs={12}>
 				<MerakiQuotesDevicesTable 
-					collection={model.ProductList || []}
+					collection={model.Devices || []}
 				/>
 			</Col>
 		</Row>
