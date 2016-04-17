@@ -9,11 +9,10 @@ class MerakiQuotesYearsForm extends React.Component {
 			<form className="form-horizontal">
 				<Input
 					type="number"
-					label="Descuento"
+					label="Descuento (%)"
 					ref="discount"
-					addonAfter="%"
 					value={(value || 0.43) * 100}
-					labelClassName="col-xs-6"
+					labelClassName="col-xs-7"
 					wrapperClassName="col-xs-5"
 					onChange={() => {
 						// Need to calculate the discount as a percentage

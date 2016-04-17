@@ -18,13 +18,13 @@ export default class MerakiQuotesEditSettings extends React.Component {
 						onUpdate={onUpdate}
 					/>
 				</Col>
-				<Col sm={1}>
+				<Col sm={2}>
 					<MerakiQuotesDealForm
 						value={model.DealApproved || true}
 						onUpdate={onUpdate}
 					/>
 				</Col>
-				<Col sm={4}>
+				<Col sm={3}>
 					<MerakiQuotesDiscountForm 
 						value={model.Discount || 0.43}
 						onUpdate={onUpdate}
