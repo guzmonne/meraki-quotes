@@ -36,9 +36,7 @@ export default ({
 		<MerakiQuotesDeviceSearchForm
 			devices={devices}
 			updating={isGettingMerakiDevices} 
-			onAdd={device => {
-				onUpdate({Devices: [...(model.Devices || []), device]})
-			}}
+			onAdd={device => onUpdate({Devices: [...(model.Devices || []), device]})}
 		/>
 
 		<MerakiQuotesEditSettings model={model} onUpdate={onUpdate} onRemoveDevice={() => {
@@ -49,9 +47,26 @@ export default ({
 			<Col xs={12}>
 				<MerakiQuotesDevicesTable 
 					collection={model.Devices || []}
+					licenses={!_.isUndefined(model) && _.isArray(model.Devices) && model.Devices.
+						map(device => {
+							let license
+							// Device is an AP
+							if (device.PartNumber.indexOf('MR') > -1 && device.Category === 'Wireless')
+								license = devices.find(x => x.PartNumber === `LIC-ENT-${model.LicenceYears}YR`)
+							else if (device.PartNumber.indexOf('Z1') > -1 && device.Category === 'UTM')
+								license = devices.find(x => x.PartNumber === `LIC-Z1-ENT-${model.LicenceYears}YR`)
+							else if (device.Category !== 'Accesories')
+								license = devices.find(x => x.PartNumber === `LIC-${device.PartNumber.replace('-HW', '')}-${model.LicenceYears}YR`)
+							if (!!license)
+								license.Qty = device.Qty
+							return license
+						}).
+						filter(device => !_.isUndefined(device))
+					}
 					onUpdate={onUpdate}
 					onSelect={onSelect}
 					selectedAll={state.selectedAll}
+					model={model}
 				/>
 			</Col>
 		</Row>

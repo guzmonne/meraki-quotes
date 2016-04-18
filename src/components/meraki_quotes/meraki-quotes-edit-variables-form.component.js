@@ -1,5 +1,6 @@
 import React from 'react'
 import {Input, Panel, Button, ButtonGroup} from 'react-bootstrap'
+import accounting from 'accounting'
 
 class MerakiQuotesEditVariablesForm extends React.Component {
 	constructor(){
@@ -16,7 +17,9 @@ class MerakiQuotesEditVariablesForm extends React.Component {
 	}
 
 	submitMargin(margin){
-		const value = parseInt(this.refs[margin].getValue()) / 100
+		const marginValue = +this.refs[margin].getValue() / 100
+		const stringValue = accounting.toFixed(marginValue, 2)
+		const value = parseFloat(stringValue) 
 
 		this.props.onUpdate({[margin]: value})
 	}
@@ -54,7 +57,7 @@ class MerakiQuotesEditVariablesForm extends React.Component {
 							type="number"
 							ref="HardwareMargin"
 							onChange={() => this.submitMargin('HardwareMargin')}
-							value={(model.HardwareMargin || 0.2) * 100}
+							value={Math.round((model.HardwareMargin || 0.2) * 100, 0)}
 							addonAfter={<i className="fa fa-percent"></i>}
 						/>						
 						<Input 
@@ -64,7 +67,7 @@ class MerakiQuotesEditVariablesForm extends React.Component {
 							type="number"
 							ref="SoftwareMargin"
 							onChange={() => this.submitMargin('SoftwareMargin')}
-							value={(model.SoftwareMargin || 0.2) * 100}
+							value={Math.round((model.SoftwareMargin || 0.2) * 100, 0)}
 							addonAfter={<i className="fa fa-percent"></i>}
 						/>						
 						<Input 
@@ -74,7 +77,7 @@ class MerakiQuotesEditVariablesForm extends React.Component {
 							type="number"
 							ref="ServiceMargin"
 							onChange={() => this.submitMargin('ServiceMargin')}
-							value={(model.ServiceMargin || 0.2) * 100}
+							value={Math.round((model.ServiceMargin || 0.2) * 100, 0)}
 							addonAfter={<i className="fa fa-percent"></i>}
 						/>						
 						<Input 
@@ -84,7 +87,7 @@ class MerakiQuotesEditVariablesForm extends React.Component {
 							type="number"
 							ref="AdminMargin"
 							onChange={() => this.submitMargin('AdminMargin')}
-							value={(model.AdminMargin || 0.2) * 100}
+							value={Math.round((model.AdminMargin || 0.2) * 100, 0)}
 							addonAfter={<i className="fa fa-percent"></i>}
 						/>
 					</form>

@@ -330,7 +330,7 @@ export function doMerakiQuotesUpdate(patch, index){
 
 		Rx.Observable.
 			just({done: true}).
-			delay(2000).
+			delay(1).
 			subscribe(
 				() => dispatch(merakiQuotesUpdateSuccess()),
 				error => dispatch(handleMerakiQuotesError(MERAKI_QUOTES_UPDATE_ERROR, error))
