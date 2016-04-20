@@ -7,22 +7,9 @@ const moneyOptions = {
 	thousand: '.'
 }
 
-const ListPrice = ({device, discount, margin, intro, quantity=1}) => 
-	<p>
-		{accounting.formatMoney(device.Price * (1 - discount) * (1 + intro) / (1 - margin) * quantity, moneyOptions)}
-	</p>
-
-const SubTotal = ({device, discount, margin, intro}) => 
-	<ListPrice 
-		discount={device.Discount || discount}
-		margin={device.Margin || margin}
-		intro={device.Intro || intro}
-		device={device}
-		quantity={device.Qty || 1}
-	/>
-
 export default ({device, model, onUpdate, index, onSelect}) => {
 	return device.PartNumber.indexOf('LIC') === -1 ?
+		/* HARDWARE ROW */
 		<tr>
 			<td>
 				<input
@@ -50,7 +37,7 @@ export default ({device, model, onUpdate, index, onSelect}) => {
 			<td>
 				<Input 
 					type="text"
-					defaultValue={device.Qty}
+					value={device.Qty}
 					onChange={e => onUpdate(Object.assign({}, device, {Qty: +e.target.value}), index)}
 				/>
 			</td>
@@ -87,6 +74,7 @@ export default ({device, model, onUpdate, index, onSelect}) => {
 			</td>
 		</tr>
 		:
+		/* SOFTWARE ROW */
 		<tr>
 			<td></td>
 			<td>

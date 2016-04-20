@@ -11,7 +11,6 @@ export default ({licenses, collection, model, onUpdate, onSelect, selectedAll}) 
 		<MerakiQuotesDevicesTableThead onSelect={onSelect} selectedAll={selectedAll} />
 		<MerakiQuotesDevicesTableTbody 
 			collection={collection}
-			licenses={licenses}
 			model={model}
 			onUpdate={onUpdate}
 			onSelect={onSelect}

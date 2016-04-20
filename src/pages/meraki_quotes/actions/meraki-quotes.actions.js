@@ -18,7 +18,7 @@ import {
 } from '../../../state/action-types.js'
 import _ from 'lodash'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
-
+import {calculateNeededLicenses, getHardware} from '../../../modules/meraki-quotes-devices.module.js'
 
 // MERAKI QUOTES CREATE
 
@@ -308,9 +308,15 @@ export function doMerakiQuotesUpdate(patch, index){
 		if (!_.isObject(patch)) return
 		// A device is being updated instead of a patch of the quote.
 		if (_.isNumber(index)){
-			const Devices = getState().merakiQuotes.current.Devices.map((device, i) =>
+			const state = getState()
+			const list  = state.merakiDevices.all
+			const years = state.merakiQuotes.current.LicenceYears
+			let Devices = state.merakiQuotes.current.Devices.map((device, i) =>
 				i === index ? patch : device
 			)
+			const hardware = getHardware(Devices)
+			const software = calculateNeededLicenses(hardware, years, list)
+			Devices = [...hardware, ...software]
 			patch = {Devices}
 		} else {
 			// Only allow certain keys
@@ -319,7 +325,16 @@ export function doMerakiQuotesUpdate(patch, index){
 			if (Object.keys(patch).length === 0) return
 		}
 
-		console.log(patch)
+		// Recalculate the licenses needed after changing the LicenseYear value
+		if (!!patch.LicenceYears){
+			const state = getState()
+			const list  = state.merakiDevices.all
+			let Devices = state.merakiQuotes.current.Devices
+			const hardware = getHardware(Devices)
+			const software = calculateNeededLicenses(hardware, patch.LicenceYears, list)
+			Devices = [...hardware, ...software]
+			patch = Object.assign({}, patch, {Devices})
+		}
 
 		dispatch(doingMerakiQuotesUpdate(patch))
 
@@ -360,6 +375,12 @@ function merakiQuotesUpdateSuccess(){
 	}
 }
 
+/**
+ * Action dispatcher that sets the selected value on the Meraki Quotes devices
+ * @param  {Number|String} index Used to get the correct location of the device to select
+ *                               If a string 'all' is provided then all the devices are selected
+ * @return {Action dispatcher} 
+ */
 export function toggleSelectionOnMerakiDevices(index){
 	return (dispatch, getState) => {
 		const merakiQuotes = getState().merakiQuotes
