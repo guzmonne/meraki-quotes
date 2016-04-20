@@ -12,12 +12,12 @@ const moneyOptions = {
 
 const SERVICE_LEVEL_CONSTANTS = {
 	'9x5xNBD': {
-		admin: 4.39,
-		service: 0.972
+		admin: 2.030,
+		service: 0.4444
 	},
 	'24x7x4': {
-		admin: 5.96,
-		service: 2.08
+		admin: 3.041,
+		service: 1.405
 	}
 }
 
@@ -52,11 +52,12 @@ export function calculateCost(collection, model, type){
 	// Reduce the licenses to get the result
 	return getLicenses(collection).reduce((acc, license) => {
 		// Get Price value from the license
-		const {Price} = license
+		const {Price, Qty} = license
 		// Handle the case when the Price is not defined
 		if (!Price) return acc
 		// Return the accumulated value
-		return acc + Price * (1 - Discount) * modifier / (LicenceYears * 12 /*months*/)
+//	return acc + Price * (1 - Discount) * modifier / (LicenceYears * 12 /*months*/)
+		return acc + Price * Qty * modifier / (LicenceYears * 12 /*months*/)
 	}, 0)
 }
 
@@ -239,19 +240,28 @@ const isUTM    = _.curry(contains)('MX')
 const isZ1     = _.curry(contains)('Z1')
 
 /**
-model.Devices.
-						map(device => {
-							let license
-							// Device is an AP
-							if (device.PartNumber.indexOf('MR') > -1 && device.Category === 'Wireless')
-								license = devices.find(x => x.PartNumber === `LIC-ENT-${model.LicenceYears}YR`)
-							else if (device.PartNumber.indexOf('Z1') > -1 && device.Category === 'UTM')
-								license = devices.find(x => x.PartNumber === `LIC-Z1-ENT-${model.LicenceYears}YR`)
-							else if (device.Category !== 'Accesories')
-								license = devices.find(x => x.PartNumber === `LIC-${device.PartNumber.replace('-HW', '')}-${model.LicenceYears}YR`)
-							if (!!license)
-								license.Qty = device.Qty
-							return license
-						}).
-						filter(device => !_.isUndefined(device))
+ * Calculates the monthly payments necessary for the Unified solution by
+ * returning the sum of the finance hardware, licenses, and administration
+ * and service costs.
+ * @param  {Collection} collection Devices and licences collection
+ * @param  {Quote}      quote      Object representing the current quote
+ * @return {Number}            		 Unified Solution monthly payment
  */
+export const calculateUnifiedSolutionCost = (collection, quote) => {
+	const {HardwareMargin, SoftwareMargin, AdminMargin, ServiceMargin, Discount, LicenceYears} = quote
+	const hardware = getHardware(collection)
+	const software = getLicenses(collection)
+	const hardwareCost = calculatePrice(hardware, {Margin: HardwareMargin, Discount: Discount})
+	const softwareCost = calculatePrice(software, {Margin: SoftwareMargin, Discount: Discount})
+	const adminCost = calculateAdministrationCost(collection, quote)
+	const serviceCost = calculateServiceCost(collection, quote)
+	const months = LicenceYears * 12
+
+	return (
+		hardwareCost * 0.04 +
+		softwareCost / 36   + 
+		adminCost / (1 - AdminMargin) + 
+		serviceCost / (1 - ServiceMargin)
+	)
+}
+

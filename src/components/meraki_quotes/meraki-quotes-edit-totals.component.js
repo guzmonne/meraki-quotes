@@ -1,8 +1,14 @@
 import React from 'react'
 import {Panel, Row, Col, Input} from 'react-bootstrap'
+import {
+	calculateUnifiedSolutionCost,
+	formatMoney
+} from '../../modules/meraki-quotes-devices.module.js'
 
 export default class MerakiQuotesEditTotals extends React.Component {
 	render(){
+		const {collection, quote} = this.props
+
 		return (
 			<div>
 				<h4>
@@ -21,7 +27,7 @@ export default class MerakiQuotesEditTotals extends React.Component {
 							<p>Cuota Mensual</p>
 						</Col>
 						<Col xs={6}>
-							<p>{'$1562.00'}</p>
+							<p>{formatMoney(calculateUnifiedSolutionCost(collection, quote))}</p>
 						</Col>
 					</Row>
 					<Row>

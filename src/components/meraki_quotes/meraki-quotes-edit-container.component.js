@@ -14,7 +14,7 @@ import MerakiQuotesEditTotals from './meraki-quotes-edit-totals.component.js'
 import MerakiQuotesDeviceSearchForm from './meraki-quotes-device-search-form.component.js'
 import MerakiQuotesEditHeader from './meraki-quotes-edit-header.component.js'
 import MerakiQuotesEditSettings from './meraki-quotes-edit-settings.component.js'
-import MerakiQUotesCreateModal from './meraki-quote-create-modal.component.js'
+import MerakiQuotesCreateModal from './meraki-quote-create-modal.component.js'
 
 import {
 	merakiQuotesDevicesAdd,
@@ -78,10 +78,13 @@ export default ({
 				/>
 			</Col>
 			<Col sm={7}>
-				<MerakiQuotesEditTotals />
+				<MerakiQuotesEditTotals 
+					collection={model.Devices}
+					quote={model}
+				/>
 			</Col>
 		</Row>
-		<MerakiQUotesCreateModal 
+		<MerakiQuotesCreateModal 
 			show={state.isShowingMerakiQuotesCreateModal}
 			onToggle={toggleModal}
 			onSubmit={patch => {toggleModal(); onUpdate(patch)}}
