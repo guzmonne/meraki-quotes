@@ -28,8 +28,11 @@ const AwsApiObservers = function(){
 		return output
 	}
 
-	const ajaxObs = settings => Rx.DOM.
-		ajax(Object.assign({}, defaultSettings(), settings))
+	const ajaxObs = settings => 
+		Rx.DOM.
+		ajax(Object.assign({}, defaultSettings(), settings)).
+		retry(3).
+		doOnError(x => console.log(x))
 	
 	const getToken = () => localStorage.token
 	/*

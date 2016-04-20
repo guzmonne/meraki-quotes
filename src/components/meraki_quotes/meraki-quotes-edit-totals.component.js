@@ -1,15 +1,20 @@
 import React from 'react'
 import {Panel, Row, Col, Input} from 'react-bootstrap'
 import {
-	calculateUnifiedSolutionCost,
+	calculateUnifiedSolutionPrice,
+	calculateAdminMonthlyPrice,
+	calculateServiceMonthlyPrice,
+	calculateHardwarePrice,
 	formatMoney
 } from '../../modules/meraki-quotes-devices.module.js'
+import Spinner from '../helpers/spinner.component.js'
 
 export default class MerakiQuotesEditTotals extends React.Component {
 	render(){
-		const {collection, quote} = this.props
+		const {quote} = this.props
 
 		return (
+			Object.keys(quote).length === 0 ? <Spinner/> :
 			<div>
 				<h4>
 					<a className="text-info" href="javascript:void(0);">
@@ -27,7 +32,7 @@ export default class MerakiQuotesEditTotals extends React.Component {
 							<p>Cuota Mensual</p>
 						</Col>
 						<Col xs={6}>
-							<p>{formatMoney(calculateUnifiedSolutionCost(collection, quote))}</p>
+							<p>{formatMoney(calculateUnifiedSolutionPrice(quote))}</p>
 						</Col>
 					</Row>
 					<Row>
@@ -47,7 +52,7 @@ export default class MerakiQuotesEditTotals extends React.Component {
 							<p>Inversión Incial</p>
 						</Col>
 						<Col xs={6}>
-							<p>{'$15602.00'}</p>
+							<p>{formatMoney(calculateHardwarePrice(quote.Devices, quote))}</p>
 						</Col>
 					</Row>
 					<Row className="MerakiQuotesEdit__total_row">
@@ -55,7 +60,7 @@ export default class MerakiQuotesEditTotals extends React.Component {
 							<p>Cuota Mensual</p>
 						</Col>
 						<Col xs={6}>
-							<p>{'$1562.00'}</p>
+							<p>{formatMoney(calculateAdminMonthlyPrice(quote))}</p>
 						</Col>
 					</Row>
 				</Panel>
@@ -68,7 +73,7 @@ export default class MerakiQuotesEditTotals extends React.Component {
 							<p>Inversión Incial</p>
 						</Col>
 						<Col xs={6}>
-							<p>{'$15602.00'}</p>
+							<p>{formatMoney(calculateHardwarePrice(quote.Devices, quote))}</p>
 						</Col>
 					</Row>	
 					<Row className="MerakiQuotesEdit__total_row">
@@ -76,7 +81,7 @@ export default class MerakiQuotesEditTotals extends React.Component {
 							<p>Cuota Mensual</p>
 						</Col>
 						<Col xs={6}>
-							<p>{'$1562.00'}</p>
+							<p>{formatMoney(calculateServiceMonthlyPrice(quote))}</p>
 						</Col>
 					</Row>
 				</Panel>

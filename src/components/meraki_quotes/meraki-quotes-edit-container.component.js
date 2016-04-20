@@ -15,6 +15,7 @@ import MerakiQuotesDeviceSearchForm from './meraki-quotes-device-search-form.com
 import MerakiQuotesEditHeader from './meraki-quotes-edit-header.component.js'
 import MerakiQuotesEditSettings from './meraki-quotes-edit-settings.component.js'
 import MerakiQuotesCreateModal from './meraki-quote-create-modal.component.js'
+import Spinner from '../helpers/spinner.component.js'
 
 import {
 	merakiQuotesDevicesAdd,
@@ -35,8 +36,20 @@ export default ({
 	// TODO: Remove this line for the actual current user implementation
 	user={}
 }) =>
+	isGettingMerakiDevices === false && state.isGettingMerakiQuote ? 
+	<Panel className="loading">
+		<h1>
+			Cargando
+			<br/>
+			<Spinner />
+		</h1>
+	</Panel>
+	:
 	<Panel className="MerakiQuotesEdit">
-		<MerakiQuotesEditHeader toggleModal={toggleModal} model={model} user={user}/>
+		<MerakiQuotesEditHeader
+			toggleModal={toggleModal}
+			model={model}
+		/>
 		
 		<MerakiQuotesDeviceSearchForm
 			devices={devices}
@@ -60,8 +73,7 @@ export default ({
 
 		<Row>
 			<Col xs={12}>
-				<MerakiQuotesDevicesTable 
-					collection={model.Devices || []}
+				<MerakiQuotesDevicesTable
 					onUpdate={onUpdate}
 					onSelect={onSelect}
 					selectedAll={state.selectedAll}
@@ -78,8 +90,7 @@ export default ({
 				/>
 			</Col>
 			<Col sm={7}>
-				<MerakiQuotesEditTotals 
-					collection={model.Devices}
+				<MerakiQuotesEditTotals
 					quote={model}
 				/>
 			</Col>

@@ -5,7 +5,7 @@ import {
 	formatMoney
 } from '../../modules/meraki-quotes-devices.module.js'
 
-const MerakiQuotesDevicesTableServiceRow = ({collection, model}) =>
+const MerakiQuotesDevicesTableServiceRow = ({model}) =>
 	<tr>
 		<td></td>
 		<td>
@@ -20,7 +20,7 @@ const MerakiQuotesDevicesTableServiceRow = ({collection, model}) =>
 		</td>
 		<td>
 			<p>
-				{formatMoney(calculateServiceCost(collection, model))}
+				{formatMoney(calculateServiceCost(model.Devices, model))}
 			</p>
 		</td>
 		<td className="text-center"><p>-</p></td>
@@ -34,13 +34,12 @@ const MerakiQuotesDevicesTableServiceRow = ({collection, model}) =>
 		<td className="text-center"><p>-</p></td>
 		<td>
 			<p>
-				{formatMoney(calculateServiceCost(collection, model) / (1-model.ServiceMargin))}
+				{formatMoney(calculateServiceCost(model.Devices, model) / (1-model.ServiceMargin))}
 			</p>
 		</td>
 </tr>
 
 MerakiQuotesDevicesTableServiceRow.propTypes = {
-	collection: React.PropTypes.array.isRequired,
 	model: React.PropTypes.object.isRequired
 }
 

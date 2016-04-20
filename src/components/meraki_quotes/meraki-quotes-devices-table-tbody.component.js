@@ -14,17 +14,16 @@ import MerakiQuotesDevicesTableAdminRow from './meraki-quotes-devices-table-admi
 import MerakiQuotesDevicesTableFinancingRow from './meraki-quotes-devices-table-financing-row.component.js'
 
 export default ({
-	collection=[],
 	model,
 	onUpdate,
 	onSelect
 }) => {
-	return !_.isArray(collection) || collection.length === 0 ? 
+	return !_.isArray(model.Devices) || model.Devices.length === 0 ? 
 		<tbody><tr><td className="text-center" colSpan="9">Lista de equipos vacía.</td></tr></tbody>
 	:
 		<tbody>
 			<tr><td colSpan={9} className="MerakiQuotesDevicesTable__title_row">Hardware</td></tr>
-			{getHardware(collection).map((device, i) => 
+			{getHardware(model.Devices).map((device, i) => 
 				<DeviceRow
 					key={device.PartNumber + i}
 					onUpdate={onUpdate}
@@ -35,7 +34,7 @@ export default ({
 				/>
 			)}
 			<tr><td colSpan={9} className="MerakiQuotesDevicesTable__title_row">Software</td></tr>
-			{getLicenses(collection).map((license, i) =>
+			{getLicenses(model.Devices).map((license, i) =>
 				<DeviceRow
 					key={license.PartNumber + i}
 					device={license}
@@ -45,15 +44,12 @@ export default ({
 			)}
 			<tr><td colSpan={9} className="MerakiQuotesDevicesTable__title_row">Administración, Soporte y Financiación</td></tr>
 			<MerakiQuotesDevicesTableServiceRow 
-				collection={collection}
 				model={model}
 			/>
 			<MerakiQuotesDevicesTableAdminRow 
-				collection={collection}
 				model={model}
 			/>
 			<MerakiQuotesDevicesTableFinancingRow 
-				collection={collection}
 				model={model}
 			/>
 		</tbody>

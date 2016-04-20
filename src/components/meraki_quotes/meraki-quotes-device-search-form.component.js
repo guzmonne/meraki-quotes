@@ -64,7 +64,7 @@ class MerakiQuotesSearchForm extends React.Component {
 			flatMap(collection => Rx.Observable.
 				fromArray(collection).
 				filter(model => model.PartNumber.indexOf('LIC') === -1).
-				filter(model => model.PartNumber.indexOf(this.state.searchString.toUpperCase()) > -1).
+				filter(model => model.PartNumber.indexOf(this.state.searchString) > -1).
 				take(10).
 				reduce((acc, model) => [...acc, model], [])
 			).
@@ -80,7 +80,7 @@ class MerakiQuotesSearchForm extends React.Component {
 	}
 
 	onSearchStringChange(){
-		const searchString = this.refs.searchString.getValue()
+		const searchString = this.refs.searchString.getValue().toUpperCase()
 		const isOpen = searchString !== ''	
 
 		this.setState({searchString, isOpen})
@@ -109,7 +109,8 @@ class MerakiQuotesSearchForm extends React.Component {
 		return this.props.devices.find(x => x.PartNumber === this.state.searchString)
 	}
 
-	submit(){
+	submit(e){
+		e.preventDefault()
 		const qty = parseInt(this.refs.qyt.getValue())
 		let selected = this.getSelected()
 
@@ -129,34 +130,37 @@ class MerakiQuotesSearchForm extends React.Component {
 
 		return (
 			<Row className="MerakiQuotesEdit__device_search_form">
-				<Col sm={8}>
-					<Input 
-						type="text"
-						placeholder="Buscar equipos por modelo o descripción"
-						ref="searchString"
-						onChange={this.onSearchStringChange}
-						value={searchString}
-						buttonAfter={<MerakiQuotesDevicesDropdownOptions 
-							collection={filteredCollection}
-							onToggle={this.onToggleDropdown}
-							open={isOpen}
-							onSelect={this.onDeviceSelect}
-						/>}
-						disabled={updating}
-					/>
-				</Col>
-				<Col sm={2}>
-					<Input 
-						type="number"
-						defaultValue={1}
-						ref="qyt"
-					/>
-				</Col>
-				<Col sm={2}>
-					<Button block onClick={this.submit} disabled={!this.getSelected()}>
-						<i className="fa fa-plus"></i>{' Agregar'}
-					</Button>
-				</Col>
+				<form onSubmit={this.submit}>
+					<Col sm={8}>
+						<Input 
+							type="text"
+							placeholder="Buscar equipos por modelo o descripción"
+							ref="searchString"
+							onChange={this.onSearchStringChange}
+							value={searchString}
+							buttonAfter={<MerakiQuotesDevicesDropdownOptions 
+								collection={filteredCollection}
+								onToggle={this.onToggleDropdown}
+								open={isOpen}
+								onSelect={this.onDeviceSelect}
+								tabIndex="-1"
+							/>}
+							disabled={updating}
+						/>
+					</Col>
+					<Col sm={2}>
+						<Input 
+							type="number"
+							defaultValue={1}
+							ref="qyt"
+						/>
+					</Col>
+					<Col sm={2}>
+						<Button type="submit" block onClick={this.submit} disabled={!this.getSelected()}>
+							<i className="fa fa-plus"></i>{' Agregar'}
+						</Button>
+					</Col>
+				</form>
 			</Row>
 		)
 	}

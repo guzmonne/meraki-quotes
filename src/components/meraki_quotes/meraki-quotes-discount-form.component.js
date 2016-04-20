@@ -11,12 +11,12 @@ class MerakiQuotesYearsForm extends React.Component {
 					type="number"
 					label="Descuento (%)"
 					ref="discount"
-					value={(value || 0.43) * 100}
+					value={Math.round((value || 0.43) * 100)}
 					labelClassName="col-xs-7"
 					wrapperClassName="col-xs-5"
 					onChange={() => {
 						// Need to calculate the discount as a percentage
-						const Discount = parseInt(this.refs.discount.getValue()) / 100; 
+						const Discount = +this.refs.discount.getValue() / 100;
 						onUpdate({Discount})
 					}}
 				/>

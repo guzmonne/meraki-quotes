@@ -1,11 +1,11 @@
 import React from 'react'
 import {Media} from 'react-bootstrap'
 import {
-	calculateHardwareCost,
+	calculateHardwarePrice,
 	formatMoney
 } from '../../modules/meraki-quotes-devices.module.js'
 
-const MerakiQuotesDevicesTableFinancingRow = ({collection, model}) =>
+const MerakiQuotesDevicesTableFinancingRow = ({model}) =>
 	<tr>
 		<td></td>
 		<td>
@@ -20,19 +20,18 @@ const MerakiQuotesDevicesTableFinancingRow = ({collection, model}) =>
 		</td>
 		<td className="text-center"><p>-</p></td>
 		<td className="text-center"><p>-</p></td>
-		<td className="text-center text-muted"><p>{`${model.Discount*100}%`}</p></td>
+		<td className="text-center text-muted"><p>{`${Math.round(model.Discount*100)}%`}</p></td>
 		<td className="text-center"><p>-</p></td>
-		<td className="text-center text-muted"><p>{`${model.HardwareMargin*100}%`}</p></td>
+		<td className="text-center text-muted"><p>{`${Math.round(model.HardwareMargin*100)}%`}</p></td>
 		<td className="text-center"><p>-</p></td>
 		<td>
 			<p>
-				{formatMoney(calculateHardwareCost(collection, model) * 0.04)}
+				{formatMoney(calculateHardwarePrice(model.Devices, model) * 0.04)}
 			</p>
 		</td>
 	</tr>
 
 MerakiQuotesDevicesTableFinancingRow.propTypes = {
-	collection: React.PropTypes.array.isRequired,
 	model: React.PropTypes.object.isRequired
 }
 

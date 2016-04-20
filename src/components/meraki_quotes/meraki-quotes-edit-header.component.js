@@ -21,7 +21,7 @@ const MerakiQuotesEditHeader = ({model, user, toggleModal}) =>
 		<Col sm={3}>
 			<dt>Creado Por</dt>
 			{/* TODO: Remove placeholder */}
-			<dd>{user.Name || 'Guzman Monne'}</dd>
+			<dd>{model.UserName || 'Guzman Monne'}</dd>
 		</Col>
 		<Col sm={4}>
 			<dt>Creado</dt>
@@ -32,7 +32,6 @@ const MerakiQuotesEditHeader = ({model, user, toggleModal}) =>
 
 MerakiQuotesEditHeader.propTypes = {
 	model: React.PropTypes.object,
-	user: React.PropTypes.object,
 	toggleModal: React.PropTypes.func
 }
 

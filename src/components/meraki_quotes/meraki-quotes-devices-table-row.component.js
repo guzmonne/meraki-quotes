@@ -43,7 +43,7 @@ export default ({device, model, onUpdate, index, onSelect}) => {
 			</td>
 			<td className="text-center text-muted">
 				<p>
-					{`${model.Discount*100}%`}
+					{`${Math.round(model.Discount*100)}%`}
 				</p>
 			</td>
 			<td>
@@ -54,7 +54,7 @@ export default ({device, model, onUpdate, index, onSelect}) => {
 				/>
 			</td>
 			<td className="text-center text-muted">
-				<p>{`${model.HardwareMargin*100}%`}</p>
+				<p>{`${Math.round(model.HardwareMargin*100)}%`}</p>
 			</td>
 			<td>
 				<p>
@@ -95,14 +95,14 @@ export default ({device, model, onUpdate, index, onSelect}) => {
 			</td>
 			<td className="text-center text-muted">
 				<p>
-					{`${model.Discount*100}%`}
+					{`${Math.round(model.Discount*100)}%`}
 				</p>
 			</td>
 			<td className="text-center">
 				<p>-</p>
 			</td>
 			<td className="text-center text-muted">
-				<p>{`${model.SoftwareMargin*100}%`}</p>
+				<p>{`${Math.round(model.SoftwareMargin*100)}%`}</p>
 			</td>
 			<td>
 				<p>

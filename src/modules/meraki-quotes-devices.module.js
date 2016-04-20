@@ -82,13 +82,25 @@ export function calculateAdministrationCost(collection, model){
 }
 
 /**
- * Calculates the hardware cost
+ * Calculates the total hardware cost
  * @param  {Collection} collection Meraki Quotes Devices collection
- * @param  {Object} model      Meraki Quote object
+ * @param  {Object}     model      Meraki Quote object
  * @return {Number}            The calculated hardware cost
  */
 export const calculateHardwareCost = (collection, model) =>
-	calculatePrice(getHardware(collection), {Discount: model.Discount, Margin: model.HardwareMargin})
+	calculatePrice(getHardware(collection), {
+		Discount: model.Discount,
+		Margin: model.HardwareMargin
+	})
+
+/**
+ * Calculates the total hardware price
+ * @param  {Collection} collection Meraki Quotes Devices collection
+ * @param  {Object}     model      Meraki Quote object
+ * @return {Number}                The calculated hardware price
+ */
+export const calculateHardwarePrice = (collection, model) =>
+	calculateHardwareCost(collection, model) / (1 - model.HardwareMargin)
 
 /**
  * Calculates the software cost
@@ -97,7 +109,10 @@ export const calculateHardwareCost = (collection, model) =>
  * @return {Number}        The calculated software cost
  */
 export const calculateSoftwareCost = (collection, model) =>
-	calculatePrice(getLicenses(collection), {Discount: model.Discount, Margin: model.SoftwareMargin})
+	calculatePrice(getLicenses(collection), {
+		Discount: model.Discount,
+		Margin: model.SoftwareMargin
+	})
 
 /**
  * Calculates the total cost o a given collection of Meraki Devices
@@ -118,8 +133,12 @@ function calculatePrice(collection, options){
 		console.error('invalid options')
 	// Filter the invalid devices in the collection and then we do the calculation.
 	return collection.
-		filter(model => !_.isUndefined(model.Price) && !_.isUndefined(model.Qty)).
-		reduce((acc, model) => acc + model.Price * (1 - Discount) * model.Qty / (1 - Margin), 0)
+		filter(model => 
+			!_.isUndefined(model.Price) && !_.isUndefined(model.Qty)
+		).
+		reduce((acc, model) => 
+			acc + model.Price * (1 - Discount) * (1 + (model.Intro || 0)) * model.Qty / (1 - Margin)
+		, 0)
 }
 
 /**
@@ -247,21 +266,99 @@ const isZ1     = _.curry(contains)('Z1')
  * @param  {Quote}      quote      Object representing the current quote
  * @return {Number}            		 Unified Solution monthly payment
  */
-export const calculateUnifiedSolutionCost = (collection, quote) => {
-	const {HardwareMargin, SoftwareMargin, AdminMargin, ServiceMargin, Discount, LicenceYears} = quote
-	const hardware = getHardware(collection)
-	const software = getLicenses(collection)
-	const hardwareCost = calculatePrice(hardware, {Margin: HardwareMargin, Discount: Discount})
+export const calculateUnifiedSolutionPrice = (quote) => {
+	const {
+		Devices,
+		HardwareMargin,
+		SoftwareMargin,
+		AdminMargin,
+		ServiceMargin,
+		Discount,
+		LicenceYears
+	} = quote
+
+	if (
+		_.isUndefined(Devices)        ||
+		_.isUndefined(HardwareMargin) ||
+		_.isUndefined(SoftwareMargin) ||
+		_.isUndefined(AdminMargin)    ||
+		_.isUndefined(ServiceMargin)  ||
+		_.isUndefined(Discount)       ||
+		_.isUndefined(LicenceYears)
+	) return
+
+	const hardware     = getHardware(Devices)
+	const software     = getLicenses(Devices)
+	const hardwareCost = calculateHardwarePrice(hardware, quote)
 	const softwareCost = calculatePrice(software, {Margin: SoftwareMargin, Discount: Discount})
-	const adminCost = calculateAdministrationCost(collection, quote)
-	const serviceCost = calculateServiceCost(collection, quote)
-	const months = LicenceYears * 12
+	const adminCost    = calculateAdministrationCost(Devices, quote)
+	const serviceCost  = calculateServiceCost(Devices, quote)
+	const months       = LicenceYears * 12
 
 	return (
 		hardwareCost * 0.04 +
 		softwareCost / 36   + 
-		adminCost / (1 - AdminMargin) + 
-		serviceCost / (1 - ServiceMargin)
+		adminCost    / (1 - AdminMargin) + 
+		serviceCost  / (1 - ServiceMargin)
 	)
 }
 
+export const calculateAdminMonthlyPrice = quote => {
+	const {
+		Devices,
+		SoftwareMargin,
+		AdminMargin,
+		ServiceMargin,
+		Discount,
+		LicenceYears
+	} = quote
+
+	if (
+		_.isUndefined(Devices)        ||
+		_.isUndefined(SoftwareMargin) ||
+		_.isUndefined(AdminMargin)    ||
+		_.isUndefined(ServiceMargin)  ||
+		_.isUndefined(Discount)       ||
+		_.isUndefined(LicenceYears)
+	) return
+
+	const software     = getLicenses(Devices)
+	const softwareCost = calculatePrice(software, {Margin: SoftwareMargin, Discount: Discount})
+	const adminCost    = calculateAdministrationCost(Devices, quote)
+	const serviceCost  = calculateServiceCost(Devices, quote)
+	const months       = LicenceYears * 12
+
+	return (
+		softwareCost / 36   + 
+		adminCost    / (1 - AdminMargin) + 
+		serviceCost  / (1 - ServiceMargin)
+	)
+} 
+
+export const calculateServiceMonthlyPrice = quote => {
+	const {
+		Devices,
+		SoftwareMargin,
+		ServiceMargin,
+		Discount,
+		LicenceYears
+	} = quote
+	
+	if (
+		_.isUndefined(Devices)        ||
+		_.isUndefined(SoftwareMargin) ||
+		_.isUndefined(ServiceMargin)  ||
+		_.isUndefined(Discount)       ||
+		_.isUndefined(LicenceYears)
+	) return
+
+	const software     = getLicenses(Devices)
+	const softwareCost = calculatePrice(software, {Margin: SoftwareMargin, Discount: Discount})
+	const serviceCost  = calculateServiceCost(Devices, quote)
+	const months       = LicenceYears * 12
+
+	return (
+		softwareCost / 36   +
+		serviceCost  / (1 - ServiceMargin)
+	)
+} 

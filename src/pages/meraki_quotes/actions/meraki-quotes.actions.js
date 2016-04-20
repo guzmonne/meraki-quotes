@@ -18,6 +18,7 @@ import {
 } from '../../../state/action-types.js'
 import _ from 'lodash'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
+import Session from '../../../modules/session.module.js'
 import {calculateNeededLicenses, getHardware} from '../../../modules/meraki-quotes-devices.module.js'
 
 // MERAKI QUOTES CREATE
@@ -241,10 +242,7 @@ export function doMerakiQuotesGet(ID){
 		AwsApiObservers.
 			merakiQuotesGetObs(ID).
 			subscribe(
-				({response}) => {
-					console.log(response)
-					dispatch(merakiQuotesGetSuccess(response))
-				},
+				({response}) => dispatch(merakiQuotesGetSuccess(response)),
 				error => dispatch(handleMerakiQuotesError(MERAKI_QUOTES_GET_ERROR, error))
 			)
 	}
@@ -425,5 +423,8 @@ export function toggleSelectionOnMerakiDevices(index){
  * @return {Action}         
  */
 function handleMerakiQuotesError(type, ...args){
+	const error = args[0]
+	if (!!error && !!error.status && error.status === 0)
+		return Session.logout('Su sesión ha expirado.')
 	return Object.assign({}, {type}, ...args)
 }

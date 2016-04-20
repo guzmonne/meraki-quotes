@@ -57,7 +57,7 @@ class MerakiQuotesEditVariablesForm extends React.Component {
 							type="number"
 							ref="HardwareMargin"
 							onChange={() => this.submitMargin('HardwareMargin')}
-							value={Math.round((model.HardwareMargin || 0.2) * 100, 0)}
+							value={Math.round((model.HardwareMargin) * 100, 0)}
 							addonAfter={<i className="fa fa-percent"></i>}
 						/>						
 						<Input 
@@ -67,7 +67,7 @@ class MerakiQuotesEditVariablesForm extends React.Component {
 							type="number"
 							ref="SoftwareMargin"
 							onChange={() => this.submitMargin('SoftwareMargin')}
-							value={Math.round((model.SoftwareMargin || 0.2) * 100, 0)}
+							value={Math.round((model.SoftwareMargin) * 100, 0)}
 							addonAfter={<i className="fa fa-percent"></i>}
 						/>						
 						<Input 
@@ -77,7 +77,7 @@ class MerakiQuotesEditVariablesForm extends React.Component {
 							type="number"
 							ref="ServiceMargin"
 							onChange={() => this.submitMargin('ServiceMargin')}
-							value={Math.round((model.ServiceMargin || 0.2) * 100, 0)}
+							value={Math.round((model.ServiceMargin) * 100, 0)}
 							addonAfter={<i className="fa fa-percent"></i>}
 						/>						
 						<Input 
@@ -87,7 +87,7 @@ class MerakiQuotesEditVariablesForm extends React.Component {
 							type="number"
 							ref="AdminMargin"
 							onChange={() => this.submitMargin('AdminMargin')}
-							value={Math.round((model.AdminMargin || 0.2) * 100, 0)}
+							value={Math.round((model.AdminMargin) * 100, 0)}
 							addonAfter={<i className="fa fa-percent"></i>}
 						/>
 					</form>
