@@ -29,8 +29,8 @@ var MerakiQuote = vogels.define('MerakiQuote', {
 	indexes: [
 		{
 			hashKey: 'ID',
-			name: 'IDIndex',
-			type: 'global'
+			name   : 'ID-Index',
+			type   : 'global'
 		}
 	]
 })

@@ -5,7 +5,6 @@ const Users = require('./user.model.js')
 
 const getUserFromAuthObs = function(auth){
 	return getUserIDFromAuthObs(auth).
-		do(UserID => console.log(UserID)).
 		flatMap(UserID => getUserObs(UserID))
 }
 

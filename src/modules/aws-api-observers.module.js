@@ -169,6 +169,14 @@ const AwsApiObservers = function(){
   		url: `${url}meraki-quotes/${ID}`
   	})
 
+  const merakiQuotesUpdateObs = quote =>
+  	ajaxObs({
+  		url: `${url}meraki-quotes/update`,
+  		method: PUT,
+  		body: JSON.stringify({quote})
+  	})
+
+
 	return {
 		// SESSION
 		sessionLoginObs,
@@ -185,6 +193,7 @@ const AwsApiObservers = function(){
 		merakiDevicesGetAllObs,
 		// MERAKI QUOTES
 		merakiQuotesCreateObs,
+		merakiQuotesUpdateObs,
 		merakiQuotesIndexObs,
 		merakiQuotesGetObs
 	}

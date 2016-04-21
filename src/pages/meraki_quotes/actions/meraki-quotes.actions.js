@@ -16,6 +16,7 @@ import {
 	MERAKI_QUOTES_UPDATE_SUCCESS,
 	MERAKI_QUOTES_UPDATE_ERROR
 } from '../../../state/action-types.js'
+import {store} from '../../../state/store.js'
 import _ from 'lodash'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
 import Session from '../../../modules/session.module.js'
@@ -293,6 +294,19 @@ const merakiQuoteUpdatableKeys = [
 	'SharedWith'
 ]
 
+const merakiQuotesUpdateSubject = new Rx.Subject()
+const merakiQuotesUpdateSubjectObs = merakiQuotesUpdateSubject.
+	debounce(3000).
+	flatMap(quote => {
+		console.log('******* QUOTE UPDATE ON ITS WAY *******')
+		return AwsApiObservers.
+			merakiQuotesUpdateObs(quote)
+	}).
+	subscribe(
+		() => store.dispatch(merakiQuotesUpdateSuccess()),
+		error => store.dispatch(handleMerakiQuotesError(MERAKI_QUOTES_UPDATE_ERROR, error))
+	)
+
 /**
  * Action that updates the current Meraki Quote via a PATCH
  * request, carrying the updated keys on its body.
@@ -302,11 +316,11 @@ const merakiQuoteUpdatableKeys = [
  */
 export function doMerakiQuotesUpdate(patch, index){
 	return (dispatch, getState) => {
+		const state = getState()
 		// patch must be an object
 		if (!_.isObject(patch)) return
 		// A device is being updated instead of a patch of the quote.
 		if (_.isNumber(index)){
-			const state = getState()
 			const list  = state.merakiDevices.all
 			const years = state.merakiQuotes.current.LicenceYears
 			let Devices = state.merakiQuotes.current.Devices.map((device, i) =>
@@ -341,13 +355,9 @@ export function doMerakiQuotesUpdate(patch, index){
 			patch.Devices = patch.Devices.map(device => _.omit(device, ['selected']))
 		}
 
-		Rx.Observable.
-			just({done: true}).
-			delay(1).
-			subscribe(
-				() => dispatch(merakiQuotesUpdateSuccess()),
-				error => dispatch(handleMerakiQuotesError(MERAKI_QUOTES_UPDATE_ERROR, error))
-			)
+		const quote = Object.assign({}, state.merakiQuotes.current, patch)
+
+		merakiQuotesUpdateSubject.onNext(quote)
 	}
 }
 
