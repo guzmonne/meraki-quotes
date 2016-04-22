@@ -57,3 +57,15 @@
 .btn-group-2x {
   width: 50%;
 }
+
+.modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
+}
+
+.SpinnerModal {
+  width: 200px;
+  margin-top: 200px;
+}

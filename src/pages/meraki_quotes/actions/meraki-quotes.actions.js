@@ -17,6 +17,7 @@ import {
 	MERAKI_QUOTES_UPDATE_ERROR
 } from '../../../state/action-types.js'
 import {store} from '../../../state/store.js'
+import {browserHistory} from 'react-router'
 import _ from 'lodash'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
 import Session from '../../../modules/session.module.js'
@@ -55,7 +56,11 @@ export function doMerakiQuotesCreate(quote){
 		AwsApiObservers.
 			merakiQuotesCreateObs(quote).
 			subscribe(
-				({response}) => handleSuccess(response),
+				({response}) => {
+					handleSuccess(response)
+					if(response && response.ID)
+						browserHistory.push('/meraki_quotes/edit/' + response.ID)
+				},
 				error => handleError(error)
 			)
 	}

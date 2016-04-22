@@ -59,7 +59,8 @@ export default function merakiQuotesReducer(state=defaultState, action){
 				state,
 				{error: null},
 				{isCreatingMerakiQuote: false},
-				{collection: [action.quote, ...state.collection]}
+				{collection: [action.quote, ...state.collection]},
+				{current: action.quote}
 			)
 		case MERAKI_QUOTES_CREATE_ERROR:
 			return Object.assign(
