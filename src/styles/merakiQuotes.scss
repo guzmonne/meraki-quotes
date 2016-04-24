@@ -95,6 +95,14 @@
 		}
 	}
 
+	.MerakiQuotesEdit__config_button {
+		text-align: right;
+
+		.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+			border-radius: 10%;
+		}
+	}
+
 	.MerakiQuotesEdit__margins_row {
 		.col-lg-2 {
 		//	width: 20%;
@@ -161,3 +169,68 @@
 		color: #FFFFFF;
 	}
 }
+
+@media (max-width: 768px) {
+	.MerakiQuotesEdit {
+		.MerakiQuotesEdit__device_search_form {
+			padding-bottom: 15px;
+			
+			th, td {
+				display: none;
+			}
+
+			td:first-of-type, th:first-of-type {
+				display: table-cell;
+			}
+		}
+
+		.MerakiQuotesEdit__years {
+			text-align: right;
+		}
+
+		.MerakiQuotesEdit__settings_row {
+			.form-group {
+				margin: 0;
+			}
+
+			.checkbox {
+				label {
+					position: relative;
+					padding-left: 15px;
+					margin: 0;
+				}
+
+				input {
+					margin: 10px 0 0 100%;
+				}
+			}
+
+			div[class^="col-sm-"], div[class*=" col-sm"] {
+				width: 100%;
+				padding: 15px 15px 0px 15px;
+				label {
+					width: 50%;
+					line-height: 2.8;
+				}
+				div[class^="col-xs-"], div[class*=" col-xs"] {
+					width: 50%;
+					text-align: center;
+				}
+			}
+
+		}
+
+		.MerakiQuotesEdit__config_button {
+			margin-bottom: 15px;
+
+			.btn-group {
+				width: 100%;
+			}
+
+			.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+				border-radius: 5px;
+				width: 100%;
+			}
+		}
+	}
+} 

@@ -7,7 +7,7 @@ import MerakiQuotesDevicesTableThead from './meraki-quotes-devices-table-thead.c
 import MerakiQuotesDevicesTableTbody from './meraki-quotes-devices-table-tbody.component.js'
 
 export default ({licenses, model, onUpdate, onSelect, selectedAll}) =>
-	<Table className="MerakiQuotesDevicesTable">
+	<Table responsive className="MerakiQuotesDevicesTable">
 		<MerakiQuotesDevicesTableThead
 			onSelect={onSelect}
 			selectedAll={selectedAll}

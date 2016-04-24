@@ -79,9 +79,9 @@ export default ({
 					selectedAll={state.selectedAll}
 					model={model}
 				/>
+				<hr/>
 			</Col>
 		</Row>
-		<hr/>
 		<Row className="MerakiQuotesEdit__totals">
 			<Col sm={5}>
 				<MerakiQuotesEditVariablesForm 

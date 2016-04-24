@@ -21,7 +21,7 @@ const MerakiQuotesDevicesDropdownOptions = ({collection, onToggle, open, onSelec
 					onSelect(x)
 				}}
 			>
-				<table width="600px">
+				<table>
 					<tbody>
 						<tr>
 							<td width="25%">{x.PartNumber}</td>
