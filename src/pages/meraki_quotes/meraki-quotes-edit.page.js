@@ -11,7 +11,6 @@ import MerakiQuotesEditContainer from '../../components/meraki_quotes/meraki-quo
 
 class MerakiQuotesEdit extends React.Component {
 	componentWillMount(){
-		console.log(JSON.stringify(this.props.merakiQuotes.current))
 		if (this.props.merakiQuotes.current.ID !== this.props.params.ID)
 			this.props.doMerakiQuotesGet(this.props.params.ID)
 		if (this.props.merakiDevices.all.length === 0)
