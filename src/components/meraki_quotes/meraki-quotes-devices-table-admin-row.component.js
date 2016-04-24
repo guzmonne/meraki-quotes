@@ -2,10 +2,11 @@ import React from 'react'
 import {Media} from 'react-bootstrap'
 import {
 	calculateAdministrationCost,
+	calculateAdminLogPrice,
 	formatMoney
 } from '../../modules/meraki-quotes-devices.module.js'
 
-const MerakiQuotesDevicesTableAdminRow = ({model}) =>
+const MerakiQuotesDevicesTableAdminRow = ({model, isLogActivated}) =>
 	<tr>
 		<td></td>
 		<td>
@@ -18,11 +19,17 @@ const MerakiQuotesDevicesTableAdminRow = ({model}) =>
 				</Media.Body>
 			</Media>
 		</td>
-		<td>
-			<p>
-				{formatMoney(calculateAdministrationCost(model.Devices, model))}
-			</p>
-		</td>
+		{!!isLogActivated ? 
+			<td className="text-center">
+				<p>-</p>
+			</td>
+			:
+			<td>
+				<p>
+					{formatMoney(calculateAdministrationCost(model.Devices, model))}
+				</p>
+			</td>
+		}
 		<td className="text-center"><p>-</p></td>
 		<td className="text-center"><p>-</p></td>
 		<td className="text-center"><p>-</p></td>
@@ -33,9 +40,15 @@ const MerakiQuotesDevicesTableAdminRow = ({model}) =>
 		</td>
 		<td className="text-center"><p>-</p></td>
 		<td>
-			<p>
-				{formatMoney(calculateAdministrationCost(model.Devices, model) / (1-model.AdminMargin))}
-			</p>
+			{!!isLogActivated ? 
+				<p>
+					{formatMoney(calculateAdminLogPrice(model))}
+				</p>
+				:
+				<p>
+					{formatMoney(calculateAdministrationCost(model.Devices, model) / (1-model.AdminMargin))}
+				</p>
+			}
 		</td>
 </tr>
 

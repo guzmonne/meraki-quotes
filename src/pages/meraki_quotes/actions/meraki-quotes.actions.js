@@ -14,7 +14,9 @@ import {
 	MERAKI_QUOTES_GET_ERROR,
 	DOING_MERAKI_QUOTES_UPDATE,
 	MERAKI_QUOTES_UPDATE_SUCCESS,
-	MERAKI_QUOTES_UPDATE_ERROR
+	MERAKI_QUOTES_UPDATE_ERROR,
+	TOGGLE_MERAKI_QUOTES_EDIT_CHARTS,
+	TOGGLE_MERAKI_QUOTES_EDIT_LOG
 } from '../../../state/action-types.js'
 import {store} from '../../../state/store.js'
 import {browserHistory} from 'react-router'
@@ -423,6 +425,30 @@ export function toggleSelectionOnMerakiDevices(index){
 			Devices,
 			selectedAll
 		})
+	}
+}
+
+/**
+ * Toggles the value indication if the charts should
+ * be seen on the Meraki Quotes edit page.
+ * @return {Action} s
+ */
+export function toggleMerakiQuotesEditCharts(){
+	return {
+		type: TOGGLE_MERAKI_QUOTES_EDIT_CHARTS
+	}
+}
+
+
+/**
+ * Toggles the value indication if the administration and
+ * service costs and prices should be calculated according
+ * to a logaritmic function.
+ * @return {Action}
+ */
+export function toggleMerakiQuotesEditLog(){
+	return {
+		type: TOGGLE_MERAKI_QUOTES_EDIT_LOG
 	}
 }
 

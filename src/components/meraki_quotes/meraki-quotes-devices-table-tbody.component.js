@@ -16,7 +16,8 @@ import MerakiQuotesDevicesTableFinancingRow from './meraki-quotes-devices-table-
 export default ({
 	model,
 	onUpdate,
-	onSelect
+	onSelect,
+	isLogActivated
 }) => {
 	return !_.isArray(model.Devices) || model.Devices.length === 0 ? 
 		<tbody><tr><td className="text-center" colSpan="9">Lista de equipos vacía.</td></tr></tbody>
@@ -45,9 +46,11 @@ export default ({
 			<tr><td colSpan={9} className="MerakiQuotesDevicesTable__title_row">Administración, Soporte y Financiación</td></tr>
 			<MerakiQuotesDevicesTableServiceRow 
 				model={model}
+				isLogActivated={isLogActivated}
 			/>
 			<MerakiQuotesDevicesTableAdminRow 
 				model={model}
+				isLogActivated={isLogActivated}
 			/>
 			<MerakiQuotesDevicesTableFinancingRow 
 				model={model}

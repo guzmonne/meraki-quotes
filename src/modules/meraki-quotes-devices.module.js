@@ -217,7 +217,7 @@ const combineMerakiProducts = (acc, x) => {
 	}
 }
 
-const getLicenseFromList = (list, device, years) => {
+export const getLicenseFromList = (list, device, years) => {
 	const {PartNumber} = device
 	let license;
 	if (isAP(PartNumber))
@@ -262,11 +262,10 @@ const isZ1     = _.curry(contains)('Z1')
  * Calculates the monthly payments necessary for the Unified solution by
  * returning the sum of the finance hardware, licenses, and administration
  * and service costs.
- * @param  {Collection} collection Devices and licences collection
  * @param  {Quote}      quote      Object representing the current quote
  * @return {Number}            		 Unified Solution monthly payment
  */
-export const calculateUnifiedSolutionPrice = (quote) => {
+export const calculateUnifiedSolutionPrice = (quote, isLogActivated) => {
 	const {
 		Devices,
 		HardwareMargin,
@@ -291,19 +290,30 @@ export const calculateUnifiedSolutionPrice = (quote) => {
 	const software     = getLicenses(Devices)
 	const hardwareCost = calculateHardwarePrice(hardware, quote)
 	const softwareCost = calculatePrice(software, {Margin: SoftwareMargin, Discount: Discount})
-	const adminCost    = calculateAdministrationCost(Devices, quote)
-	const serviceCost  = calculateServiceCost(Devices, quote)
-	const months       = LicenceYears * 12
+	const adminPrice   = !!isLogActivated ? 
+		calculateAdminLogPrice(quote)
+		:
+		calculateAdministrationCost(Devices, quote) / (1 - AdminMargin)
+	const servicePrice  = !!isLogActivated ? 
+		calculateServiceLogPrice(quote)
+		:
+		calculateServiceCost(Devices, quote) / (1 - ServiceMargin)
 
 	return (
 		hardwareCost * 0.04 +
 		softwareCost / 36   + 
-		adminCost    / (1 - AdminMargin) + 
-		serviceCost  / (1 - ServiceMargin)
+		adminPrice          + 
+		servicePrice
 	)
 }
 
-export const calculateAdminMonthlyPrice = quote => {
+/**
+ * Calculates the monthly price of the "Administered Solution".
+ * It takes into account the license, service, and administration costs.
+ * @param  {Quote}      quote      Object representing the current quote
+ * @return {Number}            		 Administered Solution monthly payment
+ */
+export const calculateAdminMonthlyPrice = (quote, isLogActivated) => {
 	const {
 		Devices,
 		SoftwareMargin,
@@ -324,18 +334,30 @@ export const calculateAdminMonthlyPrice = quote => {
 
 	const software     = getLicenses(Devices)
 	const softwareCost = calculatePrice(software, {Margin: SoftwareMargin, Discount: Discount})
-	const adminCost    = calculateAdministrationCost(Devices, quote)
-	const serviceCost  = calculateServiceCost(Devices, quote)
+	const adminPrice   = !!isLogActivated ? 
+		calculateAdminLogPrice(quote)
+		:
+		calculateAdministrationCost(Devices, quote) / (1 - AdminMargin)
+	const servicePrice  = !!isLogActivated ? 
+		calculateServiceLogPrice(quote)
+		:
+		calculateServiceCost(Devices, quote) / (1 - ServiceMargin)
 	const months       = LicenceYears * 12
 
 	return (
-		softwareCost / 36   + 
-		adminCost    / (1 - AdminMargin) + 
-		serviceCost  / (1 - ServiceMargin)
+		softwareCost / months + 
+		adminPrice            + 
+		servicePrice
 	)
 } 
 
-export const calculateServiceMonthlyPrice = quote => {
+/**
+ * Calculates the monthly price of the "Traditional Solution".
+ * It takes into account the license and service costs.
+ * @param  {Quote}      quote      Object representing the current quote
+ * @return {Number}            		 Administered Solution monthly payment
+ */
+export const calculateServiceMonthlyPrice = (quote, isLogActivated) => {
 	const {
 		Devices,
 		SoftwareMargin,
@@ -354,11 +376,88 @@ export const calculateServiceMonthlyPrice = quote => {
 
 	const software     = getLicenses(Devices)
 	const softwareCost = calculatePrice(software, {Margin: SoftwareMargin, Discount: Discount})
-	const serviceCost  = calculateServiceCost(Devices, quote)
+	const servicePrice  = !!isLogActivated ? 
+		calculateServiceLogPrice(quote)
+		:
+		calculateServiceCost(Devices, quote) / (1 - ServiceMargin)
 	const months       = LicenceYears * 12
 
 	return (
-		softwareCost / 36   +
-		serviceCost  / (1 - ServiceMargin)
+		softwareCost / months   +
+		servicePrice
 	)
-} 
+}
+
+/**
+ * Calculates a logaritmicaly reduced price of the service for 
+ * given device, using it's associated license.
+ * @param  {Object} license Object describing the given license
+ * @param  {Object} quote   Object describing the given quote
+ * @param  {Number} x       Indicated the quantity of devices for the calculation
+ * @return {Number}         The price of providing service for a given ammount of devices.
+ */
+export const serviceLogPrice = (license, quote, x) => {
+	const {ServiceLevel, ServiceMargin, LicenceYears} = quote
+	const {Price} = license
+
+	const modifier = SERVICE_LEVEL_CONSTANTS[ServiceLevel]["service"]
+	const months = LicenceYears * 12
+	const serviceCost = Price * modifier / months
+	const servicePrice = serviceCost / (1 - ServiceMargin) 
+
+	const a = servicePrice * (ServiceMargin) / Math.log(60)
+
+	return Math.round((- a * Math.log(x) + servicePrice) * 100) / 100
+}
+
+/**
+ * Calculates a logaritmicaly reduced price of the administration of a 
+ * given device, using it's associated license.
+ * @param  {Object} license Object describing the given license
+ * @param  {Object} quote   Object describing the given quote
+ * @param  {Number} x       Indicated the quantity of devices for the calculation
+ * @return {Number}         The price of administering for a given ammount of devices.
+ */
+export const adminLogPrice = (license, quote, x) => {
+	const {ServiceLevel, AdminMargin, LicenceYears} = quote
+	const {Price} = license
+
+	const modifier = SERVICE_LEVEL_CONSTANTS[ServiceLevel]["admin"]
+	const months = LicenceYears * 12
+	const adminCost = Price * modifier / months
+	const adminPrice = adminCost / (1 - AdminMargin)
+
+	const a = adminPrice * (AdminMargin) / Math.log(60)
+
+	return Math.round(( -a * Math.log(x) + adminPrice) * 100) / 100
+}
+
+export const calculateServiceLogPrice = (quote) => {
+	const {Devices} = quote
+
+	if (!Devices) return
+
+	const software = getLicenses(Devices)
+	
+	const result = software.
+		map(license => serviceLogPrice(license, quote, license.Qty) * license.Qty).
+		filter(x => !_.isUndefined(x)).
+		reduce((acc, x) => acc + x, 0)
+
+	return result
+}
+
+export const calculateAdminLogPrice = (quote) => {
+	const {Devices} = quote
+
+	if (!quote) return
+
+	const software = getLicenses(Devices)
+
+	const result = software.
+		map(license => adminLogPrice(license, quote, license.Qty) * license.Qty).
+		filter(x => !_.isUndefined(x)).
+		reduce((acc, x) => acc + x, 0)
+
+	return result
+}

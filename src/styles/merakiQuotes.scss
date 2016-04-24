@@ -74,6 +74,10 @@
 		margin-bottom: 15px;
 		border-top: 1px solid #dddddd;
 		border-bottom: 1px solid #dddddd;
+
+		ul, table {
+			width: 600px;
+		}
 	}
 	
 	.MerakiQuotesEdit__years {
@@ -101,7 +105,15 @@
 		.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
 			border-radius: 10%;
 		}
+
+		.MerakiQuotesEdit__config_button__menu_item {
+			float: none;
+			display: inline-block;
+			min-width: 120px;
+			margin-right: 20px;
+		}
 	}
+
 
 	.MerakiQuotesEdit__margins_row {
 		.col-lg-2 {

@@ -2,7 +2,15 @@ import React from 'react'
 import moment from 'moment'
 import {Row, Col, Dropdown, Button, MenuItem} from 'react-bootstrap'
 
-const MerakiQuotesEditHeader = ({model, user, toggleModal}) =>
+const MerakiQuotesEditHeader = ({
+	model,
+	user,
+	toggleModal,
+	toggleCharts,
+	toggleLog,
+	isShowingCharts,
+	isLogActivated
+}) =>
 	<Row>
 		<Col sm={10}>
 			<h4>
@@ -19,9 +27,14 @@ const MerakiQuotesEditHeader = ({model, user, toggleModal}) =>
 					<i className="fa fa-cog"></i>
 				</Button>
 				<Dropdown.Menu bsRole="menu">
-					<MenuItem>1</MenuItem>
-					<MenuItem>2</MenuItem>
-					<MenuItem>3</MenuItem>
+					<MenuItem onClick={toggleCharts}>
+						<span className="MerakiQuotesEdit__config_button__menu_item">Mostrar Gráficas</span>
+						{!!isShowingCharts && <span><i className="fa fa-check"></i></span>}
+					</MenuItem>
+					<MenuItem onClick={toggleLog}>
+						<span className="MerakiQuotesEdit__config_button__menu_item">Modo Logaritmico</span>
+						{!!isLogActivated && <span><i className="fa fa-check"></i></span>}
+					</MenuItem>
 				</Dropdown.Menu>
 			</Dropdown>
 		</Col>

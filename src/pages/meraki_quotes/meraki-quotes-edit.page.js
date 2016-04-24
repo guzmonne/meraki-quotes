@@ -5,6 +5,9 @@ import {
 	toggleSelectionOnMerakiDevices,
 	doMerakiQuotesGet,
 	doMerakiQuotesUpdate,
+	toggleMerakiQuotesEditCharts,
+	toggleMerakiQuotesEditLog,
+	toggleMerakiQuotesEdiLog
 } from './actions/meraki-quotes.actions.js'
 import {doMerakiDevicesGetAll} from './actions/meraki-devices.actions.js'
 import MerakiQuotesEditContainer from '../../components/meraki_quotes/meraki-quotes-edit-container.component.js'
@@ -28,6 +31,8 @@ class MerakiQuotesEdit extends React.Component {
 			doMerakiDevicesGetAll,
 			toggleMerakiQuotesCreateModal,
 			toggleSelectionOnMerakiDevices,
+			toggleMerakiQuotesEditCharts,
+			toggleMerakiQuotesEditLog,
 			merakiQuotes,
 			merakiDevices
 		} = this.props
@@ -39,6 +44,8 @@ class MerakiQuotesEdit extends React.Component {
 			state={merakiQuotes}
 			model={merakiQuotes.current}
 			toggleModal={toggleMerakiQuotesCreateModal}
+			toggleCharts={toggleMerakiQuotesEditCharts}
+			toggleLog={toggleMerakiQuotesEditLog}
 			devices={merakiDevices.all}
 			isGettingMerakiDevices={merakiDevices.isGettingMerakiDevices}
 		/>
@@ -55,6 +62,8 @@ const select = state => (
 const actions = {
 	toggleMerakiQuotesCreateModal,
 	toggleSelectionOnMerakiDevices,
+	toggleMerakiQuotesEditCharts,
+	toggleMerakiQuotesEditLog,
 	doMerakiQuotesGet,
 	doMerakiQuotesUpdate,
 	doMerakiDevicesGetAll

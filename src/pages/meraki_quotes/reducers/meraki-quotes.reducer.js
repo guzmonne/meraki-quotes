@@ -14,7 +14,9 @@ import {
 	DOING_MERAKI_QUOTES_UPDATE,
 	MERAKI_QUOTES_UPDATE_SUCCESS,
 	MERAKI_QUOTES_UPDATE_ERROR,
-	TOGGLE_SELECTION_ON_MERAKI_DEVICES
+	TOGGLE_SELECTION_ON_MERAKI_DEVICES,
+	TOGGLE_MERAKI_QUOTES_EDIT_CHARTS,
+	TOGGLE_MERAKI_QUOTES_EDIT_LOG
 } from '../../../state/action-types.js'
 
 const defaultState = {
@@ -24,6 +26,8 @@ const defaultState = {
 	isShowingMerakiQuotesCreateModal: false,
 	isCreatingMerakiQuote           : false,
 	isUpdatignQuote                 : false,
+	isShowingCharts                 : false,
+	isLogActivated                  : false,
 	pagination                      : [null],
 	page                            : 0,
 	total                           : 0,
@@ -162,6 +166,24 @@ export default function merakiQuotesReducer(state=defaultState, action){
 				state,
 				{current: Object.assign({}, state.current, {Devices: action.Devices})},
 				{selectedAll: action.selectedAll}
+			)
+		// -------------------------
+		// MERAKI EDIT TOOGLE CHARTS
+		// -------------------------
+		case TOGGLE_MERAKI_QUOTES_EDIT_CHARTS:
+			return Object.assign(
+				{},
+				state,
+				{isShowingCharts: !state.isShowingCharts}
+			)
+		// ----------------------
+		// MERAKI EDIT TOOGLE LOG
+		// ----------------------
+		case TOGGLE_MERAKI_QUOTES_EDIT_LOG:
+			return Object.assign(
+				{},
+				state,
+				{isLogActivated: !state.isLogActivated}
 			)
 		// -------
 		// DEFAULT

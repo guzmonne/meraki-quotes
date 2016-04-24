@@ -5,13 +5,15 @@ import {
 	calculateAdminMonthlyPrice,
 	calculateServiceMonthlyPrice,
 	calculateHardwarePrice,
+	calculateAdminLogPrice,
+	calculateServiceLogPrice,
 	formatMoney
 } from '../../modules/meraki-quotes-devices.module.js'
 import Spinner from '../helpers/spinner.component.js'
 
 export default class MerakiQuotesEditTotals extends React.Component {
 	render(){
-		const {quote} = this.props
+		const {quote, isLogActivated} = this.props
 
 		return (
 			Object.keys(quote).length === 0 ? <Spinner/> :
@@ -32,7 +34,7 @@ export default class MerakiQuotesEditTotals extends React.Component {
 							<p>Cuota Mensual</p>
 						</Col>
 						<Col xs={6}>
-							<p>{formatMoney(calculateUnifiedSolutionPrice(quote))}</p>
+							<p>{formatMoney(calculateUnifiedSolutionPrice(quote, isLogActivated))}</p>
 						</Col>
 					</Row>
 					<Row>
@@ -60,13 +62,13 @@ export default class MerakiQuotesEditTotals extends React.Component {
 							<p>Cuota Mensual</p>
 						</Col>
 						<Col xs={6}>
-							<p>{formatMoney(calculateAdminMonthlyPrice(quote))}</p>
+							<p>{formatMoney(calculateAdminMonthlyPrice(quote, isLogActivated))}</p>
 						</Col>
 					</Row>
 				</Panel>
 				<Panel>
 					<h5 className="text-primary">
-						<strong>Solución Tradicional</strong>
+						<strong>Solución Tradicional <sup>**</sup></strong>
 					</h5>
 					<Row className="MerakiQuotesEdit__total_row">
 						<Col xs={6}>
@@ -81,7 +83,16 @@ export default class MerakiQuotesEditTotals extends React.Component {
 							<p>Cuota Mensual</p>
 						</Col>
 						<Col xs={6}>
-							<p>{formatMoney(calculateServiceMonthlyPrice(quote))}</p>
+							<p>{formatMoney(calculateServiceMonthlyPrice(quote, isLogActivated))}</p>
+						</Col>
+					</Row>
+					<Row>
+						<Col xs={12}>
+							<small>
+								<sup>**</sup>Con el fin de impulsar más las soluciones administradas, se sugiere
+								ofrecer esta solución con margenes más elevados de manera de disminuir la
+								diferencia con las otras dos soluciones.
+							</small>
 						</Col>
 					</Row>
 				</Panel>
