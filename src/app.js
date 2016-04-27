@@ -1,8 +1,5 @@
 require('./styles/main.scss')
 
-require('rx')
-require('rx-dom')
-
 // Config AWS
 //require('./aws-sdk.import.js')
 //import './aws.config.js'
@@ -13,8 +10,10 @@ import MainApp from './main.js'
 
 import _ from 'lodash'
 import Rx from 'rx-dom'
+import moment from 'moment'
 
 window._ = _
 window.Rx = Rx
+window.moment = moment
 
 render(<MainApp />, document.getElementById('root'))

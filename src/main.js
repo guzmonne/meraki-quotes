@@ -4,6 +4,8 @@ import {Router, Route, browserHistory, IndexRoute} from 'react-router'
 // Redux
 import {Provider} from 'react-redux'
 import {store} from './state/store.js'
+// Modules
+import Auth from './modules/auth.module.js'
 // Signup Page
 import SignupPage from './pages/main/signup.page.js'
 import LoginPage from './pages/main/login.page.js'
@@ -51,13 +53,14 @@ function replacePathnameWith(url, nextState, replace){
 }
 
 function alreadyLoggedIn(...args){
-	if (!!localStorage.token){
+	if (Auth.token()){
 		replacePathnameWith('/', ...args)
 	}
 }
 
 function requireAuth(...args){
-	if (!localStorage.token){
+	if (Auth.token.hasExpired()){
+		delete localStorage.token
 		replacePathnameWith('/login', ...args)
 	}	
 }
