@@ -38,7 +38,7 @@ function AuthModule(){
 		const _token = token()
 		if (!_token) return undefined
 		// The token expires after an hour
-		return moment(new Date()).isAfter(moment(token.exp).add(1, 'hour'))
+		return moment(new Date()).isAfter(moment(_token.exp * 1000).add(1, 'hour'))
 	}
 
 	return Object.freeze({
