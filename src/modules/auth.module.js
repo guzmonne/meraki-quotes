@@ -5,10 +5,13 @@ import _ from 'lodash'
 import moment from 'moment'
 
 /* DEFAULTS */
+const defaults = {
+	tokenKeys: ["sub", "iss", "permissions", "jti", "iat", "exp"]
+}
 
 /* CONSTRUCTOR */
 function AuthModule(){
-	const TOKEN_KEYS = ["sub", "iss", "permissions", "jti", "iat", "exp"]
+	const {tokenKeys} = defaults
 
 	/**
 	 * Gets the body of the token
@@ -25,7 +28,7 @@ function AuthModule(){
 			return undefined
 		token = JSON.parse(atob(token[1]))
 		// Check if token body has the required keys
-		if (!_.pick(token, TOKEN_KEYS).length === TOKEN_KEYS.length)
+		if (!_.pick(token, tokenKeys).length === tokenKeys.length)
 			return undefined
 		return token
 	}

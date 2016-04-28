@@ -1,14 +1,9 @@
 import React from 'react'
 import {Panel, Row, Col, Input} from 'react-bootstrap'
 import {
-	calculateUnifiedSolutionPrice,
-	calculateAdminMonthlyPrice,
-	calculateServiceMonthlyPrice,
-	calculateHardwarePrice,
-	calculateAdminLogPrice,
-	calculateServiceLogPrice,
 	formatMoney
 } from '../../modules/meraki-quotes-devices.module.js'
+import SolutionCalc from '../../modules/solution-calc.module.js'
 import Spinner from '../helpers/spinner.component.js'
 
 export default class MerakiQuotesEditTotals extends React.Component {
@@ -34,7 +29,9 @@ export default class MerakiQuotesEditTotals extends React.Component {
 							<p>Cuota Mensual</p>
 						</Col>
 						<Col xs={6}>
-							<p>{formatMoney(calculateUnifiedSolutionPrice(quote, isLogActivated))}</p>
+							<p>{formatMoney(
+								SolutionCalc.from(quote, {isLogActivated}).calculateUnifiedMonthlyPrice()
+							)}</p>
 						</Col>
 					</Row>
 					<Row>
@@ -54,7 +51,9 @@ export default class MerakiQuotesEditTotals extends React.Component {
 							<p>Inversión Incial</p>
 						</Col>
 						<Col xs={6}>
-							<p>{formatMoney(calculateHardwarePrice(quote.Devices, quote))}</p>
+							<p>{formatMoney(
+								SolutionCalc.from(quote, {isLogActivated}).calculateHardwarePrice()
+							)}</p>
 						</Col>
 					</Row>
 					<Row className="MerakiQuotesEdit__total_row">
@@ -62,7 +61,9 @@ export default class MerakiQuotesEditTotals extends React.Component {
 							<p>Cuota Mensual</p>
 						</Col>
 						<Col xs={6}>
-							<p>{formatMoney(calculateAdminMonthlyPrice(quote, isLogActivated))}</p>
+							<p>{formatMoney(
+								SolutionCalc.from(quote, {isLogActivated}).calculateAdministeredMonthlyPrice()
+							)}</p>
 						</Col>
 					</Row>
 				</Panel>
@@ -75,7 +76,9 @@ export default class MerakiQuotesEditTotals extends React.Component {
 							<p>Inversión Incial</p>
 						</Col>
 						<Col xs={6}>
-							<p>{formatMoney(calculateHardwarePrice(quote.Devices, quote))}</p>
+							<p>{formatMoney(
+								SolutionCalc.from(quote, {isLogActivated}).calculateHardwarePrice()
+							)}</p>
 						</Col>
 					</Row>	
 					<Row className="MerakiQuotesEdit__total_row">
@@ -83,7 +86,9 @@ export default class MerakiQuotesEditTotals extends React.Component {
 							<p>Cuota Mensual</p>
 						</Col>
 						<Col xs={6}>
-							<p>{formatMoney(calculateServiceMonthlyPrice(quote, isLogActivated))}</p>
+							<p>{formatMoney(
+								SolutionCalc.from(quote, {isLogActivated}).calculateTraditionalMonthlyPrice()
+							)}</p>
 						</Col>
 					</Row>
 					<Row>

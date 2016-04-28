@@ -4,6 +4,7 @@ import _ from 'lodash'
 import SizeMe from 'react-sizeme'
 
 import {adminLogPrice} from '../../modules/meraki-quotes-devices.module.js'
+import SolutionCalc from '../../modules/solution-calc.module.js'
 
 const LineChart = Chart.Bar
 
@@ -51,10 +52,16 @@ class MerakiQuotesServiceChart extends React.Component {
 		const dataset2 = data2.datasets[0]
 		
 		dataset1.data = data1.labels.
-			map(x => adminLogPrice(license, quote, x))
+			map(x => 
+				SolutionCalc.supportCostLogFor(quote, "admin", Object.assign({}, license, {Qty: x}))
+			)
 
 		dataset2.data = data2.labels.
-			map(x => Math.round((adminLogPrice(license, quote, x) * x) * 100)/100)
+			map(x => 
+				Math.round(
+					(SolutionCalc.supportCostLogFor(quote, "admin", Object.assign({}, license, {Qty: x})) * x) * 100
+				)/100
+			)
 
 		return (
 			<div ref="chart">

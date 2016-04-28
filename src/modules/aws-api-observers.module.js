@@ -31,8 +31,22 @@ const AwsApiObservers = function(){
 	const ajaxObs = settings => 
 		Rx.DOM.
 		ajax(Object.assign({}, defaultSettings(), settings)).
+		flatMap(result => 
+			result && result.response && result.response.errorMessage ?
+			Rx.Observable.throw(result.response.errorMessage)         :
+			Rx.Observable.just(result)
+		).
 		retry(3).
-		doOnError(x => console.log(x))
+		doOnError(result => {
+			console.log(result)
+			if (result.type === "error" && result.status === 0){
+				delete localStorage.token
+				location.href = '/login'
+				return Rx.Observable.throw('403 Not authorized')
+			} else {
+				return Rx.Observable.just(result)
+			}
+		})
 	
 	const getToken = () => localStorage.token
 	/*
