@@ -16,7 +16,8 @@ import {
 	MERAKI_QUOTES_UPDATE_ERROR,
 	TOGGLE_SELECTION_ON_MERAKI_DEVICES,
 	TOGGLE_MERAKI_QUOTES_EDIT_CHARTS,
-	TOGGLE_MERAKI_QUOTES_EDIT_LOG
+	TOGGLE_MERAKI_QUOTES_EDIT_LOG,
+	SET_MERAKI_QUOTES_BREADCRUMBS
 } from '../../../state/action-types.js'
 
 const defaultState = {
@@ -35,7 +36,15 @@ const defaultState = {
 	queryString                     : "",
 	count                           : 0,
 	current                         : {},
-	selectedAll                     : false
+	selectedAll                     : false,
+	breadcrumbs:
+										[{
+											tag: 'Home',
+											action: () => browserHistory.push('/meraki_quotes/index')
+										}, {
+											tag: 'Meraki Quotes'
+										}]
+									
 }
 
 export default function merakiQuotesReducer(state=defaultState, action){
@@ -184,6 +193,15 @@ export default function merakiQuotesReducer(state=defaultState, action){
 				{},
 				state,
 				{isLogActivated: !state.isLogActivated}
+			)
+		// ----------------------
+		// SET MERAKI BREADCRUMBS
+		// ----------------------
+		case SET_MERAKI_QUOTES_BREADCRUMBS:
+			return Object.assign(
+				{},
+				state,
+				{breadcrumbs: action.breadcrumbs}
 			)
 		// -------
 		// DEFAULT

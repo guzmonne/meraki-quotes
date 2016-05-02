@@ -16,7 +16,8 @@ import {
 	MERAKI_QUOTES_UPDATE_SUCCESS,
 	MERAKI_QUOTES_UPDATE_ERROR,
 	TOGGLE_MERAKI_QUOTES_EDIT_CHARTS,
-	TOGGLE_MERAKI_QUOTES_EDIT_LOG
+	TOGGLE_MERAKI_QUOTES_EDIT_LOG,
+	SET_MERAKI_QUOTES_BREADCRUMBS
 } from '../../../state/action-types.js'
 import {store} from '../../../state/store.js'
 import {browserHistory} from 'react-router'
@@ -24,6 +25,14 @@ import _ from 'lodash'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
 import Session from '../../../modules/session.module.js'
 import {calculateNeededLicenses, getHardware} from '../../../modules/meraki-quotes-devices.module.js'
+
+// SET MERAKI QUOTES BREADCRUMBS
+export function setMerakiQuotesBreadcrumbs(breadcrumbs){
+	return {
+		type: SET_MERAKI_QUOTES_BREADCRUMBS,
+		breadcrumbs
+	}
+}
 
 // MERAKI QUOTES CREATE
 

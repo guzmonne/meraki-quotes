@@ -107,7 +107,7 @@ function SolutionCalcConstructor(){
 		const price = getLogPriceFor(quote, type, license)
 		const margin = type === "service" ? quote.ServiceMargin : quote.AdminMargin
 
-		return price * (margin + 0.5) / Math.log(60)
+		return price * (margin + 0.2) / Math.log(60)
 	}
 
 	const getLogPriceFor = (quote, type, license) =>
