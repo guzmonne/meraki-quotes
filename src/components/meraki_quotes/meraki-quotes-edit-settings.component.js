@@ -8,7 +8,12 @@ import MerakiQuotesEditActions from './meraki-quotes-edit-actions.component.js'
 
 export default class MerakiQuotesEditSettings extends React.Component {
 	render(){
-		const {model, onUpdate, onRemoveDevice, devices} = this.props
+		const {
+			model,
+			onUpdate,
+			onRemoveDevice,
+			isLogActivated
+		} = this.props
 
 		return (
 			<Row className="MerakiQuotesEdit__settings_row">
@@ -31,7 +36,11 @@ export default class MerakiQuotesEditSettings extends React.Component {
 					/>
 				</Col>
 				<Col sm={5}>
-					<MerakiQuotesEditActions onRemoveDevice={onRemoveDevice}/>
+					<MerakiQuotesEditActions 
+						onRemoveDevice={onRemoveDevice}
+						quote={model}
+						isLogActivated={isLogActivated}
+					/>
 				</Col>
 			</Row>
 		)

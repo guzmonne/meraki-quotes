@@ -1,5 +1,6 @@
 require('./styles/main.scss')
 
+const FileSaver = require('../node_modules/filesaverjs/FileSaver.js')
 // Config AWS
 //require('./aws-sdk.import.js')
 //import './aws.config.js'
@@ -15,5 +16,6 @@ import moment from 'moment'
 window._ = _
 window.Rx = Rx
 window.moment = moment
+window.saveAs = FileSaver.saveAs
 
 render(<MainApp />, document.getElementById('root'))

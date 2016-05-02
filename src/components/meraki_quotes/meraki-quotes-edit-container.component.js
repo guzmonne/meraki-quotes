@@ -73,6 +73,7 @@ export default ({
 
 		<MerakiQuotesEditSettings
 			model={model}
+			isLogActivated={state.isLogActivated}
 			onUpdate={onUpdate}
 			onRemoveDevice={() => {
 				merakiQuotesDevicesRemove(model.Devices, model.LicenceYears, devices, Devices => 

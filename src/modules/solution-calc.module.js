@@ -323,8 +323,7 @@ function SolutionCalcConstructor(){
 	///////////////////////////////
 
 	return Object.freeze({
-		from,
-		supportCostLogFor
+		from
 	})
 }
 const SolutionCalc = SolutionCalcConstructor()
