@@ -4,6 +4,7 @@ import {
 	formatMoney
 } from '../../modules/meraki-quotes-devices.module.js'
 import SolutionCalc from '../../modules/solution-calc.module.js'
+import Service from '../../modules/service/service.module.js'
 import Spinner from '../helpers/spinner.component.js'
 
 export default class MerakiQuotesEditTotals extends React.Component {
@@ -30,7 +31,7 @@ export default class MerakiQuotesEditTotals extends React.Component {
 						</Col>
 						<Col xs={6}>
 							<p>{formatMoney(
-								SolutionCalc.from(quote, {isLogActivated}).calculateUnifiedMonthlyPrice()
+								Service.from(quote, {isLogActivated}).calculateUnifiedMonthlyPrice()
 							)}</p>
 						</Col>
 					</Row>
@@ -52,7 +53,7 @@ export default class MerakiQuotesEditTotals extends React.Component {
 						</Col>
 						<Col xs={6}>
 							<p>{formatMoney(
-								SolutionCalc.from(quote, {isLogActivated}).calculateHardwarePrice()
+								Service.from(quote, {isLogActivated}).calculateHardwarePrice()
 							)}</p>
 						</Col>
 					</Row>
@@ -62,7 +63,7 @@ export default class MerakiQuotesEditTotals extends React.Component {
 						</Col>
 						<Col xs={6}>
 							<p>{formatMoney(
-								SolutionCalc.from(quote, {isLogActivated}).calculateAdministeredMonthlyPrice()
+								Service.from(quote, {isLogActivated}).calculateAdministeredMonthlyPrice()
 							)}</p>
 						</Col>
 					</Row>
@@ -77,7 +78,7 @@ export default class MerakiQuotesEditTotals extends React.Component {
 						</Col>
 						<Col xs={6}>
 							<p>{formatMoney(
-								SolutionCalc.from(quote, {isLogActivated}).calculateHardwarePrice()
+								Service.from(quote, {isLogActivated}).calculateHardwarePrice()
 							)}</p>
 						</Col>
 					</Row>	
@@ -87,7 +88,7 @@ export default class MerakiQuotesEditTotals extends React.Component {
 						</Col>
 						<Col xs={6}>
 							<p>{formatMoney(
-								SolutionCalc.from(quote, {isLogActivated}).calculateTraditionalMonthlyPrice()
+								Service.from(quote, {isLogActivated}).calculateTraditionalMonthlyPrice()
 							)}</p>
 						</Col>
 					</Row>

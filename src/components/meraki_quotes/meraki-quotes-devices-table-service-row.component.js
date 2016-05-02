@@ -1,10 +1,10 @@
 import React from 'react'
 import {Media} from 'react-bootstrap'
 import {
-	calculateServiceCost,
-	calculateServiceLogPrice,
 	formatMoney
 } from '../../modules/meraki-quotes-devices.module.js'
+
+import Service from '../../modules/service/service.module.js'
 
 const MerakiQuotesDevicesTableServiceRow = ({model, isLogActivated}) =>
 	<tr>
@@ -19,17 +19,11 @@ const MerakiQuotesDevicesTableServiceRow = ({model, isLogActivated}) =>
 				</Media.Body>
 			</Media>
 		</td>
-		{!!isLogActivated ? 
-			<td className="text-center">
-				<p>-</p>
-			</td>
-			:
-			<td>
-				<p>
-					{formatMoney(calculateServiceCost(model.Devices, model))}
-				</p>
-			</td>
-		}
+		<td>
+			<p>
+				{formatMoney( Service.from(model, {isLogActivated}).calculateServiceCost() )}
+			</p>
+		</td>
 		<td className="text-center"><p>-</p></td>
 		<td className="text-center"><p>-</p></td>
 		<td className="text-center"><p>-</p></td>
@@ -40,15 +34,9 @@ const MerakiQuotesDevicesTableServiceRow = ({model, isLogActivated}) =>
 		</td>
 		<td className="text-center"><p>-</p></td>
 		<td>			
-			{!!isLogActivated ? 
-				<p>
-					{formatMoney(calculateServiceLogPrice(model))}
-				</p>
-				:
-				<p>
-					{formatMoney(calculateServiceCost(model.Devices, model) / (1-model.ServiceMargin))}
-				</p>
-			}
+			<p>
+				{formatMoney( Service.from(model, {isLogActivated}).calculateServicePrice() )}
+			</p>
 		</td>
 </tr>
 

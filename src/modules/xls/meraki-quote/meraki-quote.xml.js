@@ -40,15 +40,15 @@ export default (quote, isLogActivated) =>
 					map(license => LicenseRow(license, quote)).
 					join('') +
 				SubHeaderRow('Administración, Soporte y Financiación') +
-				ServiceRow(quote, isLogActivated)   +/*
-				AdminRow(quote, isLogActivated)     +*/
-				FinancingRow(quote, isLogActivated)/* +
-				EmptyRow()          +
+				ServiceRow(quote, isLogActivated)   +
+				AdminRow(quote, isLogActivated)     +
+				FinancingRow(quote, isLogActivated) +
+				EmptyRow() +
 				UnifiedSolutionPanel(quote, isLogActivated) +
 				EmptyRow() +
 				AdministeredSolutionPanel(quote, isLogActivated) +
 				EmptyRow() +
-				TraditionalSolutionPanel(quote, isLogActivated)*/
+				TraditionalSolutionPanel(quote, isLogActivated)
 			)
 		)
 	)

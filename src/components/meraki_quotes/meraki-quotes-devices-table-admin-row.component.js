@@ -1,10 +1,10 @@
 import React from 'react'
 import {Media} from 'react-bootstrap'
 import {
-	calculateAdministrationCost,
-	calculateAdminLogPrice,
 	formatMoney
 } from '../../modules/meraki-quotes-devices.module.js'
+
+import Service from '../../modules/service/service.module.js'
 
 const MerakiQuotesDevicesTableAdminRow = ({model, isLogActivated}) =>
 	<tr>
@@ -19,17 +19,11 @@ const MerakiQuotesDevicesTableAdminRow = ({model, isLogActivated}) =>
 				</Media.Body>
 			</Media>
 		</td>
-		{!!isLogActivated ? 
-			<td className="text-center">
-				<p>-</p>
-			</td>
-			:
-			<td>
-				<p>
-					{formatMoney(calculateAdministrationCost(model.Devices, model))}
-				</p>
-			</td>
-		}
+		<td>
+			<p>
+				{formatMoney( Service.from(model, {isLogActivated}).calculateAdministrationCost() )}
+			</p>
+		</td>
 		<td className="text-center"><p>-</p></td>
 		<td className="text-center"><p>-</p></td>
 		<td className="text-center"><p>-</p></td>
@@ -40,20 +34,15 @@ const MerakiQuotesDevicesTableAdminRow = ({model, isLogActivated}) =>
 		</td>
 		<td className="text-center"><p>-</p></td>
 		<td>
-			{!!isLogActivated ? 
-				<p>
-					{formatMoney(calculateAdminLogPrice(model))}
-				</p>
-				:
-				<p>
-					{formatMoney(calculateAdministrationCost(model.Devices, model) / (1-model.AdminMargin))}
-				</p>
-			}
+			<p>
+				{formatMoney( Service.from(model, {isLogActivated}).calculateAdministrationPrice() )}
+			</p>
 		</td>
 </tr>
 
 MerakiQuotesDevicesTableAdminRow.propTypes = {
-	model: React.PropTypes.object.isRequired
+	model: React.PropTypes.object.isRequired,
+	isLogActivated: React.PropTypes.bool.isRequired
 }
 
 export default MerakiQuotesDevicesTableAdminRow

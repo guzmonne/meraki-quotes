@@ -27,7 +27,7 @@ const MerakiQuotesMenu = ({onCreate}) =>
 	</div>
 
 MerakiQuotesMenu.propTypes = {
-	onCreate: React.PropTypes.func
+	onCreate: React.PropTypes.func.isRequired
 }
 
 export default MerakiQuotesMenu

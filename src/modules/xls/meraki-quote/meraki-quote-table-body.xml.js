@@ -1,13 +1,13 @@
 import {
 	calculateServiceCost,
 	calculateServiceLogPrice,
-	calculateAdministrationCost,
 	calculateAdminLogPrice,
-	calculateHardwarePrice,
+	calculateAdministrationCost,
 	getHardware,
 	getLicenses
 } from '../../meraki-quotes-devices.module.js'
 import SolutionCalc from '../../solution-calc.module.js'
+import Service from '../../service/service.module.js'
 
 export const Columns = `
    <Column ss:Width="189"/>
@@ -61,9 +61,12 @@ export const HardwareRow = (hardware, quote) => `
 	<Cell ss:StyleID="s279"><Data ss:Type="Number">${quote.Discount}</Data></Cell>
 	<Cell ss:StyleID="s279"><Data ss:Type="Number">${hardware.Intro}</Data></Cell>
 	<Cell ss:StyleID="s279"><Data ss:Type="Number">${quote.HardwareMargin}</Data></Cell>
-	<Cell ss:StyleID="s291" ss:Formula="=RC[-5]*(1-RC[-3])*(1+RC[-2])/(1-RC[-1])"><Data
-	  ss:Type="Number">${sellingPrice(hardware, quote)}</Data></Cell>
-	<Cell ss:StyleID="s295" ss:Formula="=RC[-1]*RC[-5]"><Data ss:Type="Number">${sellingPrice(hardware, quote) * hardware.Qty}</Data></Cell>
+	<Cell ss:StyleID="s291" ss:Formula="=RC[-5]*(1-RC[-3])*(1+RC[-2])/(1-RC[-1])">
+		<Data ss:Type="Number"></Data>
+	</Cell>
+	<Cell ss:StyleID="s295" ss:Formula="=RC[-1]*RC[-5]">
+		<Data ss:Type="Number"></Data>
+	</Cell>
 </Row>
 `
 
@@ -76,26 +79,29 @@ export const LicenseRow = (license, quote) => `
 	<Cell ss:StyleID="s279"><Data ss:Type="Number">${quote.Discount}</Data></Cell>
 	<Cell ss:StyleID="s279"><Data ss:Type="Number">0</Data></Cell>
 	<Cell ss:StyleID="s279"><Data ss:Type="Number">${quote.SoftwareMargin}</Data></Cell>
-	<Cell ss:StyleID="s291" ss:Formula="=RC[-5]*(1-RC[-3])*(1+RC[-2])/(1-RC[-1])"><Data
-	  ss:Type="Number">${sellingPrice(license, quote)}</Data></Cell>
-	<Cell ss:StyleID="s295" ss:Formula="=RC[-1]*RC[-5]"><Data ss:Type="Number">${sellingPrice(license, quote) * license.Qty}</Data></Cell>
+	<Cell ss:StyleID="s291" ss:Formula="=RC[-5]*(1-RC[-3])*(1+RC[-2])/(1-RC[-1])">
+		<Data ss:Type="Number"></Data>
+	</Cell>
+	<Cell ss:StyleID="s295" ss:Formula="=RC[-1]*RC[-5]">
+		<Data ss:Type="Number"></Data>
+	</Cell>
 </Row>
 `
 
 export const ServiceRow = (quote, isLogActivated) => `
 <Row>
 	<Cell ss:StyleID="s266"><Data ss:Type="String">Soporte</Data></Cell>
-	<Cell ss:StyleID="s267"><Data ss:Type="String">Cuota mensual</Data></Cell>
-	<Cell ss:StyleID="${!!isLogActivated ? "s281" : "s291"}"><Data ss:Type="${!!isLogActivated ? "String" : "Number"}">${!!isLogActivated ? '-' : calculateServiceCost(quote.Devices, quote)}</Data></Cell>
-	<Cell ss:StyleID="s281"><Data ss:Type="String">-</Data></Cell>
-	<Cell ss:StyleID="s281"><Data ss:Type="String">-</Data></Cell>
-	<Cell ss:StyleID="s281"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s267"><Data ss:Type="String">Cuota Mensual</Data></Cell>
+	<Cell ss:StyleID="s291"><Data ss:Type="Number">${Service.from(quote, {isLogActivated}).calculateServiceCost()}</Data></Cell>
+	<Cell ss:StyleID="s267"><Data ss:Type="Number">1</Data></Cell>
+	<Cell ss:StyleID="s279"><Data ss:Type="Number">0</Data></Cell>
+	<Cell ss:StyleID="s279"><Data ss:Type="Number">0</Data></Cell>
 	<Cell ss:StyleID="s279"><Data ss:Type="Number">${quote.ServiceMargin}</Data></Cell>
-	<Cell ss:StyleID="s281"><Data ss:Type="String">-</Data></Cell>
-	<Cell ss:StyleID="s295"${!!isLogActivated ? '' : ' ss:Formula="RC[-6]/(1-RC[-2])"'}>
-		<Data ss:Type="String">
-			${!!isLogActivated ? calculateServiceLogPrice(quote) : calculateServiceCost(quote.Devices, quote) / (1 - quote.ServiceMargin)}
-		</Data>
+	<Cell ss:StyleID="s291" ss:Formula="=RC[-5]*(1-RC[-3])*(1+RC[-2])/(1-RC[-1])">
+		<Data ss:Type="Number"></Data>
+	</Cell>
+	<Cell ss:StyleID="s295" ss:Formula="=RC[-1]*RC[-5]">
+		<Data ss:Type="Number"></Data>
 	</Cell>
 </Row>
 `
@@ -103,22 +109,22 @@ export const ServiceRow = (quote, isLogActivated) => `
 export const AdminRow = (quote, isLogActivated) => `
 <Row>
 	<Cell ss:StyleID="s266"><Data ss:Type="String">Administración</Data></Cell>
-	<Cell ss:StyleID="s267"><Data ss:Type="String">Cuota mensual</Data></Cell>
-	<Cell ss:StyleID="${!!isLogActivated ? "s281" : "s291"}"><Data ss:Type="${!!isLogActivated ? "String" : "Number"}">${!!isLogActivated ? '-' : calculateAdministrationCost(quote.Devices, quote)}</Data></Cell>
-	<Cell ss:StyleID="s281"><Data ss:Type="String">-</Data></Cell>
-	<Cell ss:StyleID="s281"><Data ss:Type="String">-</Data></Cell>
-	<Cell ss:StyleID="s281"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s267"><Data ss:Type="String">Cuota Mensual</Data></Cell>
+	<Cell ss:StyleID="s291"><Data ss:Type="Number">${Service.from(quote, {isLogActivated}).calculateAdministrationCost()}</Data></Cell>
+	<Cell ss:StyleID="s267"><Data ss:Type="Number">1</Data></Cell>
+	<Cell ss:StyleID="s279"><Data ss:Type="Number">0</Data></Cell>
+	<Cell ss:StyleID="s279"><Data ss:Type="Number">0</Data></Cell>
 	<Cell ss:StyleID="s279"><Data ss:Type="Number">${quote.AdminMargin}</Data></Cell>
-	<Cell ss:StyleID="s281"><Data ss:Type="String">-</Data></Cell>
-	<Cell ss:StyleID="s295"${!!isLogActivated ? '' : ' ss:Formula="RC[-6]/(1-RC[-2])"'}>
-		<Data ss:Type="Number">
-			${!!isLogActivated ? calculateAdminLogPrice(quote) : calculateAdministrationCost(quote.Devices, quote) / (1 - quote.AdminMargin)}
-		</Data>
+	<Cell ss:StyleID="s291" ss:Formula="=RC[-5]*(1-RC[-3])*(1+RC[-2])/(1-RC[-1])">
+		<Data ss:Type="Number"></Data>
+	</Cell>
+	<Cell ss:StyleID="s295" ss:Formula="=RC[-1]*RC[-5]">
+		<Data ss:Type="Number"></Data>
 	</Cell>
 </Row>
 `
 
-export const FinancingRow = (quote) => `
+export const FinancingRow = (quote, isLogActivated) => `
 <Row ss:Height="15.75">
 	<Cell ss:StyleID="s271"><Data ss:Type="String">Financiación de Equipos</Data></Cell>
 	<Cell ss:StyleID="s272"><Data ss:Type="String">Cuota mensual bajo contrato a 36 meses</Data></Cell>
@@ -128,7 +134,9 @@ export const FinancingRow = (quote) => `
 	<Cell ss:StyleID="s283"><Data ss:Type="String">-</Data></Cell>
 	<Cell ss:StyleID="s282"><Data ss:Type="Number">${quote.HardwareMargin}</Data></Cell>
 	<Cell ss:StyleID="s283"><Data ss:Type="String">-</Data></Cell>
-	<Cell ss:StyleID="s297"><Data ss:Type="Number">${calculateHardwarePrice(quote.Devices, quote) * 0.04}</Data></Cell>
+	<Cell ss:StyleID="s297" ss:Formula="=SUM(R[${hardwareBegins(quote, 1)}]C:R[${hardwareEnds(quote, 1)}]C)*0.04">
+		<Data ss:Type="Number"></Data>
+	</Cell>
 </Row>
 `
 
@@ -139,8 +147,8 @@ export const UnifiedSolutionPanel = (quote, isLogActivated) => `
 </Row>
 <Row>
 	<Cell ss:Index="2" ss:StyleID="s250"><Data ss:Type="String">Cuota Mensual</Data></Cell>
-	<Cell ss:StyleID="s303" ss:Formula="=SUM(R[-5]C[6]:R[-3]C[6])"><Data
-  	ss:Type="Number">${SolutionCalc.from(quote, {isLogActivated}).calculateUnifiedMonthlyPrice()}</Data></Cell>
+	<Cell ss:StyleID="s303" ss:Formula="=SUM(R[-5]C[6]:R[-3]C[6])+SUM(R[${licenseBegins(quote, -2)}]C[6]:R[${licenseEnds(quote, -2)}]C[6])/36"><Data
+  	ss:Type="Number"></Data></Cell>
 </Row>
 <Row ss:Height="15.75">
 	<Cell ss:Index="2" ss:StyleID="s252"><Data ss:Type="String">OBS: Contrato a 36 meses obligatorio.</Data></Cell>
@@ -170,35 +178,15 @@ export const AdministeredSolutionPanel = (quote, isLogActivated) => `
 </Row>
 <Row>
 	<Cell ss:Index="2" ss:StyleID="s99"><Data ss:Type="String">Inversión Inicial</Data></Cell>
-	${!!isLogActivated ?
-		`
-		<Cell ss:StyleID="s304">
-			<Data ss:Type="Number">${SolutionCalc.from(quote, {isLogActivated}).calculateHardwarePrice()}</Data>
-		</Cell>
-		`
-		:
-		`
-		<Cell ss:StyleID="s304" ss:Formula="=SUM(R[${hardwareBegins(quote, -6)}]C[6]:R[${hardwareEnds(quote, -6)}]C[6])">
-			<Data ss:Type="Number">${SolutionCalc.from(quote, {isLogActivated}).calculateHardwarePrice()}</Data>
-		</Cell>
-		`
-	}
+	<Cell ss:StyleID="s304" ss:Formula="=SUM(R[${hardwareBegins(quote, -6)}]C[6]:R[${hardwareEnds(quote, -6)}]C[6])">
+		<Data ss:Type="Number"></Data>
+	</Cell>
 </Row>
 <Row ss:Height="15.75">
 	<Cell ss:Index="2" ss:StyleID="s148"><Data ss:Type="String">Cuota mensual</Data></Cell>
-	${!!isLogActivated ?
-		`
-		<Cell ss:StyleID="s305">
-			<Data ss:Type="Number">${SolutionCalc.from(quote, {isLogActivated}).calculateAdministeredMonthlyPrice()}</Data>
-		</Cell>
-		`
-		:
-		`
-		<Cell ss:StyleID="s305" ss:Formula="=R[-10]C[6]+R[-9]C[6]+SUM(R[${licenseBegins(quote, -7)}]C[6]:R[${licenseEnds(quote, -7)}]C[6])/${quote.LicenceYears}">
-			<Data ss:Type="Number">${SolutionCalc.from(quote, {isLogActivated}).calculateAdministeredMonthlyPrice()}</Data>
-		</Cell>
-		`
-	}
+	<Cell ss:StyleID="s305" ss:Formula="=R[-10]C[6]+R[-9]C[6]+SUM(R[${licenseBegins(quote, -7)}]C[6]:R[${licenseEnds(quote, -7)}]C[6])/${quote.LicenceYears * 12}">
+		<Data ss:Type="Number"></Data>
+	</Cell>
 </Row>
 `
 export const TraditionalSolutionPanel = (quote, isLogActivated) => `
@@ -208,34 +196,14 @@ export const TraditionalSolutionPanel = (quote, isLogActivated) => `
 </Row>
 <Row>
 	<Cell ss:Index="2" ss:StyleID="s244"><Data ss:Type="String">Inversión Inicial</Data></Cell>
-	${!!isLogActivated ?
-		`
-		<Cell ss:StyleID="s306">
-			<Data ss:Type="Number">${SolutionCalc.from(quote, {isLogActivated}).calculateHardwarePrice()}</Data>
-		</Cell>
-		`
-		:
-		`
-		<Cell ss:StyleID="s306" ss:Formula="=SUM(R[${hardwareBegins(quote, -10)}]C[6]:R[${hardwareEnds(quote, -10)}]C[6])">
-			<Data ss:Type="Number">${SolutionCalc.from(quote, {isLogActivated}).calculateHardwarePrice()}</Data>
-		</Cell>
-		`
-	}
+	<Cell ss:StyleID="s306" ss:Formula="=SUM(R[${hardwareBegins(quote, -10)}]C[6]:R[${hardwareEnds(quote, -10)}]C[6])">
+		<Data ss:Type="Number"></Data>
+	</Cell>
 </Row>
 <Row ss:Height="15.75">
 	<Cell ss:Index="2" ss:StyleID="s246"><Data ss:Type="String">Cuota mensual</Data></Cell>
-	${!!isLogActivated ?
-		`
-		<Cell ss:StyleID="s307">
-			<Data ss:Type="Number">${SolutionCalc.from(quote, {isLogActivated}).calculateTraditionalMonthlyPrice()}</Data>
+		<Cell ss:StyleID="s307" ss:Formula="=R[-14]C[6]+SUM(R[${licenseBegins(quote, -11)}]C[6]:R[${licenseEnds(quote, -11)}]C[6])/${quote.LicenceYears * 12}">
+			<Data ss:Type="Number"></Data>
 		</Cell>
-		`
-		:
-		`
-		<Cell ss:StyleID="s307" ss:Formula="=R[-14]C[6]+SUM(R[${licenseBegins(quote, -11)}]C[6]:R[${licenseEnds(quote, -11)}]C[6])/${quote.LicenceYears}">
-			<Data ss:Type="Number">${SolutionCalc.from(quote, {isLogActivated}).calculateTraditionalMonthlyPrice()}</Data>
-		</Cell>
-		`
-	}
 </Row>
 `

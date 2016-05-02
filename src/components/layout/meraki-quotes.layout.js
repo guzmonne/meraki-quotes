@@ -7,12 +7,13 @@ import {
 	Col,
 	Panel
 } from 'react-bootstrap'
+import {doMerakiQuotesCreate} from '../../pages/meraki_quotes/actions/meraki-quotes.actions.js'
 import MerakiQuotesMenu from '../menus/meraki-quotes-menu.component.js'
 import Breadcrumbs from '../helpers/breadcrumbs.component.js'
 
 class MerakiQuotesLayout extends React.Component {
 	render(){
-		const { children } = this.props
+		const { children, doMerakiQuotesCreate, state } = this.props
 		return (
 			<Grid className="MerakiQuotesLayout">
 				<div className="Row">
@@ -41,6 +42,8 @@ const select = state => ({
 	state: state.merakiQuotes
 })
 
-const actions = {}
+const actions = {
+	doMerakiQuotesCreate
+}
 
 export default connect(select, actions)(MerakiQuotesLayout)

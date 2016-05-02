@@ -1,9 +1,10 @@
 import React from 'react'
 import {Media} from 'react-bootstrap'
 import {
-	calculateHardwarePrice,
 	formatMoney
 } from '../../modules/meraki-quotes-devices.module.js'
+
+import Service from '../../modules/service/service.module.js'
 
 const MerakiQuotesDevicesTableFinancingRow = ({model}) =>
 	<tr>
@@ -26,7 +27,9 @@ const MerakiQuotesDevicesTableFinancingRow = ({model}) =>
 		<td className="text-center"><p>-</p></td>
 		<td>
 			<p>
-				{formatMoney(calculateHardwarePrice(model.Devices, model) * 0.04)}
+				{formatMoney(
+					Service.from(model).calculateHardwarePrice() * 0.04
+				)}
 			</p>
 		</td>
 	</tr>

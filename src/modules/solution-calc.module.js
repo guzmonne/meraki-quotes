@@ -79,13 +79,13 @@ function SolutionCalcConstructor(){
 	 * @param  {Object} quote Quote object
 	 * @return {Number}       The monthly cost of the service
 	 */
-	const calculateServiceCostOf = (quote) => calculateSupportCostFrom(quote, "service")
+	const calculateServiceCost = (quote) => calculateSupportCostFrom(quote, "service")
 	/**
 	 * Alias to calculate the administration cost of the current quote
 	 * @param  {Object} quote Quote object
 	 * @return {Number}       The monthly cost of the administration
 	 */
-	const calculateAdminCostOf   = (quote) => calculateSupportCostFrom(quote, "admin")
+	const calculateAdminCost   = (quote) => calculateSupportCostFrom(quote, "admin")
 
 	/**
 	 * Helper function that calculates the service or administration costs depending
@@ -197,14 +197,14 @@ function SolutionCalcConstructor(){
 	 * @return {Number}       The monthly cost of the service
 	 */
 	const serviceMonthlyPrice = (quote) =>
-		calculateServiceCostOf(quote) / (1 - quote.ServiceMargin)
+		calculateServiceCost(quote) / (1 - quote.ServiceMargin)
 	/**
 	 * Helper function to calculate the monthly cost of the administration
 	 * @param  {Object} quote Quote Object
 	 * @return {Number}       The monthly cost of the administration
 	 */
 	const adminMonthlyPrice = (quote) =>
-		calculateAdminCostOf(quote) / (1 - quote.AdminMargin)
+		calculateAdminCost(quote) / (1 - quote.AdminMargin)
 	/**
 	 * Helper function to calculate the monthly cost of the service
 	 * @param  {Object} quote Quote Object
@@ -292,17 +292,21 @@ function SolutionCalcConstructor(){
 	const solutionCalc = (quote, isLogActivated) => {
 		return !!isLogActivated ?
 			Object.freeze({
-				calculateUnifiedMonthlyPrice: calculateUnifiedMonthlyLogPrice.bind(this, quote),
+				calculateUnifiedMonthlyPrice     : calculateUnifiedMonthlyLogPrice.bind(this, quote),
 				calculateAdministeredMonthlyPrice: calculateAdministeredMonthlyLogPrice.bind(this, quote),
-				calculateTraditionalMonthlyPrice: calculateTraditionalMonthlyLogPrice.bind(this, quote),	
-				calculateHardwarePrice: calculateHardwarePrice.bind(this, quote)
+				calculateTraditionalMonthlyPrice : calculateTraditionalMonthlyLogPrice.bind(this, quote),	
+				calculateHardwarePrice           : calculateHardwarePrice.bind(this, quote),
+				calculateAdminCost               : calculateAdminCost.bind(this, quote),
+				calculateServiceCost             : calculateServiceCost.bind(this, quote)
 			})
 			:
 			Object.freeze({
-				calculateUnifiedMonthlyPrice: calculateUnifiedMonthlyPrice.bind(this, quote),
+				calculateUnifiedMonthlyPrice     : calculateUnifiedMonthlyPrice.bind(this, quote),
 				calculateAdministeredMonthlyPrice: calculateAdministeredMonthlyPrice.bind(this, quote),
-				calculateTraditionalMonthlyPrice: calculateTraditionalMonthlyPrice.bind(this, quote),
-				calculateHardwarePrice: calculateHardwarePrice.bind(this, quote)
+				calculateTraditionalMonthlyPrice : calculateTraditionalMonthlyPrice.bind(this, quote),
+				calculateHardwarePrice           : calculateHardwarePrice.bind(this, quote),
+				calculateAdminCost               : calculateAdminCost.bind(this, quote),
+				calculateServiceCost             : calculateServiceCost.bind(this, quote)
 			})
 	}
 
