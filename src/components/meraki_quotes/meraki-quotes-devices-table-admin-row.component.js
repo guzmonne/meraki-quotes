@@ -2,7 +2,7 @@ import React from 'react'
 import {Media} from 'react-bootstrap'
 import {
 	formatMoney
-} from '../../modules/meraki-quotes-devices.module.js'
+} from '../../modules/formats.module.js'
 
 import Service from '../../modules/service/service.module.js'
 

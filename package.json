@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "hjs-dev-server",
     "build": "NODE_ENV=production webpack --progress",
-    "deploy": "NODE_ENV=production npm run build && aws s3 cp --recursive /home/gmonne/Documents/Projects/meraki-quotes/public s3://conapps.click --region sa-east-1"
+    "deploy": "npm run build && npm run upload",
+    "upload": "aws s3 cp --recursive /home/gmonne/Documents/Projects/meraki-quotes/public s3://conapps.click --region sa-east-1"
   },
   "repository": {
     "type": "git",

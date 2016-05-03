@@ -24,7 +24,8 @@ import {browserHistory} from 'react-router'
 import _ from 'lodash'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
 import Session from '../../../modules/session.module.js'
-import {calculateNeededLicenses, getHardware} from '../../../modules/meraki-quotes-devices.module.js'
+import {calculateNeededLicenses} from '../../../modules/meraki-quotes-devices.module.js'
+import Service from '../../../modules/service/service.module.js'
 
 // SET MERAKI QUOTES BREADCRUMBS
 export function setMerakiQuotesBreadcrumbs(breadcrumbs){
@@ -337,12 +338,13 @@ export function doMerakiQuotesUpdate(patch, index){
 		if (!_.isObject(patch)) return
 		// A device is being updated instead of a patch of the quote.
 		if (_.isNumber(index)){
+			const quote = state.merakiQuotes.current
 			const list  = state.merakiDevices.all
-			const years = state.merakiQuotes.current.LicenceYears
-			let Devices = state.merakiQuotes.current.Devices.map((device, i) =>
+			const years = quote.LicenceYears
+			let Devices = quote.Devices.map((device, i) =>
 				i === index ? patch : device
 			)
-			const hardware = getHardware(Devices)
+			const hardware = Service.from(quote).getHardware(Devices)
 			const software = calculateNeededLicenses(hardware, years, list)
 			Devices = [...hardware, ...software]
 			patch = {Devices}
@@ -355,10 +357,10 @@ export function doMerakiQuotesUpdate(patch, index){
 
 		// Recalculate the licenses needed after changing the LicenseYear value
 		if (!!patch.LicenceYears){
-			const state = getState()
+			const quote = state.merakiQuotes.current
 			const list  = state.merakiDevices.all
-			let Devices = state.merakiQuotes.current.Devices
-			const hardware = getHardware(Devices)
+			let Devices = quote.Devices
+			const hardware = Service.from(quote).getHardware(Devices)
 			const software = calculateNeededLicenses(hardware, patch.LicenceYears, list)
 			Devices = [...hardware, ...software]
 			patch = Object.assign({}, patch, {Devices})

@@ -1,14 +1,6 @@
 import React from 'react'
 import DeviceRow from './meraki-quotes-devices-table-row.component.js'
-import {
-	calculateAdministrationCost,
-	calculateServiceCost,
-	calculateHardwareCost,
-	calculateSoftwareCost,
-	getLicenses,
-	getHardware,
-	formatMoney
-} from '../../modules/meraki-quotes-devices.module.js'
+import Service from '../../modules/service/service.module.js'
 import MerakiQuotesDevicesTableServiceRow from './meraki-quotes-devices-table-service-row.component.js'
 import MerakiQuotesDevicesTableAdminRow from './meraki-quotes-devices-table-admin-row.component.js'
 import MerakiQuotesDevicesTableFinancingRow from './meraki-quotes-devices-table-financing-row.component.js'
@@ -24,7 +16,7 @@ export default ({
 	:
 		<tbody>
 			<tr><td colSpan={9} className="MerakiQuotesDevicesTable__title_row">Hardware</td></tr>
-			{getHardware(model.Devices).map((device, i) => 
+			{Service.from(model).getHardware().map((device, i) => 
 				<DeviceRow
 					key={device.PartNumber + i}
 					onUpdate={onUpdate}
@@ -35,7 +27,7 @@ export default ({
 				/>
 			)}
 			<tr><td colSpan={9} className="MerakiQuotesDevicesTable__title_row">Software</td></tr>
-			{getLicenses(model.Devices).map((license, i) =>
+			{Service.from(model).getLicenses().map((license, i) =>
 				<DeviceRow
 					key={license.PartNumber + i}
 					device={license}

@@ -194,6 +194,10 @@
 			td:first-of-type, th:first-of-type {
 				display: table-cell;
 			}
+
+			ul, table {
+			    width: 100px;
+			}
 		}
 
 		.MerakiQuotesEdit__years {

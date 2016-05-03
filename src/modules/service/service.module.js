@@ -65,7 +65,7 @@ function ServiceConstructor(){
 	 * Placeholder function that returns an object from which you can change the needed methods
 	 * to calculate the values of all the different solutions
 	 * @param  {Object} quote Quote object
-	 * @return {Object}       SolutionCalc object
+	 * @return {Object}       Service object
 	 */
 	const from = (quote, options) => {
 		return service(quote, options)

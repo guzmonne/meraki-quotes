@@ -2,8 +2,7 @@ import React from 'react'
 import {Panel, Row, Col, Input} from 'react-bootstrap'
 import {
 	formatMoney
-} from '../../modules/meraki-quotes-devices.module.js'
-import SolutionCalc from '../../modules/solution-calc.module.js'
+} from '../../modules/formats.module.js'
 import Service from '../../modules/service/service.module.js'
 import Spinner from '../helpers/spinner.component.js'
 

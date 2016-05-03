@@ -1,12 +1,3 @@
-import {
-	calculateServiceCost,
-	calculateServiceLogPrice,
-	calculateAdminLogPrice,
-	calculateAdministrationCost,
-	getHardware,
-	getLicenses
-} from '../../meraki-quotes-devices.module.js'
-import SolutionCalc from '../../solution-calc.module.js'
 import Service from '../../service/service.module.js'
 
 export const Columns = `
@@ -159,17 +150,17 @@ export const UnifiedSolutionPanel = (quote, isLogActivated) => `
 const hardwareBegins = (quote, offset) => offset /*Under table*/ 
 																					- 2 /*Two Sub headings*/
 																					- 3 /*Service, Administration, and Financing*/
-																					- (getHardware(quote.Devices) || []).length /*Hardware Lenght*/
-																					- (getLicenses(quote.Devices) || []).length /*Software Length*/
+																					- (Service.from(quote).getHardware(quote.Devices) || []).length /*Hardware Lenght*/
+																					- (Service.from(quote).getLicenses(quote.Devices) || []).length /*Software Length*/
 
-const hardwareEnds = (quote, offset) => hardwareBegins(quote, offset) + (getHardware(quote.Devices) || []).length - 1
+const hardwareEnds = (quote, offset) => hardwareBegins(quote, offset) + (Service.from(quote).getHardware(quote.Devices) || []).length - 1
 
 const licenseBegins = (quote, offset) => offset /*Under Table*/
 																				- 1 /*One Sub headings*/
 																				- 3 /*Service, Administration, and Financing*/
-																				- (getLicenses(quote.Devices) || []).length /*Software Length*/
+																				- (Service.from(quote).getLicenses(quote.Devices) || []).length /*Software Length*/
 
-const licenseEnds = (quote, offset) => licenseBegins(quote, offset) + (getLicenses(quote.Devices) || []).length - 1
+const licenseEnds = (quote, offset) => licenseBegins(quote, offset) + (Service.from(quote).getLicenses(quote.Devices) || []).length - 1
 
 export const AdministeredSolutionPanel = (quote, isLogActivated) => `
 <Row>

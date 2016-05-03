@@ -18,10 +18,8 @@ import {
 	AdministeredSolutionPanel,
 	TraditionalSolutionPanel
 } from './meraki-quote-table-body.xml.js'
-import {
-	getLicenses,
-	getHardware
-} from '../../meraki-quotes-devices.module.js'
+
+import Service from '../../service/service.module.js'
 
 export default (quote, isLogActivated) => 
 	WorkBook(
@@ -32,11 +30,11 @@ export default (quote, isLogActivated) =>
 				Columns +
 				Thead   +
 				SubHeaderRow('Hardware') +
-				getHardware(quote.Devices).
+				Service.from(quote).getHardware(quote).
 					map(hardware => HardwareRow(hardware, quote)).
 					join('') +
 				SubHeaderRow('Software') + 
-				getLicenses(quote.Devices).
+				Service.from(quote).getLicenses(quote).
 					map(license => LicenseRow(license, quote)).
 					join('') +
 				SubHeaderRow('Administración, Soporte y Financiación') +
