@@ -4,7 +4,9 @@
   "description": "Meraki Quotes",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -w src/test/helpers/browser.js src/test --recursive",
+    "test": "NODE_ENV=test npm run mocha",
+    "mocha": "mocha -w src/test/helpers/browser.js src/test --recursive",
+    "test:ps": "npm run mocha",
     "start": "hjs-dev-server",
     "build": "NODE_ENV=production webpack --progress",
     "deploy": "npm run build && npm run upload",

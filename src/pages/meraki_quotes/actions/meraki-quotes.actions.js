@@ -58,22 +58,17 @@ export function toggleMerakiQuotesCreateModal(){
  */
 export function doMerakiQuotesCreate(quote){
 	return dispatch => {
-		const handleSuccess = (quote) =>
-			dispatch(merakiQuotesCreateSuccess(quote))
-		const handleError = (error) =>
-			dispatch(handleMerakiQuotesError(MERAKI_QUOTES_CREATE_ERROR, error))
-
 		dispatch(doingMerakiQuotesCreate())
 
 		AwsApiObservers.
 			merakiQuotesCreateObs(quote).
 			subscribe(
 				({response}) => {
-					handleSuccess(response)
+					dispatch(merakiQuotesCreateSuccess(response))
 					if(response && response.ID)
 						browserHistory.push('/meraki_quotes/edit/' + response.ID)
 				},
-				error => handleError(error)
+				error => dispatch(handleMerakiQuotesError(MERAKI_QUOTES_CREATE_ERROR, error))
 			)
 	}
 }

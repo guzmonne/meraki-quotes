@@ -11,7 +11,7 @@ import {
  * @return {Number}       Hardware total price
  */
 export const calculateHardwarePrice = (quote) => 
-	calculateHardwareCost(quote) / (1 - quote.HardwareMargin)
+	Math.round((calculateHardwareCost(quote) / (1 - quote.HardwareMargin)) * 100) / 100
 
 /**
  * Helper function to calculate the hardware total price
@@ -19,13 +19,13 @@ export const calculateHardwarePrice = (quote) =>
  * @return {Number}       Hardware total price
  */
 export const calculateLicensePrice = (quote) => 
-	calculateLicenseCost(quote) / (1 - quote.SoftwareMargin)
+	Math.round((calculateLicenseCost(quote) / (1 - quote.SoftwareMargin)) * 100) / 100
 
 export const calculateServicePrice = (quote, options) =>
-	calculateServiceCost(quote, options) / (1 - quote.ServiceMargin)
+	Math.round((calculateServiceCost(quote, options) / (1 - quote.ServiceMargin)) * 100) / 100
 
 export const calculateAdministrationPrice = (quote, options) =>
-	calculateAdministrationCost(quote, options) / (1 - quote.AdminMargin)
+	Math.round((calculateAdministrationCost(quote, options) / (1 - quote.AdminMargin)) * 100) / 100
 
 /**
  * Helper function to calculate the financed monthly costs of the hardware
@@ -33,4 +33,4 @@ export const calculateAdministrationPrice = (quote, options) =>
  * @return {Number}       The monthly financed price of all the hardware.
  */
 export const calculateFinancedHardwarePrice = (quote) =>
-	calculateHardwarePrice(quote) * 0.04
+	Math.round((calculateHardwarePrice(quote) * 0.04) * 100) / 100

@@ -1,3 +1,5 @@
+import {twoDecimals} from '../formats.module.js' 
+
 import {
 	getLicenseMonths
 } from './service-helpers.module.js'
@@ -16,7 +18,9 @@ import {
  * @return {Number}       The monthly cost of the licenses
  */
 export const calculateLicenseMonthlyPrice = (quote, options) =>
-	calculateLicensePrice(quote, options) / getLicenseMonths(quote, options)
+	twoDecimals(
+		calculateLicensePrice(quote, options) / getLicenseMonths(quote, options)
+	)
 
 /**
  * Calculates the monthly cost of the Unified Solution
@@ -24,10 +28,12 @@ export const calculateLicenseMonthlyPrice = (quote, options) =>
  * @return {Number}       The monthly cost of the Unified solution
  */
 export const calculateUnifiedMonthlyPrice = (quote, options) =>
-	calculateFinancedHardwarePrice(quote, options) +
-	calculateLicenseMonthlyPrice(quote, options) +
-	calculateServicePrice(quote, options) + 
-	calculateAdministrationPrice(quote, options)
+	twoDecimals(
+		calculateFinancedHardwarePrice(quote, options) +
+		calculateLicenseMonthlyPrice(quote, options) +
+		calculateServicePrice(quote, options) + 
+		calculateAdministrationPrice(quote, options)
+	)
 
 /**
  * Calculates the monthly cost of the Administered Solution

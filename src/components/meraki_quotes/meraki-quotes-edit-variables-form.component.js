@@ -79,6 +79,7 @@ class MerakiQuotesEditVariablesForm extends React.Component {
 							onChange={() => this.submitMargin('ServiceMargin')}
 							value={Math.round((model.ServiceMargin) * 100, 0)}
 							addonAfter={<i className="fa fa-percent"></i>}
+							disabled={true}
 						/>						
 						<Input 
 							label="Margen de Admin."
@@ -89,6 +90,7 @@ class MerakiQuotesEditVariablesForm extends React.Component {
 							onChange={() => this.submitMargin('AdminMargin')}
 							value={Math.round((model.AdminMargin) * 100, 0)}
 							addonAfter={<i className="fa fa-percent"></i>}
+							disabled={true}
 						/>
 					</form>
 				</Panel>
