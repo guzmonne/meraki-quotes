@@ -22,4 +22,10 @@ var config = getConfig({
 	}
 })
 
+config.externals = {
+  'cheerio': 'window',
+  'react/lib/ExecutionEnvironment': true,
+  'react/lib/ReactContext': true
+}
+
 module.exports = config;

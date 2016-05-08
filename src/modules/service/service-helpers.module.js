@@ -1,5 +1,6 @@
+import _ from 'lodash'
 /* DEFAULTS */
-const SERVICE_LEVEL_CONSTANTS = {
+export const SERVICE_LEVEL_CONSTANTS = {
 	'9x5xNBD': {
 		admin: 2.030,
 		service: 0.4444
@@ -10,9 +11,9 @@ const SERVICE_LEVEL_CONSTANTS = {
 	}
 }
 
-const MODIFIER_DISCOUNT = 0.5
+export const MODIFIER_DISCOUNT = 0.5
 
-const MODIFIER_MAX_DEVICES = 50 
+export const MODIFIER_MAX_DEVICES = 50 
 
 ///////////////////////////////
 /// PRIVATE METHODS
@@ -23,14 +24,14 @@ const MODIFIER_MAX_DEVICES = 50
  * @param  {Object} model Meraki product object
  * @return {Boolean}      Wether the product is hardware or not
  */
-const isHardware = model => 
+export const isHardware = model => 
 	_.isString(model.PartNumber) && model.PartNumber.indexOf('LIC') === -1
 /**
  * Filter function to get the licenses devices from a Meraki Products collection
  * @param  {Object} model Meraki product object
  * @return {Boolean}      Wether the product is a license or not
  */
-const isLicense = model => 
+export const isLicense = model => 
 	_.isString(model.PartNumber) && model.PartNumber.indexOf('LIC') > -1
 
 /**
@@ -53,15 +54,18 @@ export const getLicenses = (quote) => (quote.Devices || []).filter(isLicense)
  * @param  {level} level  Quote Service Level "9x5xNBD" or "24x7x4"
  * @return {Number}       The value of the modifier
  */
-const getModifier = (quote, options, license) => {
+export const getModifier = (quote, options, license) => {
 	let modifier
-	if (options.type === "service") modifier = SERVICE_LEVEL_CONSTANTS[quote.ServiceLevel]["service"]
-	if (options.type === "admin")   modifier = SERVICE_LEVEL_CONSTANTS[quote.ServiceLevel]["admin"]
+	if (_.has(options, 'type') && options.type === "service") modifier = SERVICE_LEVEL_CONSTANTS[quote.ServiceLevel]["service"]
+	if (_.has(options, 'type') && options.type === "admin")   modifier = SERVICE_LEVEL_CONSTANTS[quote.ServiceLevel]["admin"]
 	if (!modifier) return 0
-	if (!!options.isLogActivated)   modifier = modifier - (modifier * MODIFIER_DISCOUNT / Math.log(MODIFIER_MAX_DEVICES)) * Math.log(license.Qty)
+	if (!!options.isLogActivated)   modifier = calculateLogModifier(modifier, license)
 	//console.log(options, modifier)
 	return modifier
 }
+
+export const calculateLogModifier = (modifier=0, license) =>
+	modifier - (modifier * MODIFIER_DISCOUNT / Math.log(MODIFIER_MAX_DEVICES)) * Math.log(license.Qty)
 
 /**
  * Calculates the number of months give the license years
@@ -81,7 +85,14 @@ export const getLicenseMonths = license =>
 export const calculateSupportCost = (quote, options) =>
 	getLicenses(quote).reduce((acc, license) => acc + supportCostForLicense(quote, options, license), 0)
 
-const supportCostForLicense = (quote, options, license) => (
+/**
+ * Helper function to calculate the support cost of a given license.
+ * @param  {Object} quote   Quote Object
+ * @param  {Object} options Options parameters
+ * @param  {Object} license License Object
+ * @return {Number}         The support 
+ */
+export const supportCostForLicense = (quote, options, license) => (
 	license.Price * 
 	license.Qty   *
 	getModifier(quote, options, license) / 
@@ -103,7 +114,14 @@ export const calculateDeviceCost = (quote, type) => {
 	return collection.reduce((acc, device) => acc + deviceCost(quote, type, device), 0)
 }
 
-const deviceCost = (quote, type, device) => (
+/**
+ * Helper function to calculate the device cost depending if it a license or a hardware device.
+ * @param  {Object} quote   Quote Object
+ * @param  {String} type    Device type
+ * @param  {Object} device  Device Object
+ * @return {Number}         The support 
+ */
+export const deviceCost = (quote, type, device) => (
 	device.Price         *
 	device.Qty           *
 	(1 - quote.Discount) *

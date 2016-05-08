@@ -313,19 +313,20 @@ const merakiQuoteUpdatableKeys = [
 
 const merakiQuotesUpdateSubject = new Rx.Subject()
 const merakiQuotesUpdateSubjectObs = merakiQuotesUpdateSubject.
-	debounce(3000).
+	debounce(1500).
 	flatMap(quote => {
 		console.log('******* QUOTE UPDATE ON ITS WAY *******')
 		return AwsApiObservers.
 			merakiQuotesUpdateObs(quote)
 	}).
+	repeat().
 	subscribe(
 		() => store.dispatch(merakiQuotesUpdateSuccess()),
 		error => store.dispatch(handleMerakiQuotesError(MERAKI_QUOTES_UPDATE_ERROR, error))
 	)
 
 /**
- * Action that updates the current Meraki Quote via a PATCH
+ * Action that updates the current Meraki Quote via a PUT
  * request, carrying the updated keys on its body.
  * @param  {Object} patch A piece of a Meraki Quote to update the current one or a device object to update.
  * @param  {Number} patch Index of the Meraki Quote Device to update.
@@ -338,15 +339,16 @@ export function doMerakiQuotesUpdate(patch, index){
 		if (!_.isObject(patch)) return
 		// A device is being updated instead of a patch of the quote.
 		if (_.isNumber(index)){
+			console.log(patch, index)
 			const quote = state.merakiQuotes.current
 			const list  = state.merakiDevices.all
 			const years = quote.LicenceYears
-			let Devices = quote.Devices.map((device, i) =>
+			quote.Devices = quote.Devices.map((device, i) =>
 				i === index ? patch : device
 			)
-			const hardware = Service.from(quote).getHardware(Devices)
+			const hardware = Service.from(quote).getHardware()
 			const software = calculateNeededLicenses(hardware, years, list)
-			Devices = [...hardware, ...software]
+			const Devices = [...hardware, ...software]
 			patch = {Devices}
 		} else {
 			// Only allow certain keys
@@ -396,6 +398,7 @@ function doingMerakiQuotesUpdate(patch){
  * @return {Action} 
  */
 function merakiQuotesUpdateSuccess(){
+	console.log('******* QUOTE UPDATE SUCCEEDED ********')
 	return {
 		type: MERAKI_QUOTES_UPDATE_SUCCESS
 	}
