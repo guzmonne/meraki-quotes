@@ -13,7 +13,8 @@ import {
 	LicenseRow,
 	ServiceRow,
 	AdminRow,
-	FinancingRow,
+	HardwareFinancingRow,
+	LicenseFinancingRow,
 	UnifiedSolutionPanel,
 	AdministeredSolutionPanel,
 	TraditionalSolutionPanel
@@ -40,7 +41,8 @@ export default (quote, isLogActivated) =>
 				SubHeaderRow('Administración, Soporte y Financiación') +
 				ServiceRow(quote, isLogActivated)   +
 				AdminRow(quote, isLogActivated)     +
-				FinancingRow(quote, isLogActivated) +
+				LicenseFinancingRow(quote, isLogActivated) +
+				HardwareFinancingRow(quote, isLogActivated) +
 				EmptyRow() +
 				UnifiedSolutionPanel(quote, isLogActivated) +
 				EmptyRow() +

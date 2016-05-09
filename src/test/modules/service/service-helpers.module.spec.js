@@ -178,7 +178,28 @@ describe('Service Helpers Module', () => {
 		
 		it('should return the support cost for the given devices list', function(){
 			const _quote = Object.assign({}, quote, {ServiceLevel: '9x5xNBD', LicenceYears: 3})
-			expect(ServiceHelpers.calculateSupportCost(_quote, {type: 'service', isLogActivated: true})).to.equal(31.58021134070573)
+			expect(ServiceHelpers.calculateSupportCost(_quote, {type: 'service', isLogActivated: true})).to.equal(53.40)
+		})
+
+	})
+
+	describe('#log()', function(){
+
+		it('should return a function that calculates the logarithmic decay depending on the values', function(){
+			const log = ServiceHelpers.log(1, 0.70, 50)
+			expect(log(1)).to.equal(1)
+			expect(log(5)).to.equal(0.7120)
+			expect(log(10)).to.equal(0.5880)
+		})
+
+	})
+
+	describe('#serviceLog()', function(){
+
+		it('should return a function that calculates the logarithmic decay depending on the values', function(){
+			expect(ServiceHelpers.serviceLog(1)).to.equal(7.0000)
+			expect(ServiceHelpers.serviceLog(5)).to.equal(5.5601)
+			expect(ServiceHelpers.serviceLog(10)).to.equal(4.9399)
 		})
 
 	})

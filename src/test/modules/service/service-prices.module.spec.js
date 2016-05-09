@@ -36,24 +36,28 @@ describe('Service Prices Module', function(){
 
 	describe('#calculateServicePrice()', function(){
 
-		it('should return the price of the service from a quote', function(){
-			expect(ServicePrices.calculateServicePrice(_quote, _options)).to.equal(39.48)
-		})
+		it('should return the price of the service from a quote')
 		
 	})	
 
 	describe('#calculateAdministrationPrice()', function(){
 
-		it('should return the price of the administration from a quote', function(){
-			expect(ServicePrices.calculateAdministrationPrice(_quote, _options)).to.equal(180.32)
-		})
+		it('should return the price of the administration from a quote')
 		
 	})
 
 	describe('#calculateFinancedHardwarePrice()', function(){
 
 		it('should return the price of the financed hardware from a quote', function(){
-			expect(ServicePrices.calculateFinancedHardwarePrice(_quote)).to.equal(1010.58)
+			expect(ServicePrices.calculateFinancedHardwarePrice(_quote)).to.equal(833.72)
+		})
+		
+	})
+
+	describe('#calculateFinancedLicensePrice()', function(){
+
+		it('should return the price of the financed hardware from a quote', function(){
+			expect(ServicePrices.calculateFinancedLicensePrice(_quote)).to.equal(82.29)
 		})
 		
 	})

@@ -312,6 +312,10 @@ const styles = `
 	   </Borders>
 	   <NumberFormat ss:Format="Standard"/>
 	  </Style>
+	  <Style ss:ID="s96">
+	   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+	   <Borders/>
+	  </Style>
 	 </Styles>
 `
 

@@ -19,23 +19,19 @@ const MerakiQuotesDevicesTableServiceRow = ({model, isLogActivated}) =>
 				</Media.Body>
 			</Media>
 		</td>
-		<td>
-			<p>
-				{formatMoney( Service.from(model, {isLogActivated}).calculateServiceCost() )}
-			</p>
-		</td>
+		<td className="text-center"><p>-</p></td>
 		<td className="text-center"><p>-</p></td>
 		<td className="text-center"><p>-</p></td>
 		<td className="text-center"><p>-</p></td>
 		<td className="text-center text-muted">
 			<p>
-				{`${Math.round(model.ServiceMargin*100, 2)}%`}
+				{`30%`}
 			</p>
 		</td>
 		<td className="text-center"><p>-</p></td>
 		<td>			
 			<p>
-				{formatMoney( Service.from(model, {isLogActivated}).calculateServicePrice() )}
+				{formatMoney( Service.from(model, {isLogActivated}).calculateServiceCost() )}
 			</p>
 		</td>
 </tr>

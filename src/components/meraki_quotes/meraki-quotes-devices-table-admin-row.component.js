@@ -19,23 +19,19 @@ const MerakiQuotesDevicesTableAdminRow = ({model, isLogActivated}) =>
 				</Media.Body>
 			</Media>
 		</td>
-		<td>
-			<p>
-				{formatMoney( Service.from(model, {isLogActivated}).calculateAdministrationCost() )}
-			</p>
-		</td>
+		<td className="text-center"><p>-</p></td>
 		<td className="text-center"><p>-</p></td>
 		<td className="text-center"><p>-</p></td>
 		<td className="text-center"><p>-</p></td>
 		<td className="text-center text-muted">
 			<p>
-				{`${model.AdminMargin*100}%`}
+				{`30%`}
 			</p>
 		</td>
 		<td className="text-center"><p>-</p></td>
 		<td>
 			<p>
-				{formatMoney( Service.from(model, {isLogActivated}).calculateAdministrationPrice() )}
+				{formatMoney( Service.from(model, {isLogActivated}).calculateAdministrationCost() )}
 			</p>
 		</td>
 </tr>

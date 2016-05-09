@@ -28,7 +28,7 @@ const MerakiQuotesDevicesTableFinancingRow = ({model}) =>
 		<td>
 			<p>
 				{formatMoney(
-					Service.from(model).calculateHardwarePrice() * 0.04
+					Service.from(model).calculateFinancedHardwarePrice()
 				)}
 			</p>
 		</td>

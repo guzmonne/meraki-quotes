@@ -83,16 +83,14 @@ export const ServiceRow = (quote, isLogActivated) => `
 <Row>
 	<Cell ss:StyleID="s266"><Data ss:Type="String">Soporte</Data></Cell>
 	<Cell ss:StyleID="s267"><Data ss:Type="String">Cuota Mensual</Data></Cell>
-	<Cell ss:StyleID="s291"><Data ss:Type="Number">${Service.from(quote, {isLogActivated}).calculateServiceCost()}</Data></Cell>
-	<Cell ss:StyleID="s267"><Data ss:Type="Number">1</Data></Cell>
-	<Cell ss:StyleID="s279"><Data ss:Type="Number">0</Data></Cell>
-	<Cell ss:StyleID="s279"><Data ss:Type="Number">0</Data></Cell>
-	<Cell ss:StyleID="s279"><Data ss:Type="Number">${quote.ServiceMargin}</Data></Cell>
-	<Cell ss:StyleID="s291" ss:Formula="=RC[-5]*(1-RC[-3])*(1+RC[-2])/(1-RC[-1])">
-		<Data ss:Type="Number"></Data>
-	</Cell>
-	<Cell ss:StyleID="s295" ss:Formula="=RC[-1]*RC[-5]">
-		<Data ss:Type="Number"></Data>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s295">
+		<Data ss:Type="Number">${Service.from(quote, {isLogActivated}).calculateServiceCost()}</Data>
 	</Cell>
 </Row>
 `
@@ -101,31 +99,45 @@ export const AdminRow = (quote, isLogActivated) => `
 <Row>
 	<Cell ss:StyleID="s266"><Data ss:Type="String">Administración</Data></Cell>
 	<Cell ss:StyleID="s267"><Data ss:Type="String">Cuota Mensual</Data></Cell>
-	<Cell ss:StyleID="s291"><Data ss:Type="Number">${Service.from(quote, {isLogActivated}).calculateAdministrationCost()}</Data></Cell>
-	<Cell ss:StyleID="s267"><Data ss:Type="Number">1</Data></Cell>
-	<Cell ss:StyleID="s279"><Data ss:Type="Number">0</Data></Cell>
-	<Cell ss:StyleID="s279"><Data ss:Type="Number">0</Data></Cell>
-	<Cell ss:StyleID="s279"><Data ss:Type="Number">${quote.AdminMargin}</Data></Cell>
-	<Cell ss:StyleID="s291" ss:Formula="=RC[-5]*(1-RC[-3])*(1+RC[-2])/(1-RC[-1])">
-		<Data ss:Type="Number"></Data>
-	</Cell>
-	<Cell ss:StyleID="s295" ss:Formula="=RC[-1]*RC[-5]">
-		<Data ss:Type="Number"></Data>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s295">
+		<Data ss:Type="Number">${Service.from(quote, {isLogActivated}).calculateAdministrationCost()}</Data>
 	</Cell>
 </Row>
 `
 
-export const FinancingRow = (quote, isLogActivated) => `
+export const HardwareFinancingRow = (quote, isLogActivated) => `
 <Row ss:Height="15.75">
 	<Cell ss:StyleID="s271"><Data ss:Type="String">Financiación de Equipos</Data></Cell>
 	<Cell ss:StyleID="s272"><Data ss:Type="String">Cuota mensual bajo contrato a 36 meses</Data></Cell>
 	<Cell ss:StyleID="s283"><Data ss:Type="String">-</Data></Cell>
 	<Cell ss:StyleID="s283"><Data ss:Type="String">-</Data></Cell>
-	<Cell ss:StyleID="s282"><Data ss:Type="Number">${quote.Discount}</Data></Cell>
 	<Cell ss:StyleID="s283"><Data ss:Type="String">-</Data></Cell>
-	<Cell ss:StyleID="s282"><Data ss:Type="Number">${quote.HardwareMargin}</Data></Cell>
 	<Cell ss:StyleID="s283"><Data ss:Type="String">-</Data></Cell>
-	<Cell ss:StyleID="s297" ss:Formula="=SUM(R[${hardwareBegins(quote, 1)}]C:R[${hardwareEnds(quote, 1)}]C)*0.04">
+	<Cell ss:StyleID="s283"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s283"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s297" ss:Formula="=SUM(R[${hardwareBegins(quote, 1)}]C:R[${hardwareEnds(quote, 1)}]C)*0.033">
+		<Data ss:Type="Number"></Data>
+	</Cell>
+</Row>
+`
+
+export const LicenseFinancingRow = (quote, isLogActivated) => `
+<Row ss:Height="15.75">
+	<Cell ss:StyleID="s266"><Data ss:Type="String">Financiación de Licencias</Data></Cell>
+	<Cell ss:StyleID="s267"><Data ss:Type="String">Cuota mensual bajo contrato a 36 meses</Data></Cell>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
+	<Cell ss:StyleID="s295" ss:Formula="=SUM(R[${licenseBegins(quote, 2)}]C:R[${licenseEnds(quote, 2)}]C)*0.033">
 		<Data ss:Type="Number"></Data>
 	</Cell>
 </Row>
@@ -138,7 +150,7 @@ export const UnifiedSolutionPanel = (quote, isLogActivated) => `
 </Row>
 <Row>
 	<Cell ss:Index="2" ss:StyleID="s250"><Data ss:Type="String">Cuota Mensual</Data></Cell>
-	<Cell ss:StyleID="s303" ss:Formula="=SUM(R[-5]C[6]:R[-3]C[6])+SUM(R[${licenseBegins(quote, -2)}]C[6]:R[${licenseEnds(quote, -2)}]C[6])/36"><Data
+	<Cell ss:StyleID="s303" ss:Formula="=SUM(R[-6]C[6]:R[-3]C[6])"><Data
   	ss:Type="Number"></Data></Cell>
 </Row>
 <Row ss:Height="15.75">
@@ -149,7 +161,7 @@ export const UnifiedSolutionPanel = (quote, isLogActivated) => `
 
 const hardwareBegins = (quote, offset) => offset /*Under table*/ 
 																					- 2 /*Two Sub headings*/
-																					- 3 /*Service, Administration, and Financing*/
+																					- 4 /*Service, Administration, Licenses, and Financing*/
 																					- (Service.from(quote).getHardware(quote.Devices) || []).length /*Hardware Lenght*/
 																					- (Service.from(quote).getLicenses(quote.Devices) || []).length /*Software Length*/
 
@@ -157,7 +169,7 @@ const hardwareEnds = (quote, offset) => hardwareBegins(quote, offset) + (Service
 
 const licenseBegins = (quote, offset) => offset /*Under Table*/
 																				- 1 /*One Sub headings*/
-																				- 3 /*Service, Administration, and Financing*/
+																				- 4 /*Service, Administration, Licenses, and Financing*/
 																				- (Service.from(quote).getLicenses(quote.Devices) || []).length /*Software Length*/
 
 const licenseEnds = (quote, offset) => licenseBegins(quote, offset) + (Service.from(quote).getLicenses(quote.Devices) || []).length - 1
@@ -175,7 +187,7 @@ export const AdministeredSolutionPanel = (quote, isLogActivated) => `
 </Row>
 <Row ss:Height="15.75">
 	<Cell ss:Index="2" ss:StyleID="s148"><Data ss:Type="String">Cuota mensual</Data></Cell>
-	<Cell ss:StyleID="s305" ss:Formula="=R[-10]C[6]+R[-9]C[6]+SUM(R[${licenseBegins(quote, -7)}]C[6]:R[${licenseEnds(quote, -7)}]C[6])/${quote.LicenceYears * 12}">
+	<Cell ss:StyleID="s305" ss:Formula="=SUM(R[-11]C[6]:R[-9]C[6])">
 		<Data ss:Type="Number"></Data>
 	</Cell>
 </Row>
@@ -193,7 +205,7 @@ export const TraditionalSolutionPanel = (quote, isLogActivated) => `
 </Row>
 <Row ss:Height="15.75">
 	<Cell ss:Index="2" ss:StyleID="s246"><Data ss:Type="String">Cuota mensual</Data></Cell>
-		<Cell ss:StyleID="s307" ss:Formula="=R[-14]C[6]+SUM(R[${licenseBegins(quote, -11)}]C[6]:R[${licenseEnds(quote, -11)}]C[6])/${quote.LicenceYears * 12}">
+		<Cell ss:StyleID="s307" ss:Formula="=R[-15]C[6]+R[-13]C[6]">
 			<Data ss:Type="Number"></Data>
 		</Cell>
 </Row>

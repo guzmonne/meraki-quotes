@@ -7,10 +7,14 @@ import {
 import {
 	calculateHardwarePrice,
 	calculateLicensePrice,
-	calculateServicePrice,
-	calculateAdministrationPrice,
 	calculateFinancedHardwarePrice,
+	calculateFinancedLicensePrice,
 } from './service-prices.module.js'
+
+import {
+	calculateServiceCost,
+	calculateAdministrationCost
+} from './service-costs.module.js'
 
 /**
  * Helper function to calculate the monthly cost of the licesnses
@@ -30,9 +34,9 @@ export const calculateLicenseMonthlyPrice = (quote, options) =>
 export const calculateUnifiedMonthlyPrice = (quote, options) =>
 	twoDecimals(
 		calculateFinancedHardwarePrice(quote, options) +
-		calculateLicenseMonthlyPrice(quote, options) +
-		calculateServicePrice(quote, options) + 
-		calculateAdministrationPrice(quote, options)
+		calculateFinancedLicensePrice(quote, options) +
+		calculateServiceCost(quote, options) + 
+		calculateAdministrationCost(quote, options)
 	)
 
 /**
@@ -41,9 +45,9 @@ export const calculateUnifiedMonthlyPrice = (quote, options) =>
  * @return {Number}       The monthly cost of the Unified solution
  */
 export const calculateAdministeredMonthlyPrice = (quote, options) => 
-	calculateLicenseMonthlyPrice(quote, options) +
-	calculateServicePrice(quote, options) + 
-	calculateAdministrationPrice(quote, options)
+	calculateFinancedLicensePrice(quote, options) +
+	calculateServiceCost(quote, options) + 
+	calculateAdministrationCost(quote, options)
 
 /**
  * Calculates the monthly cost of the Traditional Solution
@@ -51,5 +55,5 @@ export const calculateAdministeredMonthlyPrice = (quote, options) =>
  * @return {Number}       The monthly cost of the Unified solution
  */
 export const calculateTraditionalMonthlyPrice = (quote, options) => 
-	calculateLicenseMonthlyPrice(quote, options) +
-	calculateServicePrice(quote, options)
+	calculateFinancedLicensePrice(quote, options) +
+	calculateServiceCost(quote, options)

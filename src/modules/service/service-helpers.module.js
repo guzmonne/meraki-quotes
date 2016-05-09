@@ -1,19 +1,36 @@
 import _ from 'lodash'
+
+import {twoDecimals} from '../formats.module.js'
 /* DEFAULTS */
 export const SERVICE_LEVEL_CONSTANTS = {
 	'9x5xNBD': {
-		admin: 0.972,
-		service: 5.42
+		admin: 2.030,
+		service: 0.4444
 	},
 	'24x7x4': {
-		admin: 2.08,
-		service: 8.75
+		admin: 3.041,
+		service: 1.405
 	}
 }
 
 export const MODIFIER_DISCOUNT = 0.5
 
 export const MODIFIER_MAX_DEVICES = 50 
+
+export const SERVICE_COST_PER_DEVICE = 7
+export const SERVICE_MAX_DISCOUNT = 0.5
+
+export const ADMIN_COST = {
+	'Wireless': 50,
+	'Switches': 50,
+	'UTM'     : 200
+}
+export const ADMIN_MAX_DISCOUNT = 0.70
+
+export const MAX_DEVICES = 50
+
+const LN = Math.log
+
 
 ///////////////////////////////
 /// PRIVATE METHODS
@@ -82,8 +99,40 @@ export const getLicenseMonths = license =>
  * @param  {String} type  "service" or "admin"
  * @return {Number}       The monthly administration or service cost
  */
-export const calculateSupportCost = (quote, options) =>
+// OLD Exectution -----------
+export const calculateSupportCostOld = (quote, options) =>
 	getLicenses(quote).reduce((acc, license) => acc + supportCostForLicense(quote, options, license), 0)
+// --------------------------
+export const calculateSupportCost = (quote, options) => {
+	if (!options || !options.type) return 0
+	
+	if (options.type === 'service') {
+		const Qty = getHardware(quote).reduce((acc, device) => acc + device.Qty, 0)
+		return twoDecimals(serviceLog(Qty) * Qty)
+	} else if (options.type === 'admin'){
+		return getHardware(quote).
+			reduce((acc, hardware) => {
+				const {Category, Qty} = hardware
+				if (Object.keys(ADMIN_COST).indexOf(Category) === -1) return 0
+				const adminLog = log(ADMIN_COST[Category], ADMIN_MAX_DISCOUNT, MAX_DEVICES)
+				return acc + twoDecimals(adminLog(Qty) * Qty)
+			}, 0)
+	} else 
+		return 0
+}
+
+/**
+ * [description]
+ * @param  {[type]} init     [description]
+ * @param  {[type]} qty      [description]
+ * @param  {[type]} discount [description]
+ * @param  {[type]} max      [description]
+ * @return {[type]}          [description]
+ */
+export const log = (init, discount, max) =>
+	(qty) => Math.round((init - init * discount / LN(max) * LN(qty)) * 10000) / 10000
+
+export const serviceLog = log(SERVICE_COST_PER_DEVICE, SERVICE_MAX_DISCOUNT, MAX_DEVICES)
 
 /**
  * Helper function to calculate the support cost of a given license.

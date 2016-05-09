@@ -55,6 +55,7 @@ function ServiceConstructor(){
 		calculateServicePrice            : calculateServicePrice.bind(this, quote, options),
 		calculateAdministrationCost      : calculateAdministrationCost.bind(this, quote, options),
 		calculateAdministrationPrice     : calculateAdministrationPrice.bind(this, quote, options),
+		calculateFinancedHardwarePrice   : calculateFinancedHardwarePrice.bind(this, quote, options),
 	})
 
 	///////////////////////////////
