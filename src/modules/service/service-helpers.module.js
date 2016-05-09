@@ -2,12 +2,12 @@ import _ from 'lodash'
 /* DEFAULTS */
 export const SERVICE_LEVEL_CONSTANTS = {
 	'9x5xNBD': {
-		admin: 2.030,
-		service: 0.4444
+		admin: 0.972,
+		service: 5.42
 	},
 	'24x7x4': {
-		admin: 3.041,
-		service: 1.405
+		admin: 2.08,
+		service: 8.75
 	}
 }
 
