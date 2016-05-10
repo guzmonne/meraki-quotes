@@ -25,7 +25,7 @@ export default class MerakiQuotesEditSettings extends React.Component {
 				</Col>
 				<Col sm={2}>
 					<MerakiQuotesDealForm
-						value={model.DealApproved || true}
+						value={model.DealApproved}
 						onUpdate={onUpdate}
 					/>
 				</Col>

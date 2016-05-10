@@ -1,5 +1,5 @@
 import React from 'react'
-import {Input} from 'react-bootstrap'
+import {Input, Checkbox} from 'react-bootstrap'
 
 class MerakiQuotesDealForm extends React.Component {
 	render(){
@@ -7,16 +7,16 @@ class MerakiQuotesDealForm extends React.Component {
 
 		return (
 			<form className="form-horizontal">
-				<Input 
+				<Checkbox 
+					checked={value}
 					ref="deal"
 					onChange={() => {
-						const DealApproved = this.refs.deal.getChecked()
+						console.log(value, this.refs.deal.props)
+						const DealApproved = !this.refs.deal.props.checked
 						onUpdate({DealApproved})
-					}}
-					type="checkbox"
-					value={value}
-					label="Deal"
-				/>
+					}}>
+      		Deal
+    		</Checkbox>
 			</form>
 		)
 	}
