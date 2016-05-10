@@ -9,7 +9,6 @@ import {
 	ButtonGroup,
 	Button,
 	Modal,
-	Input,
 	Pager,
 	PageItem
 } from 'react-bootstrap'

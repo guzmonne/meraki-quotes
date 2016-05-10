@@ -34,7 +34,7 @@ export const calculateLicenseMonthlyPrice = (quote, options) =>
 export const calculateUnifiedMonthlyPrice = (quote, options) =>
 	twoDecimals(
 		calculateFinancedHardwarePrice(quote, options) +
-		calculateFinancedLicensePrice(quote, options) +
+		calculateLicenseMonthlyPrice(quote, options) +
 		calculateServiceCost(quote, options) + 
 		calculateAdministrationCost(quote, options)
 	)
@@ -45,9 +45,11 @@ export const calculateUnifiedMonthlyPrice = (quote, options) =>
  * @return {Number}       The monthly cost of the Unified solution
  */
 export const calculateAdministeredMonthlyPrice = (quote, options) => 
-	calculateFinancedLicensePrice(quote, options) +
-	calculateServiceCost(quote, options) + 
-	calculateAdministrationCost(quote, options)
+	twoDecimals(
+		calculateLicenseMonthlyPrice(quote, options) +
+		calculateServiceCost(quote, options) + 
+		calculateAdministrationCost(quote, options)
+	)
 
 /**
  * Calculates the monthly cost of the Traditional Solution
@@ -55,5 +57,7 @@ export const calculateAdministeredMonthlyPrice = (quote, options) =>
  * @return {Number}       The monthly cost of the Unified solution
  */
 export const calculateTraditionalMonthlyPrice = (quote, options) => 
-	calculateFinancedLicensePrice(quote, options) +
-	calculateServiceCost(quote, options)
+	twoDecimals(
+		calculateLicenseMonthlyPrice(quote, options) +
+		calculateServiceCost(quote, options)
+	)

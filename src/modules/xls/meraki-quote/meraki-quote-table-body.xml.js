@@ -130,14 +130,14 @@ export const HardwareFinancingRow = (quote, isLogActivated) => `
 export const LicenseFinancingRow = (quote, isLogActivated) => `
 <Row ss:Height="15.75">
 	<Cell ss:StyleID="s266"><Data ss:Type="String">Financiación de Licencias</Data></Cell>
-	<Cell ss:StyleID="s267"><Data ss:Type="String">Cuota mensual bajo contrato a 36 meses</Data></Cell>
+	<Cell ss:StyleID="s267"><Data ss:Type="String">Cuota mensual</Data></Cell>
 	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
 	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
 	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
 	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
 	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
 	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
-	<Cell ss:StyleID="s295" ss:Formula="=SUM(R[${licenseBegins(quote, 2)}]C:R[${licenseEnds(quote, 2)}]C)*0.033">
+	<Cell ss:StyleID="s295" ss:Formula="=SUM(R[${licenseBegins(quote, 2)}]C:R[${licenseEnds(quote, 2)}]C)/${quote.LicenceYears*12}">
 		<Data ss:Type="Number"></Data>
 	</Cell>
 </Row>
@@ -176,7 +176,7 @@ const licenseEnds = (quote, offset) => licenseBegins(quote, offset) + (Service.f
 
 export const AdministeredSolutionPanel = (quote, isLogActivated) => `
 <Row>
-	<Cell ss:Index="2" ss:StyleID="s97"><Data ss:Type="String">Soulción Administrada</Data></Cell>
+	<Cell ss:Index="2" ss:StyleID="s97"><Data ss:Type="String">Solución Administrada</Data></Cell>
 	<Cell ss:StyleID="s98"/>
 </Row>
 <Row>

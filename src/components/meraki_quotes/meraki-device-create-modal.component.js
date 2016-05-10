@@ -1,33 +1,46 @@
 import React from 'react'
-import {Modal, Input, Button} from 'react-bootstrap'
+import {
+	Modal, 
+	Button,
+	FormGroup,
+	FormControl,
+	ControlLabel
+} from 'react-bootstrap'
 
 export default class MerakiDeviceCreateModal extends React.Component {
 	constructor(){
 		super()
 
+		this.state  = {model: {}}
 		this.submit = this.submit.bind(this)
+		this.change = this.change.bind(this)
+	}
+
+	componentWillReceiveProps(newProps){
+		if (newProps.model)
+			this.setState({model: newProps.model})
+	}
+
+	change(value, key){
+		this.state.model[key] = value
 	}
 
 	submit(){
-		const model = {
-			PartNumber  : this.refs.PartNumber.getValue().toUpperCase(),
-			Category    : this.refs.Category.getValue(),
-			Description : this.refs.Description.getValue(),
-			Price       : +this.refs.Price.getValue(),
-			ImageUrl    : this.refs.ImageUrl.getValue()
-		}
+		const model = this.state.model
+
+		model.Price = +model.Price
 
 		if (!model.PartNumber) return
 		if (!model.Category || model.Category === "") return
 
 		this.props.onSubmit(model)
+
+		this.setState({model: {}})
 	}
 
 	render(){
 		const {onShow, onToggle} = this.props
-		let {model} = this.props
-
-		if (!model) model = {}
+		const {model} = this.state
 
 		return (
 			<Modal
@@ -40,17 +53,60 @@ export default class MerakiDeviceCreateModal extends React.Component {
 
 				<Modal.Body>
 					<form>
-						<Input defaultValue={model.PartNumber || ""} ref="PartNumber" type="text" label="Número de Parte" placeholder="Número de Parte" />
-						<Input defaultValue={model.Category || ""}ref="Category" type="select" label="Categoría" >
-							<option value="">--seleccione una categoría--</option>
-							<option value="Wireless">Wireless</option>
-							<option value="Switches">Switches</option>
-							<option value="UTM">UTM</option>
-							<option value="Accesories">Accesories</option>
-						</Input>
-						<Input defaultValue={model.Description || ""} ref="Description" type="text" label="Descripción" placeholder="Descripción" />
-						<Input defaultValue={model.Price || 0}ref="Price" type="number" label="Precio" />
-						<Input defaultValue={model.ImageUrl || 'http://placehold.it/64x48'}ref="ImageUrl" type="url" label="Imagen" placeholder="Ej.:http://placehold.it/50x50"></Input>
+						<FormGroup>
+							<ControlLabel>Número de Parte</ControlLabel>
+							<FormControl 
+								type="text"
+								value={model.PartNumber}
+								placeholder="Número de Parte"
+								onChange={(e) => this.change(e.target.value, 'PartNumber')}
+							/>
+						</FormGroup>
+						<FormGroup>
+							<ControlLabel>Descripción</ControlLabel>
+							<FormControl 
+								componentClass="select"
+								value={model.Category}
+								onChange={(e) => this.change(e.target.value, 'Category')}
+							>
+								<option value="">--seleccione una categoría--</option>
+								<option value="Wireless">Wireless</option>
+								<option value="Switches">Switches</option>
+								<option value="UTM">UTM</option>
+								<option value="Accesories">Accesories</option>
+							</FormControl>
+						</FormGroup>
+						<FormGroup>
+							<ControlLabel>Descripción</ControlLabel>
+							<FormControl 
+								type="text"
+								value={model.Description}
+								placeholder="Descripción"
+								onChange={(e) => this.change(e.target.value, 'Description')}
+							/>
+						</FormGroup>
+						<FormGroup>
+							<ControlLabel>Descripción</ControlLabel>
+							<FormControl 
+								type="number"
+								min={0}
+								step={0.5}
+								value={model.Price}
+								placeholder="0.00"
+								onChange={(e) => this.change(e.target.value, 'Price')}
+							/>
+						</FormGroup>
+						<FormGroup>
+							<ControlLabel>Imagen</ControlLabel>
+							<FormControl 
+								type="text"
+								min={0}
+								step={0.50}
+								value={model.ImageUrl}
+								placeholder="Ej.:http://placehold.it/50x50"
+								onChange={(e) => this.change(e.target.value, 'ImageUrl')}
+							/>
+						</FormGroup>
 					</form>
 				</Modal.Body>
 

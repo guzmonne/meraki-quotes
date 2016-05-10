@@ -1,5 +1,10 @@
 import React from 'react'
-import {Input} from 'react-bootstrap'
+import {
+	Input,
+	FormGroup,
+	ControlLabel,
+	FormControl
+} from 'react-bootstrap'
 import Rx from 'rx'
 import _ from 'lodash'
 
@@ -20,22 +25,26 @@ class InlineSearchForm extends React.Component {
 			subscribe(this.props.onChange)
 	}
 
-	submit(){
-		const queryString = this.refs.queryString.getValue()
-		
-		this.onChangeSubject.onNext(queryString)
+	submit(e){
+		this.onChangeSubject.onNext(e.target.value)
 	}
 
 	render(){
 		return (
-			<Input 
-				type="text"
-				placeholder={this.props.placeholder || "Buscar..."}
-				hasFeedback
-				feedbackIcon={<i className="fa fa-search"></i>}
-				onChange={this.submit}
-				ref="queryString"
-			/>
+			<form>
+				<FormGroup
+					controlId="searchForm"
+				>
+					<FormControl
+						type="text"
+						placeholder={this.props.placeholder || 'Buscar...'}
+						onChange={this.submit}
+					/>
+					<FormControl.Feedback>
+						<i className="fa fa-search"></i>
+					</FormControl.Feedback>
+				</FormGroup>
+			</form>
 		)
 	}
 }
