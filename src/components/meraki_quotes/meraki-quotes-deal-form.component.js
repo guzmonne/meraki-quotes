@@ -11,9 +11,9 @@ class MerakiQuotesDealForm extends React.Component {
 					checked={value}
 					ref="deal"
 					onChange={() => {
-						console.log(value, this.refs.deal.props)
 						const DealApproved = !this.refs.deal.props.checked
-						onUpdate({DealApproved})
+						const Discount = !!DealApproved ? 0.43 : 0.35
+						onUpdate({DealApproved, Discount})
 					}}>
       		Deal
     		</Checkbox>

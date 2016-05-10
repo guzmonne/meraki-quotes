@@ -10,7 +10,7 @@ const MerakiQuotesEditHeader = ({
 	isLogActivated
 }) =>
 	<Row>
-		<Col sm={10}>
+		<Col sm={12}>
 			<h4>
 				<a className="text-info" href="javascript:void(0);" onClick={toggleModal}>
 					<strong> {model.Name || 'Quote name goes here...'}</strong>
@@ -18,19 +18,6 @@ const MerakiQuotesEditHeader = ({
 					<small>{model.Description || 'Descripción'}</small>
 				</a>
 			</h4>
-		</Col>
-		<Col sm={2} className="MerakiQuotesEdit__config_button">
-			<Dropdown pullRight id="MerakiQuotesEditConfigButton">
-				<Button bsRole="toggle" bsStyle="info">
-					<i className="fa fa-cog"></i>
-				</Button>
-				<Dropdown.Menu bsRole="menu">
-					<MenuItem onClick={toggleLog}>
-						<span className="MerakiQuotesEdit__config_button__menu_item">Modo Logaritmico</span>
-						{!!isLogActivated && <span><i className="fa fa-check"></i></span>}
-					</MenuItem>
-				</Dropdown.Menu>
-			</Dropdown>
 		</Col>
 		<Col sm={5}>
 			<dt>Quote ID</dt>

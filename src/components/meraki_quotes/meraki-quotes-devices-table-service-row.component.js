@@ -14,7 +14,7 @@ const MerakiQuotesDevicesTableServiceRow = ({model, isLogActivated}) =>
 				<Media.Left>
 				</Media.Left>
 				<Media.Body>
-					<Media.Heading>Servicio</Media.Heading>
+					<Media.Heading>Soporte</Media.Heading>
 					<p>Cuota mensual</p>
 				</Media.Body>
 			</Media>
