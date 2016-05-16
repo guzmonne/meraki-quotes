@@ -12,9 +12,11 @@ import {
 	USER_SHOW_SUCCESS,
 	USER_SHOW_ERROR,
 	USER_CURRENT_FREE,
-	USER_CURRENT_FUNCTION_EDITABLE_TOGGLE
+	USER_CURRENT_FUNCTION_EDITABLE_TOGGLE,
+	GET_ACTIVE_USER
 } from '../../../state/action-types.js'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
+import Auth from '../../../modules/auth.module.js'
 
 export function doUsersIndex() {
 	return (dispatch, getState) => {
@@ -89,6 +91,13 @@ export function doUserPermissionsUpdate(permission){
 				() => handleSuccess(),
 				error => handleError('Se produjo un error al actualizar los permisos del usuario.', permissions)
 			)
+	}
+}
+
+export function getActiveUser(){
+	return {
+		type: GET_ACTIVE_USER,
+		user: Auth.token.getUser()
 	}
 }
 

@@ -6,7 +6,7 @@ class UserPermissionsPage extends React.Component {
 	render(){
 		const {state} = this.props
 		return <UserPermissionsContainer
-			user={state.current}
+			user={state.account}
 		/>
 	}
 }

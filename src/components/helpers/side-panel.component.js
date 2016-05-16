@@ -7,26 +7,20 @@ import {
 } from 'react-bootstrap'
 
 const SidePanel = ({className, title, children}) =>
-	<div>
-		<Grid
-			fluid
-			className={
-			[className, 'SidePanel'].
-				filter(x => x !== "" || x !== undefined).
-				join(' ')
-		}>
-			<Panel>
-				<Row>
-					<Col xs={12}>
-						<h4>{title}</h4>
-					</Col>
-				</Row>
-				<Row>
-					{children}
-				</Row>
-			</Panel>
-		</Grid>
-	</div>
+	<Panel className={
+		[className, 'SidePanel'].
+			filter(x => x !== "" || x !== undefined).
+			join(' ')}
+		>
+		<Row>
+			<Col xs={12}>
+				<h4>{title}</h4>
+			</Col>
+		</Row>
+		<Row>
+			{children}
+		</Row>
+	</Panel>
 
 SidePanel.propTypes = {
 	className: React.PropTypes.string,

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Input} from 'react-bootstrap'
+import {Form, FormGroup, FormControl} from 'react-bootstrap'
 
 class PageSizeForm extends React.Component {
 	constructor(){
@@ -16,16 +16,24 @@ class PageSizeForm extends React.Component {
 
 	render(){
 		return (
-			<form className="form-horizontal page-size" onSubmit={this.submit}>
-				<Input onChange={this.submit} type="select" labelClassName="col-xs-2" wrapperClassName="col-xs-4" ref="pageSize" defaultValue="10">
-					<option value="5">5</option>
-					<option value="10">10</option>
-					<option value="50">50</option>
-					<option value="100">100</option>
-					<option value="500">500</option>
-					<option value="1000">1000</option>
-				</Input>
-			</form>
+			<Form className="page-size" onSubmit={this.submit} inline>
+				<FormGroup>
+					<FormControl 
+						componentClass="select"
+						onChange={this.submit}
+						ref="pageSize"
+						placeholder="10"
+						className="col-xs-3"
+					>
+						<option value="5">5</option>
+						<option value="10">10</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+						<option value="500">500</option>
+						<option value="1000">1000</option>
+					</FormControl>
+				</FormGroup>
+			</Form>
 		)
 	}
 }

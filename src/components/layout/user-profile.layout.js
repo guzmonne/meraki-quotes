@@ -22,10 +22,12 @@ class UserProfileLayout extends React.Component {
 					</Col>
 					<Col sm={9}>
 						<Row>
-							<Col smOffset={9} sm={3}>
-								<Breadcrumbs 
-									breadcrumbs={state.breadcrumbs}
-								/>
+							<Col smOffset={6} sm={6} mdOffset={9} md={3}>
+								<div className="pull-right">
+									<Breadcrumbs 
+										breadcrumbs={state.breadcrumbs}
+									/>
+								</div>
 							</Col>
 						</Row>
 						{children}

@@ -12,7 +12,8 @@ import {
 	USER_SHOW_SUCCESS,
 	USER_SHOW_ERROR,
 	USER_CURRENT_FUNCTION_EDITABLE_TOGGLE,
-	USER_CURRENT_FREE
+	USER_CURRENT_FREE,
+	GET_ACTIVE_USER
 } from '../../../state/action-types.js'
 
 const breadcrumbs = [{
@@ -131,6 +132,13 @@ export default function usersReducer(state=defaultState, action){
 				state,
 				{current: Object.assign({}, state.current, {permissions: action.permissions})},
 				{error: action.error}
+			)
+		case GET_ACTIVE_USER:
+			console.log(action)
+			return Object.assign(
+				{},
+				state,
+				{account: action.user}
 			)
 		case USER_PERMISSIONS_UPDATE_SUCCESS:
 		default:

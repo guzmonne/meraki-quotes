@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
-import {Table, Input} from 'react-bootstrap'
+import {Table} from 'react-bootstrap'
 import Spinner from '../helpers/spinner.component.js'
 
 const SpinnerTbody = () => 

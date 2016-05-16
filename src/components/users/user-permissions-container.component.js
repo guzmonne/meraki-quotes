@@ -11,6 +11,11 @@ import SidePanel from '../helpers/side-panel.component.js'
 const UserPermissionsContainer = ({updating, user}) => 
 	<SidePanel>
 		<Col xs={12}>
+			<h4>
+				Permisos de Usuario
+				<br/>
+				<small>Contacte a su administrador para obtener nuevos permisos.</small>
+			</h4>
 			<Panel header="Permisos">
 				{!updating ? 
 						<ListGroup fill>

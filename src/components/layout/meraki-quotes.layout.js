@@ -15,17 +15,19 @@ class MerakiQuotesLayout extends React.Component {
 		const { children, doMerakiQuotesCreate, state } = this.props
 		return (
 			<Grid className="MerakiQuotesLayout">
-				<div className="Row">
+				<div className="row">
 					<Col sm={3}>
 						<MerakiQuotesMenu onCreate={doMerakiQuotesCreate}/>
 					</Col>
 
 					<Col sm={9}>
 						<Row>
-							<Col smOffset={9} sm={3}>
-								<Breadcrumbs 
-									breadcrumbs={state.breadcrumbs}>
-								</Breadcrumbs>
+							<Col xs={12}>
+								<div className="pull-right">
+									<Breadcrumbs 
+										breadcrumbs={state.breadcrumbs}>
+									</Breadcrumbs>
+								</div>
 							</Col>
 						</Row>
 						{children}
