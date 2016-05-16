@@ -21,6 +21,11 @@ import MerakiQuotesEdit from './pages/meraki_quotes/meraki-quotes-edit.page.js'
 import UserCreatePage from './pages/users/user-create.page.js'
 import UserShowPage from './pages/users/user-show.page.js'
 import UsersIndexPage from './pages/users/users-index.page.js'
+// User
+import UserProfileLayout from './components/layout/user-profile.layout.js'
+import AccountPage from './pages/users/account.page.js'
+import ChangePasswordPage from './pages/users/change-password.page.js'
+import UserPermissionsPage from './pages/users/user-permissions.page.js'
 
 export default (props) => 
 	<Provider store={store}>
@@ -38,6 +43,11 @@ export default (props) =>
 					<Route path="create" component={UserCreatePage}/>
 					<Route path="index" component={UsersIndexPage}/>
 					<Route path="show/:email" component={UserShowPage} />
+				</Route>
+				<Route path="user" component={UserProfileLayout}>
+					<Route path="account" component={AccountPage}/>
+					<Route path="change_password" component={ChangePasswordPage}/>
+					<Route path="permissions" component={UserPermissionsPage}/>
 				</Route>
 			</Route>
 			<Route path="login" component={LoginPage} onEnter={alreadyLoggedIn}/>
@@ -59,6 +69,7 @@ function alreadyLoggedIn(...args){
 }
 
 function requireAuth(...args){
+	console.log('RequireAuth')
 	if (Auth.token.hasExpired()){
 		delete localStorage.token
 		replacePathnameWith('/login', ...args)

@@ -48,7 +48,10 @@ function generateToken(user, fn){
 	var claims = {
 		sub: user.get('ID'),
 		iss: 'http://conapps.click',
-		permissions: user.get('permissions')
+		/* This is not a good practise but it'll work for now */
+		permissions: user.get('permissions'),
+		username   : user.get('username'),
+		email      : user.get('email')
 	}
 	var jwt = nJwt.create(claims, secretKey)
 	Session.create({

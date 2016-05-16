@@ -17,7 +17,7 @@ describe('<MerakiQuotesDealForm />', function(){
 				onUpdate={updateSpy}
 				value={_quote_.DealApproved || false}
 			/>
-		) 
+		)
 	
 	const wrapper = wrap(quote)
 

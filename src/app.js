@@ -8,6 +8,7 @@ const FileSaver = require('../node_modules/filesaverjs/FileSaver.js')
 import React from 'react'
 import {render} from 'react-dom'
 import MainApp from './main.js'
+import Base64 from './modules/base64.module.js'
 
 import _ from 'lodash'
 import Rx from 'rx-dom'
@@ -17,5 +18,6 @@ window._ = _
 window.Rx = Rx
 window.moment = moment
 window.saveAs = FileSaver.saveAs
+window.Base64 = Base64
 
 render(<MainApp />, document.getElementById('root'))

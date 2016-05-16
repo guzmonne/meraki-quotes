@@ -15,9 +15,17 @@ import {
 	USER_CURRENT_FREE
 } from '../../../state/action-types.js'
 
+const breadcrumbs = [{
+	tag: 'Home',
+	action: '/'
+}, {
+	tag: 'Usuario'
+}]
+
 const defaultState = {
 	collection: [],
 	current: {},
+	account: {},
 	active: {},
 	total: null,
 	isFetchingUsers: false,
@@ -25,6 +33,7 @@ const defaultState = {
 	error: {},
 	permissions: [],
 	areCurrentFunctionsEditable: false,
+	breadcrumbs
 }
 
 export default function usersReducer(state=defaultState, action){

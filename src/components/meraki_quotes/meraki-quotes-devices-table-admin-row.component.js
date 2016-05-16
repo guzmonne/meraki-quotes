@@ -37,8 +37,7 @@ const MerakiQuotesDevicesTableAdminRow = ({model, isLogActivated}) =>
 </tr>
 
 MerakiQuotesDevicesTableAdminRow.propTypes = {
-	model: React.PropTypes.object.isRequired,
-	isLogActivated: React.PropTypes.bool.isRequired
+	model: React.PropTypes.object.isRequired
 }
 
 export default MerakiQuotesDevicesTableAdminRow

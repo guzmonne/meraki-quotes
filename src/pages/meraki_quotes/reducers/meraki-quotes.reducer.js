@@ -20,6 +20,13 @@ import {
 	SET_MERAKI_QUOTES_BREADCRUMBS
 } from '../../../state/action-types.js'
 
+const breadcrumbs = [{
+	tag: 'Home',
+	action: '/meraki_quotes/index'
+}, {
+	tag: 'Meraki Quotes'
+}]	
+
 const defaultState = {
 	collection                      : [],
 	isGettingMerakiQuotes           : false,
@@ -37,14 +44,7 @@ const defaultState = {
 	count                           : 0,
 	current                         : {},
 	selectedAll                     : false,
-	breadcrumbs:
-										[{
-											tag: 'Home',
-											action: () => browserHistory.push('/meraki_quotes/index')
-										}, {
-											tag: 'Meraki Quotes'
-										}]
-									
+	breadcrumbs 			
 }
 
 export default function merakiQuotesReducer(state=defaultState, action){
