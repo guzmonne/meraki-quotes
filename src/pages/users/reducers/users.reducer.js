@@ -134,7 +134,6 @@ export default function usersReducer(state=defaultState, action){
 				{error: action.error}
 			)
 		case GET_ACTIVE_USER:
-			console.log(action)
 			return Object.assign(
 				{},
 				state,
