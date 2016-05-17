@@ -17,6 +17,7 @@ class AccountContainer extends React.Component {
 		this.change = this.change.bind(this)
 
 		const {localStorage} = window
+
 		const excelLanguage = localStorage && localStorage.excelLanguage ?
 			localStorage.excelLanguage : 'sp'
 
@@ -25,7 +26,8 @@ class AccountContainer extends React.Component {
 
 	change(e){
 		const {value} = e.target
-		localStorage.excelLanguage = value
+		if(window && window.localStorage)
+			window.localStorage.excelLanguage = value
 		this.setState({excelLanguage: value})
 	}
 
