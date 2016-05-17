@@ -34,7 +34,7 @@ describe('<MerakiQuotesDevicesTableServiceRow />', function(){
 	it('should have the service cost properly formatted', function(){
 		const p = tds.get(8).props.children
 		expect(p.type).to.equal('p')
-		expect(p.props.children).to.equal('$53,40')
+		expect(p.props.children).to.equal('$89,80')
 	})
 
 })

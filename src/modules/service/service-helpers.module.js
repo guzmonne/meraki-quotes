@@ -111,6 +111,7 @@ export const calculateSupportCost = (quote, options) => {
 		return twoDecimals(serviceLog(Qty) * Qty)
 	} else if (options.type === 'admin'){
 		return getHardware(quote).
+			filter(hardware => Object.keys(ADMIN_COST).indexOf(hardware.Category) !== -1).
 			reduce((acc, hardware) => {
 				const {Category, Qty} = hardware
 				if (Object.keys(ADMIN_COST).indexOf(Category) === -1) return 0
