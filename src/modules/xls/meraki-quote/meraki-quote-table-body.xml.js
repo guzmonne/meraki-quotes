@@ -1,4 +1,5 @@
 import Service from '../../service/service.module.js'
+import {sum} from '../xls-helpers.js'
 
 export const Columns = `
    <Column ss:Width="189"/>
@@ -121,7 +122,7 @@ export const HardwareFinancingRow = (quote, isLogActivated) => `
 	<Cell ss:StyleID="s283"><Data ss:Type="String">-</Data></Cell>
 	<Cell ss:StyleID="s283"><Data ss:Type="String">-</Data></Cell>
 	<Cell ss:StyleID="s283"><Data ss:Type="String">-</Data></Cell>
-	<Cell ss:StyleID="s297" ss:Formula="=SUM(R[${hardwareBegins(quote, 1)}]C:R[${hardwareEnds(quote, 1)}]C)*0.033">
+	<Cell ss:StyleID="s297" ss:Formula="=${sum()}(R[${hardwareBegins(quote, 1)}]C:R[${hardwareEnds(quote, 1)}]C)*0.033">
 		<Data ss:Type="Number"></Data>
 	</Cell>
 </Row>
@@ -137,7 +138,7 @@ export const LicenseFinancingRow = (quote, isLogActivated) => `
 	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
 	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
 	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
-	<Cell ss:StyleID="s295" ss:Formula="=SUM(R[${licenseBegins(quote, 2)}]C:R[${licenseEnds(quote, 2)}]C)/${quote.LicenceYears*12}">
+	<Cell ss:StyleID="s295" ss:Formula="=${sum()}(R[${licenseBegins(quote, 2)}]C:R[${licenseEnds(quote, 2)}]C)/${quote.LicenceYears*12}">
 		<Data ss:Type="Number"></Data>
 	</Cell>
 </Row>
@@ -150,7 +151,7 @@ export const UnifiedSolutionPanel = (quote, isLogActivated) => `
 </Row>
 <Row>
 	<Cell ss:Index="2" ss:StyleID="s250"><Data ss:Type="String">Cuota Mensual</Data></Cell>
-	<Cell ss:StyleID="s303" ss:Formula="=SUM(R[-6]C[6]:R[-3]C[6])"><Data
+	<Cell ss:StyleID="s303" ss:Formula="=${sum()}(R[-6]C[6]:R[-3]C[6])"><Data
   	ss:Type="Number"></Data></Cell>
 </Row>
 <Row ss:Height="15.75">
@@ -181,13 +182,13 @@ export const AdministeredSolutionPanel = (quote, isLogActivated) => `
 </Row>
 <Row>
 	<Cell ss:Index="2" ss:StyleID="s99"><Data ss:Type="String">Inversión Inicial</Data></Cell>
-	<Cell ss:StyleID="s304" ss:Formula="=SUM(R[${hardwareBegins(quote, -6)}]C[6]:R[${hardwareEnds(quote, -6)}]C[6])">
+	<Cell ss:StyleID="s304" ss:Formula="=${sum()}(R[${hardwareBegins(quote, -6)}]C[6]:R[${hardwareEnds(quote, -6)}]C[6])">
 		<Data ss:Type="Number"></Data>
 	</Cell>
 </Row>
 <Row ss:Height="15.75">
 	<Cell ss:Index="2" ss:StyleID="s148"><Data ss:Type="String">Cuota mensual</Data></Cell>
-	<Cell ss:StyleID="s305" ss:Formula="=SUM(R[-11]C[6]:R[-9]C[6])">
+	<Cell ss:StyleID="s305" ss:Formula="=${sum()}(R[-11]C[6]:R[-9]C[6])">
 		<Data ss:Type="Number"></Data>
 	</Cell>
 </Row>
@@ -199,7 +200,7 @@ export const TraditionalSolutionPanel = (quote, isLogActivated) => `
 </Row>
 <Row>
 	<Cell ss:Index="2" ss:StyleID="s244"><Data ss:Type="String">Inversión Inicial</Data></Cell>
-	<Cell ss:StyleID="s306" ss:Formula="=SUM(R[${hardwareBegins(quote, -10)}]C[6]:R[${hardwareEnds(quote, -10)}]C[6])">
+	<Cell ss:StyleID="s306" ss:Formula="=${sum()}(R[${hardwareBegins(quote, -10)}]C[6]:R[${hardwareEnds(quote, -10)}]C[6])">
 		<Data ss:Type="Number"></Data>
 	</Cell>
 </Row>
