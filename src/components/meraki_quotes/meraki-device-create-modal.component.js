@@ -22,7 +22,7 @@ export default class MerakiDeviceCreateModal extends React.Component {
 	}
 
 	change(value, key){
-		this.state.model[key] = value
+		this.setState({model: Object.assign({}, this.state.model, {[key]: value})})
 	}
 
 	submit(){
