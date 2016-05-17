@@ -44,3 +44,6 @@ lambda/counts/*.zip
 
 # Hidden documents on src/ folder
 src/.*
+
+# public folder
+public/
