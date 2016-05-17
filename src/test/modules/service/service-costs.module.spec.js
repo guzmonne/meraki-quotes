@@ -23,6 +23,11 @@ describe('Service Costs Module', function(){
 		it('should return the cost of the service from the quote', function(){
 			expect(ServiceCosts.calculateServiceCost(_quote, _options)).to.equal(53.40)
 		})
+
+		it('should be twice as expensive it the service level is 24x7x4', function(){
+			const _quote_ = Object.assign({}, _quote, {ServiceLevel: '24x7x4'})
+			expect(ServiceCosts.calculateServiceCost(_quote_, _options)).to.equal(106.8)
+		})
 	})
 
 	describe('#calculateAdministrationCost()', function(){

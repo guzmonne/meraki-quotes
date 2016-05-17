@@ -107,8 +107,9 @@ export const calculateSupportCost = (quote, options) => {
 	if (!options || !options.type) return 0
 	
 	if (options.type === 'service') {
-		const Qty = getHardware(quote).reduce((acc, device) => acc + device.Qty, 0)
-		return twoDecimals(serviceLog(Qty) * Qty)
+		const serviceTypeModifier = quote.ServiceLevel === '24x7x4' ? 2 : 1
+		const Qty                 = getHardware(quote).reduce((acc, device) => acc + device.Qty, 0)
+		return twoDecimals(serviceLog(Qty) * Qty * serviceTypeModifier)
 	} else if (options.type === 'admin'){
 		return getHardware(quote).
 			filter(hardware => Object.keys(ADMIN_COST).indexOf(hardware.Category) !== -1).
