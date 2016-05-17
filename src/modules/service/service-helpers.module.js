@@ -99,10 +99,6 @@ export const getLicenseMonths = license =>
  * @param  {String} type  "service" or "admin"
  * @return {Number}       The monthly administration or service cost
  */
-// OLD Exectution -----------
-export const calculateSupportCostOld = (quote, options) =>
-	getLicenses(quote).reduce((acc, license) => acc + supportCostForLicense(quote, options, license), 0)
-// --------------------------
 export const calculateSupportCost = (quote, options) => {
 	if (!options || !options.type) return 0
 	
