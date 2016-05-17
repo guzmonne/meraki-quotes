@@ -26,7 +26,7 @@ export default ({onSelect, selectedAll}) =>
 				{'Precio de Lista '}<span className="text-muted">(USD)</span>
 			</th>
 			<th className="text-center" width={tableWidths.qty}>
-				Qty
+				{'Qty '} <span className="text-muted">(Uni.)</span>
 			</th>
 			<th className="text-center" width={tableWidths.discount}>
 				{'Desc. '}<span className="text-muted">(%)</span>
