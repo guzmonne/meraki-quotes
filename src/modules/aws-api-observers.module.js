@@ -92,7 +92,7 @@ const AwsApiObservers = function(){
 
 	const userVerificationObs = (email, verificationToken) =>
 		ajaxObs({
-			url     : `${url}activate_account`,
+			url     : `${url}activate-account`,
 			method  : POST,
 			body    : JSON.stringify({email, verificationToken}),
 			redirect: false

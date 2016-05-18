@@ -17,8 +17,10 @@ class ActivateAccountPage extends React.Component {
 
 	render(){
 		const {doUserVerify, state} = this.props
+		console.log(state.error)
 		return <ActivateAccountContainer
 			verifying={state.isVerifyingAccount}
+			error={Object.keys(state.error).length > 1}
 		/>
 	}
 }
