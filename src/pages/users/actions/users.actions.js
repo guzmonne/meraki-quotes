@@ -13,7 +13,10 @@ import {
 	USER_SHOW_ERROR,
 	USER_CURRENT_FREE,
 	USER_CURRENT_FUNCTION_EDITABLE_TOGGLE,
-	GET_ACTIVE_USER
+	GET_ACTIVE_USER,
+	DOING_USER_VERIFICATION,
+	USER_VERIFICATION_ERROR,
+	USER_VERIFICATION_SUCCESS
 } from '../../../state/action-types.js'
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
 import Auth from '../../../modules/auth.module.js'
@@ -90,6 +93,19 @@ export function doUserPermissionsUpdate(permission){
 			subscribe(
 				() => handleSuccess(),
 				error => handleError('Se produjo un error al actualizar los permisos del usuario.', permissions)
+			)
+	}
+}
+
+export function doUserVerification(email, verificationToken){
+	return (dispatch) => {
+		dispatch(doingUserVerification())
+
+		AwsApiObservers.
+			userVerificationObs(email, verificationToken).
+			subscribe(
+				()    => dispatch(userVerificationSuccess()),
+				error => dispatch(userVerificationError(error))
 			)
 	}
 }
@@ -191,5 +207,24 @@ export function userCurrentFree(){
 export function userCurrentFunctionsEditableToggle(){
 	return {
 		type: USER_CURRENT_FUNCTION_EDITABLE_TOGGLE
+	}
+}
+
+export function doingUserVerification(){
+	return {
+		type: DOING_USER_VERIFICATION
+	}
+}
+
+export function userVerificationSuccess(){
+	return {
+		type: USER_VERIFICATION_SUCCESS
+	}
+}
+
+export function userVerificationError(error){
+	return {
+		type: USER_VERIFICATION_ERROR,
+		error
 	}
 }

@@ -65,6 +65,8 @@ function AuthModule(){
 		if (!_token) return undefined
 		const user   = _.pick(_token, 'username', 'permissions', 'email')
 		user.ID      = _token.sub
+		if (!user.permissions)
+			user.permissions = []
 		if (!user || Object.keys(user).length !== 4)
 			throw new Error('Invalid user')
 		return user

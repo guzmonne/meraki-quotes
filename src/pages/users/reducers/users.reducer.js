@@ -13,7 +13,10 @@ import {
 	USER_SHOW_ERROR,
 	USER_CURRENT_FUNCTION_EDITABLE_TOGGLE,
 	USER_CURRENT_FREE,
-	GET_ACTIVE_USER
+	GET_ACTIVE_USER,
+	DOING_USER_VERIFICATION,
+	USER_VERIFICATION_ERROR,
+	USER_VERIFICATION_SUCCESS
 } from '../../../state/action-types.js'
 
 const breadcrumbs = [{
@@ -31,6 +34,7 @@ const defaultState = {
 	total: null,
 	isFetchingUsers: false,
 	isFetchingUser: false,
+	isVerifyingAccount: false,
 	error: {},
 	permissions: [],
 	areCurrentFunctionsEditable: false,
@@ -138,6 +142,26 @@ export default function usersReducer(state=defaultState, action){
 				{},
 				state,
 				{account: action.user}
+			)
+		case DOING_USER_VERIFICATION:
+			return Object.assign(
+				{},
+				state,
+				{isVerifyingAccount: true}
+			)
+		case USER_VERIFICATION_ERROR:
+			return Object.assign(
+				{},
+				state,
+				{isVerifyingAccount: false},
+				{error: action.error}
+			)
+		case USER_VERIFICATION_SUCCESS:
+			return Object.assign(
+				{},
+				state,
+				{isVerifyingAccount: false},
+				{error: {}}
 			)
 		case USER_PERMISSIONS_UPDATE_SUCCESS:
 		default:

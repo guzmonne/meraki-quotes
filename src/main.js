@@ -26,6 +26,7 @@ import UserProfileLayout from './components/layout/user-profile.layout.js'
 import AccountPage from './pages/users/account.page.js'
 import ChangePasswordPage from './pages/users/change-password.page.js'
 import UserPermissionsPage from './pages/users/user-permissions.page.js'
+import ActivateAccountPage from './pages/users/activate-account.page.js'
 
 export default (props) => 
 	<Provider store={store}>
@@ -50,6 +51,7 @@ export default (props) =>
 					<Route path="permissions" component={UserPermissionsPage}/>
 				</Route>
 			</Route>
+			<Route path="activate_account" component={ActivateAccountPage} />
 			<Route path="login" component={LoginPage} onEnter={alreadyLoggedIn}/>
 			<Route path="signup" component={SignupPage} />
 		</Router>

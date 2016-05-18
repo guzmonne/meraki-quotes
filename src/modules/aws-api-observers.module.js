@@ -16,8 +16,9 @@ const AwsApiObservers = function(){
 		responseType : 'json',
 		headers      : {
 			'Authorization': `Bearer ${getToken()}`,
-			'Content-Type': 'application/json'
+			'Content-Type' : 'application/json'
 		},
+		redirect: true
 	})
 	/*
 		PRIVATE METHODS
@@ -38,8 +39,7 @@ const AwsApiObservers = function(){
 		).
 		retry(3).
 		doOnError(result => {
-			console.log(result)
-			if (result.type === "error" && result.status === 0){
+			if (result.type === "error" && result.status === 0 && settings.redirect === true){
 				delete localStorage.token
 				location.href = '/login'
 				return Rx.Observable.throw('403 Not authorized')
@@ -85,9 +85,17 @@ const AwsApiObservers = function(){
 
 	const userPermissionsUpdateObs = (email, permissions) =>
 		ajaxObs({
-			url          : `${url}users/permissions/${btoa(email)}`,
-			method       : PUT,
-			body         : JSON.stringify({email, permissions})
+			url   : `${url}users/permissions/${btoa(email)}`,
+			method: PUT,
+			body  : JSON.stringify({email, permissions})
+		})
+
+	const userVerificationObs = (email, verificationToken) =>
+		ajaxObs({
+			url     : `${url}activate_account`,
+			method  : POST,
+			body    : JSON.stringify({email, verificationToken}),
+			redirect: false
 		})
 
 	// -------------- //
@@ -200,6 +208,7 @@ const AwsApiObservers = function(){
 		userShowObs,
 		userPermissionsIndexObs,
 		userPermissionsUpdateObs,
+		userVerificationObs,
 		// MERAKI DEVICES
 		merakiDevicesIndexObs,
 		merakiDevicesCreateObs,
