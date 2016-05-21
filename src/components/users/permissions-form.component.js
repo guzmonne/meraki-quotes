@@ -1,20 +1,24 @@
 import React from 'react'
 import {
 	Label,
-	Input,
 	Row,
 	Col,
 	FormGroup,
 	ControlLabel,
-	FormControl}
-from 'react-bootstrap'
+	FormControl,
+	Radio
+} from 'react-bootstrap'
+
+import IfElse from '../helpers/ifelse.component.js'
 
 export default class PermissionsForm extends React.Component {
 	constructor(){
 		super()
+		this.changeOption      = this.changeOption.bind(this)
+		this.submit            = this.submit.bind(this)
+		this.permissionOptions = this.permissionOptions.bind(this)
+		this.isAdmin           = this.isAdmin.bind(this)
 		this.state  = { option: null }
-		this.changeOption = this.changeOption.bind(this)
-		this.submit = this.submit.bind(this)
 	}
 
 	componentWillReceiveProps(newProps){
@@ -30,6 +34,19 @@ export default class PermissionsForm extends React.Component {
 		this.props.onSubmit(this.state.option)
 	}
 
+	permissionOptions(){
+		return this.props.permissions.
+			filter(permission => this.props.currentPermissions.indexOf(permission) === -1).
+			map((permission, i) => <option key={i} value={permission}>{permission}</option>)
+	}
+
+	isAdmin(){
+		const {permissions, currentPermissions} = this.props
+		if (permissions.length === 0 && currentPermissions.length === 0)
+			return false
+		return permissions.length === currentPermissions.length
+	}
+
 	render(){
 		const {permissions, currentPermissions} = this.props
 		return (
@@ -42,23 +59,26 @@ export default class PermissionsForm extends React.Component {
 						<FormGroup controlId="permissionSelector">
 							<FormControl 
 								componentClass="select"
-								placeholder="--seleccionar un nuevo permiso--"
+								placeholder="--seleccione un nuevo permiso--"
 								value={this.state.option}
 								onChange={this.changeOption}
 							>
-							{permissions.length === 0 ?
-								<option value="0">Cargando...</option>
-								:
-								<option value="0">--seleccione un nuevo permiso--</option>
-							}
-							{permissions.
-								filter(permission => currentPermissions.indexOf(permission) === -1).
-								map((permission, i) =>
-									<option key={i} value={permission}>{permission}</option>
-								)
-							}
+							<IfElse 
+								ifComponent={<option value="0">Cargando...</option>}
+								elseComponent={<option value="0">--seleccione un nuevo permiso--</option>}
+								test={permissions.length === 0}
+							/>
+							{this.permissionOptions()}
 							</FormControl>
 						</FormGroup>
+						<FormGroup>
+							<Radio inline checked={this.isAdmin()}>
+								Admin
+							</Radio>
+							<Radio inline>
+								User
+							</Radio>
+						</FormGroup>	
 					</form>
 				</Col>
 				<Col xs={2}>
