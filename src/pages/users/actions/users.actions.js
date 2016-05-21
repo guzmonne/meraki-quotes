@@ -55,18 +55,13 @@ export function doUserShow(email){
 
 export function doUserPermissionsIndex(){
 	return dispatch => {
-		const handleSuccess = permissions => 
-			dispatch(userPermissionsIndexSuccess(permissions))
-		const handleError = error =>
-			dispatch(userPermissionsIndexError(error))
-
 		dispatch(doingUserPermissionsIndex())
 
 		AwsApiObservers.
 			userPermissionsIndexObs().
 			subscribe(
-				({response}) => handleSuccess(response),
-				error => handleError(error)
+				({response}) => dispatch(userPermissionsIndexSuccess(response)),
+				error => dispatch(userPermissionsIndexError(error))
 			)
 	}
 }
@@ -108,6 +103,10 @@ export function doUserVerification(email, verificationToken){
 				error => dispatch(userVerificationError(error))
 			)
 	}
+}
+
+export function doUserPermissionsCreate(){
+
 }
 
 export function getActiveUser(){

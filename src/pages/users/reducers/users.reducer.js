@@ -35,6 +35,7 @@ const defaultState = {
 	isFetchingUsers: false,
 	isFetchingUser: false,
 	isVerifyingAccount: false,
+	isFetchingUserPermissions: false,
 	error: {},
 	permissions: [],
 	areCurrentFunctionsEditable: false,

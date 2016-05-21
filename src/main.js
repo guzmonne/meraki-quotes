@@ -21,6 +21,7 @@ import MerakiQuotesEdit from './pages/meraki_quotes/meraki-quotes-edit.page.js'
 import UserCreatePage from './pages/users/user-create.page.js'
 import UserShowPage from './pages/users/user-show.page.js'
 import UsersIndexPage from './pages/users/users-index.page.js'
+import PermissionsPage from './pages/users/permissions.page.js'
 // User
 import UserProfileLayout from './components/layout/user-profile.layout.js'
 import AccountPage from './pages/users/account.page.js'
@@ -43,6 +44,7 @@ export default (props) =>
 					<IndexRoute onEnter={toUsersListPage}/>
 					<Route path="create" component={UserCreatePage}/>
 					<Route path="index" component={UsersIndexPage}/>
+					<Route path="permissions" component={PermissionsPage}/>
 					<Route path="show/:email" component={UserShowPage} />
 				</Route>
 				<Route path="user" component={UserProfileLayout}>

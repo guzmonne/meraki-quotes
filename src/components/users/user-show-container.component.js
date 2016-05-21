@@ -68,7 +68,7 @@ export default ({users, onToggle, onIndexPermissions, onUserPermissionsUpdate}) 
 								{users.current.permissions && users.current.permissions.map(permission => 
 									<ListGroupItem key={permission}>
 										{permission}
-										<OverlayTrigger placement="right" overlay={deleteTooltip}>
+										<OverlayTrigger placement="left" overlay={deleteTooltip}>
 											<i 
 												className="fa fa-times text-danger pull-right pointer"
 												onClick={() => onUserPermissionsUpdate(permission)}
