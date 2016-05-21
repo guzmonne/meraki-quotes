@@ -198,6 +198,13 @@ const AwsApiObservers = function(){
   		body: JSON.stringify({quote})
   	})
 
+	// ------- //
+	// HELPERS //
+  // ------- //
+  const helpersUserPermissionsIndex = () =>
+  	ajaxObs({
+  		url: `${url}helpers/user-permissions`,
+  	})
 
 	return {
 		// SESSION
@@ -218,7 +225,9 @@ const AwsApiObservers = function(){
 		merakiQuotesCreateObs,
 		merakiQuotesUpdateObs,
 		merakiQuotesIndexObs,
-		merakiQuotesGetObs
+		merakiQuotesGetObs,
+		// HELPERS
+		helpersUserPermissionsIndex
 	}
 }
 

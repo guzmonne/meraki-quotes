@@ -1,0 +1,18 @@
+{
+  "name": "conapps-helpers-lambda",
+  "version": "1.0.0",
+  "description": "Lambda functions for the Users table",
+  "main": "helpers-index.lambda.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Guzman Monne",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "joi": "^8.1.0",
+    "lodash": "^4.12.0",
+    "rx": "^4.1.0",
+    "vogels": "^2.2.0"
+  }
+}
