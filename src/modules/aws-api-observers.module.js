@@ -29,6 +29,13 @@ const AwsApiObservers = function(){
 		return output
 	}
 
+	const getHeaders = () => {
+		const headers = {'Content-Type' : 'application/json'}
+		if (window && window.localStorage && window.localStorage.token)
+			headers['Authorization'] = getToken()
+		return headers
+	}
+
 	const ajaxObs = settings => 
 		Rx.DOM.
 		ajax(Object.assign({}, defaultSettings(), settings)).
@@ -48,7 +55,7 @@ const AwsApiObservers = function(){
 			}
 		})
 	
-	const getToken = () => localStorage.token
+	const getToken = () => window.localStorage.token
 	/*
 		SESSION PUBLIC OBSERVABLE CONSTRUCTORS
 	 */
@@ -201,7 +208,7 @@ const AwsApiObservers = function(){
 	// ------- //
 	// HELPERS //
   // ------- //
-  const helpersUserPermissionsIndex = () =>
+  const helpersUserPermissionsIndexObs = () =>
   	ajaxObs({
   		url: `${url}helpers/user-permissions`,
   	})
@@ -227,7 +234,7 @@ const AwsApiObservers = function(){
 		merakiQuotesIndexObs,
 		merakiQuotesGetObs,
 		// HELPERS
-		helpersUserPermissionsIndex
+		helpersUserPermissionsIndexObs
 	}
 }
 

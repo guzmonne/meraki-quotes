@@ -3,12 +3,13 @@ import {createStore} from 'redux'
 import mainReducer from '../../state/main-reducer.js'
 
 const defaultState = {
-	merakiQuotes: {}
+	merakiQuotes: {},
+	helpers: {}
 }
 
 const defaultReducer = state => Object.assign({}, defaultState, state) 
 
-export const falseStore = (reducer) => {
+export const falseStore = () => {
 	const store = createStore(mainReducer, {})
 	return store
 }
