@@ -12,7 +12,10 @@ import {
 } from 'react-bootstrap'
 
 import UserPermissionsPanel from './user-permissions-panel.component.js'
+import UserPermissionsTable from './user-permissions-table.component.js'
+import UserPermissionsForm  from './user-permissions-form.component.js'
 import InlineBlockDiv from '../helpers/inline-block-div.component.js'
+import LoadingContainer from '../helpers/loading-container.component.js'
 
 class PermissionsContainer extends React.Component {
 	constructor(){
@@ -32,36 +35,23 @@ class PermissionsContainer extends React.Component {
 		const {permission} = this.state
 		return (
 			<Grid>
-				
+				<Row>
+					<Col mdOffset={3} md={6}><h1>Permisos</h1></Col>
+				</Row>
 				<Row>
 					<Col mdOffset={3} md={6}>
 						<Panel>
-							<Form inline>
-								<FormGroup style={{width: '74%'}}>
-									<ControlLabel style={{width: '24%'}}>Nuevo Permiso</ControlLabel>
-									<InlineBlockDiv />
-									<FormControl 
-										type="text"
-										value={permission}
-										onChange={this.change}
-										style={{width: '74%'}}
-									/>
-								</FormGroup>
-								<InlineBlockDiv />
-								<Button style={{width: '24%'}}>
-									Crear Permiso
-								</Button>
-							</Form>
+							<UserPermissionsForm onSubmit={onCreate}/>
 						</Panel>
 					</Col>
 				</Row>
 				<Row>
 					<Col mdOffset={3} md={6}>
-						<UserPermissionsPanel
-							loading={loading}
-							permissions={permissions}
-							showDelete={false}
-						/>
+						<Panel>
+							<LoadingContainer loading={loading}>
+								<UserPermissionsTable permissions={permissions}/>
+							</LoadingContainer>
+						</Panel>
 					</Col>
 				</Row>
 

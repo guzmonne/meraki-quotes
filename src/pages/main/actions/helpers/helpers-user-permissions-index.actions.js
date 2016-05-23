@@ -9,8 +9,8 @@
 
 import {
 	DOING_HELPERS_USER_PERMISSIONS_INDEX,
-	HELPERS_USER_PERMISSIONS_SUCCESS,
-	HELPERS_USER_PERMISSIONS_ERROR,
+	HELPERS_USER_PERMISSIONS_INDEX_SUCCESS,
+	HELPERS_USER_PERMISSIONS_INDEX_ERROR,
 } from '../../../../state/action-types.js'
 
 import AwsApiObservers from '../../../../modules/aws-api-observers.module.js'
@@ -27,13 +27,12 @@ import AwsApiObservers from '../../../../modules/aws-api-observers.module.js'
 export function doHelpersUserPermissionsIndex() {
 	return (dispatch, getState) => {
 		dispatch(doingHelpersUserPermissionsIndex())
-		const apiObserver = AwsApiObservers.helpersUserPermissionsIndexObs()
-		apiObserver.
+		AwsApiObservers.
+			helpersUserPermissionsIndexObs().
 			subscribe(
-				({response}) => helpersUserPermissionsIndexSuccess(response.values),
-				error        => helpersUserPermissionsIndexError(error)
+				({response}) => dispatch(helpersUserPermissionsIndexSuccess(response.values)),
+				error        => dispatch(helpersUserPermissionsIndexError(error))
 			)
-		return apiObserver
 	}
 }
 /**
@@ -53,7 +52,7 @@ export function doingHelpersUserPermissionsIndex(){
  */
 export function helpersUserPermissionsIndexSuccess(values){
 	return {
-		type: HELPERS_USER_PERMISSIONS_SUCCESS,
+		type: HELPERS_USER_PERMISSIONS_INDEX_SUCCESS,
 		values
 	}
 }
@@ -65,7 +64,7 @@ export function helpersUserPermissionsIndexSuccess(values){
  */
 export function helpersUserPermissionsIndexError(error){
 	return {
-		type: HELPERS_USER_PERMISSIONS_ERROR,
+		type: HELPERS_USER_PERMISSIONS_INDEX_ERROR,
 		error
 	}
 }

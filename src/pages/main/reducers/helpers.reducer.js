@@ -6,7 +6,7 @@ import {
 
 const defaultState = {
 	isFetchingUserPermissions: false,
-	userPermissions: [],
+	userPermissions          : [],
 	userPermissionsIndexError: undefined
 }
 
@@ -22,6 +22,7 @@ export default (state=defaultState, action) => {
 			return Object.assign(
 				{},
 				state,
+				{isFetchingUserPermissions: false},
 				{userPermissions: action.values},
 				{userPermissionsIndexError: undefined}
 			)
@@ -29,6 +30,7 @@ export default (state=defaultState, action) => {
 			return Object.assign(
 				{},
 				state,
+				{isFetchingUserPermissions: false},
 				{userPermissionsIndexError: action.error}
 			)
 		default:

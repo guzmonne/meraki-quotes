@@ -17,8 +17,7 @@ LoadingContainer.propTypes = {
 	loading: React.PropTypes.oneOfType([
 		React.PropTypes.bool,
 		React.PropTypes.func
-	]).isRequired,
-	loadingComponent: React.PropTypes.element
+	]).isRequired
 }
 
 export default LoadingContainer
