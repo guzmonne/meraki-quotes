@@ -213,6 +213,13 @@ const AwsApiObservers = function(){
   		url: `${url}helpers/user-permissions`,
   	})
 
+  const helpersUserPermissionsUpdateObs = (permission) =>
+  	ajaxObs({
+  		url: `${url}helpers/user-permissions`,
+  		method: PUT,
+  		body: JSON.stringify({permission})
+  	})
+
 	return {
 		// SESSION
 		sessionLoginObs,
@@ -234,7 +241,8 @@ const AwsApiObservers = function(){
 		merakiQuotesIndexObs,
 		merakiQuotesGetObs,
 		// HELPERS
-		helpersUserPermissionsIndexObs
+		helpersUserPermissionsIndexObs,
+		helpersUserPermissionsUpdateObs
 	}
 }
 

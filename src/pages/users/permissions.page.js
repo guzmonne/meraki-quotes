@@ -1,7 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {doUserPermissionsIndex, doUserPermissionsCreate} from './actions/users.actions.js'
-import {doHelpersUserPermissionsIndex} from '../main/actions/helpers.actions.js'
+import {
+	doHelpersUserPermissionsIndex,
+	doHelpersUserPermissionsUpdate,
+} from '../main/actions/helpers.actions.js'
 import PermissionsContainer from '../../components/users/permissions-container.component.js'
 
 class PermissionsPage extends React.Component {
@@ -14,10 +16,10 @@ class PermissionsPage extends React.Component {
 	}
 
 	render(){
-		const {doUserPermissionsIndex, doUserPermissionsCreate, state} = this.props
+		const {doHelpersUserPermissionsIndex, doHelpersUserPermissionsUpdate, state} = this.props
 		return <PermissionsContainer
-			onUpdate={doHelpersUserPermissionsIndex}
-			onCreate={doUserPermissionsCreate}
+			onIndex={doHelpersUserPermissionsIndex}
+			onUpdate={doHelpersUserPermissionsUpdate}
 			permissions={state.userPermissions}
 			loading={state.isFetchingUserPermissions}
 		/>
@@ -29,7 +31,8 @@ const select = state => (
 )
 
 const actions = {
-	doUserPermissionsIndex, doUserPermissionsCreate, doHelpersUserPermissionsIndex
+	doHelpersUserPermissionsIndex,
+	doHelpersUserPermissionsUpdate,
 }
 
 export default connect(select, actions)(PermissionsPage)

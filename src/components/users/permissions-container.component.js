@@ -31,7 +31,7 @@ class PermissionsContainer extends React.Component {
 	}
 
 	render(){
-		const {loading, permissions, onCreate, onUpdate} = this.props
+		const {loading, permissions, onUpdate} = this.props
 		const {permission} = this.state
 		return (
 			<Grid>
@@ -41,7 +41,7 @@ class PermissionsContainer extends React.Component {
 				<Row>
 					<Col mdOffset={3} md={6}>
 						<Panel>
-							<UserPermissionsForm onSubmit={onCreate}/>
+							<UserPermissionsForm onSubmit={onUpdate}/>
 						</Panel>
 					</Col>
 				</Row>
@@ -63,8 +63,8 @@ class PermissionsContainer extends React.Component {
 PermissionsContainer.propTypes = {
 	loading   : React.PropTypes.bool,
 	showDelete: React.PropTypes.bool,
-	onCreate  : React.PropTypes.func,
-	onDelete  : React.PropTypes.func
+	onUpdate  : React.PropTypes.func,
+	onIndex   : React.PropTypes.func
 }
 
 export default PermissionsContainer

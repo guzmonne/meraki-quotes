@@ -26,13 +26,15 @@ class UserPermissionsForm extends React.Component {
 		}
 	}
 
-	submit(){
+	submit(e){
+		console.log(this.props.onSubmit.toString())
 		this.props.onSubmit(this.state.permission)
-		this.state.permission = this.default()
+		setTimeout(() => this.setState(this.default()))
+		e.preventDefault()
 	}
 
 	change(value, key){
-		this.setState({permission: {[key]: value}})
+		this.setState({permission: Object.assign({}, this.state.permission, {[key]: value})})
 	}
 
 	render(){ 
@@ -48,6 +50,7 @@ class UserPermissionsForm extends React.Component {
 							value={permission.method}
 							onChange={e => this.change(e.target.value, 'method')}
 						>
+							<option value="">--seleccione un metodo--</option>
 							<option value="GET">GET</option>
 							<option value="POST">POST</option>
 							<option value="DELETE">DELETE</option>

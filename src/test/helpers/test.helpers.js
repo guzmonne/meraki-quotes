@@ -1,0 +1,1 @@
+export const clone = (original) => Object.assign({}, original)

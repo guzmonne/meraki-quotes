@@ -27,12 +27,15 @@ import AwsApiObservers from '../../../../modules/aws-api-observers.module.js'
 export function doHelpersUserPermissionsIndex() {
 	return (dispatch, getState) => {
 		dispatch(doingHelpersUserPermissionsIndex())
-		AwsApiObservers.
+		const observer = AwsApiObservers.
 			helpersUserPermissionsIndexObs().
+			share()
+		observer.
 			subscribe(
 				({response}) => dispatch(helpersUserPermissionsIndexSuccess(response.values)),
 				error        => dispatch(helpersUserPermissionsIndexError(error))
 			)
+		return observer
 	}
 }
 /**
