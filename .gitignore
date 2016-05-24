@@ -35,6 +35,8 @@ lambda/merakiQuotes/node_modules
 lambda/merakiQuotes/*.zip
 lambda/counts/node_modules
 lambda/counts/*.zip
+lambda/helpers/node_modules
+lambda/helpers/*.zip
 
 # Optional npm cache directory
 .npm
