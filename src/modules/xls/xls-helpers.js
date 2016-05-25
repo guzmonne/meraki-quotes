@@ -6,7 +6,7 @@ const functionDictionary = {
 	sum: {
 		en     : 'SUM',
 		sp     : 'SUMA',
-		default: 'SUMA'
+		default: 'SUM'
 	}
 }
 
