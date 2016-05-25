@@ -40,7 +40,7 @@ export default (props) =>
 					<Route path="index" onEnter={toMerakiQuotesListPage}/>
 					<Route path="edit/:ID" component={MerakiQuotesEdit} />
 				</Route>
-				<Route path="users">
+				<Route path="users" onEnter={(...args) => requirePermission('users-admin', args)}>
 					<IndexRoute onEnter={toUsersListPage}/>
 					<Route path="create" component={UserCreatePage}/>
 					<Route path="index" component={UsersIndexPage}/>
@@ -78,6 +78,13 @@ function requireAuth(...args){
 		delete localStorage.token
 		location.href = '/login'
 	}	
+}
+
+function requirePermission(permission, args){
+	if(!Auth.token.hasPermission(permission)){
+		console.log(permission, args)
+		replacePathnameWith('/', ...args)
+	}
 }
 
 function toMerakiQuotesListPage(...args){

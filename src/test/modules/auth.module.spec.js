@@ -7,13 +7,16 @@ import Auth from '../../modules/auth.module.js'
 const token = {
 	"sub":"73970639-a900-4c48-8f27-7027b44ad164",
 	"iss":"http://conapps.click",
+	"username": "Test Example",
+	"email": "test@example.com",
 	"permissions": [
 		"users-permissions-index",
 		"user-permissions-update",
 		"user-destroy",
 		"user-create",
 		"user-show",
-		"users-index"
+		"users-index",
+		"users-admin"
 	],
 	"jti":"376e9b8f-6f15-4864-bcc6-ff613f3cb03e",
 	"iat":1463264820,
@@ -114,6 +117,16 @@ describe('Auth Module', function(){
 				expect(keys).to.have.length(4)
 				keys.map(key => expect(user[key] === _token[key]))
 				expect(_.isArray(user.permissions)).to.be.true
+			})
+
+		})
+
+		describe('#hasPermission()', function(){
+
+			it('should return true it the user has the asked permission', function(){
+				localStorage.token = falseToken( Object.assign({}, token) )
+				window.localStorage = localStorage
+				expect(Auth.token.hasPermission('users-admin')).to.be.true
 			})
 
 		})

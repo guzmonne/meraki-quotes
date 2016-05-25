@@ -9,7 +9,7 @@ const defaultState = {
 
 const defaultReducer = state => Object.assign({}, defaultState, state) 
 
-export const falseStore = () => {
-	const store = createStore(mainReducer, {})
+export const falseStore = (state={}) => {
+	const store = createStore(mainReducer, state)
 	return store
 }

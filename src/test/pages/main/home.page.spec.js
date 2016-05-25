@@ -16,7 +16,13 @@ describe('< HomePage />', function(){
 
 	const {isFunction} = _ /* lodash */
 	
-	const store = falseStore()
+	const store = falseStore({
+		users: {
+			account: {
+				permissions: ['users-admin']
+			}
+		}
+	})
 
 	const wrapper = mount(
 		<Provider store={store}>

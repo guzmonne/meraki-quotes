@@ -72,6 +72,11 @@ function AuthModule(){
 		return user
 	}
 
+	token.hasPermission = (permission) => {
+		const user = token.getUser()
+		return user.permissions.indexOf(permission) > -1
+	}
+
 	return Object.freeze({
 		token
 	})
