@@ -5,10 +5,11 @@ import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap'
 import {browserHistory} from 'react-router'
 import MerakiQuotesNav from '../meraki_quotes/meraki-quotes-nav.component.js'
 import UsersNav from '../users/users-nav.component.js'
+import AuthorizedContainer from '../helpers/authorized-container.component.js'
 
 class NavBar extends React.Component {
   render(){
-    const {doMerakiQuotesCreate} = this.props
+    const {doMerakiQuotesCreate, state} = this.props
 
     return (
       <Navbar fluid={true}>
@@ -20,7 +21,9 @@ class NavBar extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
         	<MerakiQuotesNav onCreate={doMerakiQuotesCreate}/>
-        	<UsersNav />
+          <AuthorizedContainer user={state.account} permission="users-admin">
+        	 <UsersNav /> 
+          </AuthorizedContainer>
     	    <Nav pullRight>
     	      <NavItem eventKey={3} href="/login" onClick={() => delete localStorage.token}>
     	      	Cerrar Sesión
@@ -32,7 +35,9 @@ class NavBar extends React.Component {
   }
 }
 
-const select = state => ({})
+const select = state => ({
+  state: state.users
+})
 
 const actions = {
   doMerakiQuotesCreate

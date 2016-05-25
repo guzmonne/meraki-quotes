@@ -55,6 +55,7 @@ class UserPermissionsForm extends React.Component {
 							<option value="POST">POST</option>
 							<option value="DELETE">DELETE</option>
 							<option value="PUT">PUT</option>
+							<option value="ADMIN">ADMIN</option>
 						</FormControl>
 					</Col>
 				</FormGroup>
