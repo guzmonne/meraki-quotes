@@ -10,7 +10,7 @@ var SES = new AWS.SES()
 
 function sendVerificationEmail(email, password, token, fn) {
 	const subject = 'Email de verificación para ConApps.com'
-	const verificationLink = 'http://localhost:3000/activate_account?email=' +
+	const verificationLink = 'http://www.conapps.click/activate_account?email=' +
 		encodeURIComponent(email) + '&verify=' + token
 	SES.sendEmail({
 		Source: 'no-reply@conapps.click',
