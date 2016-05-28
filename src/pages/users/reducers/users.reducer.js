@@ -16,7 +16,10 @@ import {
 	GET_ACTIVE_USER,
 	DOING_USER_VERIFICATION,
 	USER_VERIFICATION_ERROR,
-	USER_VERIFICATION_SUCCESS
+	USER_VERIFICATION_SUCCESS,
+	DOING_USER_CHANGE_PASSWORD,
+	USER_CHANGE_PASSWORD_ERROR,
+	USER_CHANGE_PASSWORD_SUCCESS,
 } from '../../../state/action-types.js'
 
 const breadcrumbs = [{
@@ -27,17 +30,17 @@ const breadcrumbs = [{
 }]
 
 const defaultState = {
-	collection: [],
-	current: {},
-	account: {},
-	active: {},
-	total: null,
-	isFetchingUsers: false,
-	isFetchingUser: false,
-	isVerifyingAccount: false,
-	isFetchingUserPermissions: false,
-	error: {},
-	permissions: [],
+	collection                 : [],
+	current                    : {},
+	account                    : {},
+	active                     : {},
+	total                      : null,
+	isFetchingUsers            : false,
+	isFetchingUser             : false,
+	isVerifyingAccount         : false,
+	isFetchingUserPermissions  : false,
+	error                      : {},
+	permissions                : [],
 	areCurrentFunctionsEditable: false,
 	breadcrumbs
 }
@@ -163,6 +166,27 @@ export default function usersReducer(state=defaultState, action){
 				state,
 				{isVerifyingAccount: false},
 				{error: {}}
+			)
+		case DOING_USER_CHANGE_PASSWORD:
+			return Object.assign(
+				{},
+				state,
+				{isUserChangingPassword: true},
+				{error: {}}
+			)
+		case USER_CHANGE_PASSWORD_SUCCESS:
+			return Object.assign(
+				{},
+				state,
+				{isUserChangingPassword: false},
+				{error: {}}
+			)
+		case USER_CHANGE_PASSWORD_ERROR:
+			return Object.assign(
+				{},
+				state,
+				{isUserChangingPassword: false},
+				{error: action.error}
 			)
 		case USER_PERMISSIONS_UPDATE_SUCCESS:
 		default:

@@ -28,8 +28,7 @@ export function doHelpersUserPermissionsIndex() {
 	return (dispatch, getState) => {
 		dispatch(doingHelpersUserPermissionsIndex())
 		const observer = AwsApiObservers.
-			helpersUserPermissionsIndexObs().
-			share()
+			helpersUserPermissionsIndexObs()
 		observer.
 			subscribe(
 				({response}) => dispatch(helpersUserPermissionsIndexSuccess(response.values)),

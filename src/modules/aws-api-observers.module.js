@@ -1,61 +1,18 @@
 import Rx from 'rx-dom'
 import _  from 'lodash'
 
+import {
+	ajaxObs,
+	url,
+	GET,
+	POST,
+	PUT,
+	DELETE
+} from './aws_api_observers/aws-api-observers.core.js'
+import { userChangePasswordObs } from './aws_api_observers/users-api.observers.js'
+
 const AwsApiObservers = function(){
-	/*
-		CONSTANTS
-	 */
-	const GET    = 'GET'
-	const POST   = 'POST'
-	const PUT    = 'PUT'
-	const DELETE = 'DELETE'
 
-	const url = 'https://8ewstzbc9l.execute-api.us-east-1.amazonaws.com/test/'
-	const defaultSettings = () => ({
-		method       : GET,
-		responseType : 'json',
-		headers      : {
-			'Authorization': `Bearer ${getToken()}`,
-			'Content-Type' : 'application/json'
-		},
-		redirect: true
-	})
-	/*
-		PRIVATE METHODS
-	 */
-	const parseResponse = output => {
-		if (output && output.response)
-			output.response = JSON.parse(output.response)
-		return output
-	}
-
-	const getHeaders = () => {
-		const headers = {'Content-Type' : 'application/json'}
-		if (window && window.localStorage && window.localStorage.token)
-			headers['Authorization'] = getToken()
-		return headers
-	}
-
-	const ajaxObs = settings => 
-		Rx.DOM.
-		ajax(Object.assign({}, defaultSettings(), settings)).
-		flatMap(result => 
-			result && result.response && result.response.errorMessage ?
-			Rx.Observable.throw(result.response.errorMessage)         :
-			Rx.Observable.just(result)
-		).
-		retry(3).
-		doOnError(result => {
-			if (result.type === "error" && result.status === 0 && settings.redirect === true){
-				delete localStorage.token
-				location.href = '/login'
-				return Rx.Observable.throw('403 Not authorized')
-			} else {
-				return Rx.Observable.just(result)
-			}
-		})
-	
-	const getToken = () => window.localStorage.token
 	/*
 		SESSION PUBLIC OBSERVABLE CONSTRUCTORS
 	 */
@@ -68,6 +25,7 @@ const AwsApiObservers = function(){
 	/*
 		USERS PUBLIC OBSERVABLE CONSTRUCTORS
 	 */
+	
 	const userCreateObs = body =>
 		ajaxObs({
 			method: POST,
@@ -108,7 +66,6 @@ const AwsApiObservers = function(){
 	// -------------- //
 	// MERAKI DEVICES //
   // -------------- //
-
 	const merakiDevicesIndexObs = (paginationKey, pageSize=10, query) => {
 		let queryString
 
@@ -230,6 +187,7 @@ const AwsApiObservers = function(){
 		userPermissionsIndexObs,
 		userPermissionsUpdateObs,
 		userVerificationObs,
+		userChangePasswordObs,
 		// MERAKI DEVICES
 		merakiDevicesIndexObs,
 		merakiDevicesCreateObs,

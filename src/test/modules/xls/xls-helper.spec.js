@@ -15,11 +15,11 @@ describe('XLSHelpers Module', function(){
 
 		it('should return the default value if a language is not provided', function(){
 			expect(XLSHelpers.getFunctionName('sum', 'en')).to.equal('SUM')
-			expect(XLSHelpers.getFunctionName('sum')).to.equal('SUMA')
+			expect(XLSHelpers.getFunctionName('sum')).to.equal('SUM')
 		})
 
 		it('should return the default value if the language provided is not found', function(){
-			expect(XLSHelpers.getFunctionName('sum', 'jp')).to.equal('SUMA')
+			expect(XLSHelpers.getFunctionName('sum', 'jp')).to.equal('SUM')
 		})
 
 	})
@@ -31,7 +31,7 @@ describe('XLSHelpers Module', function(){
 
 		it('should return the default #sum() value if @localStorage.excelLanguage is undefined', function(){
 			window.localStorage = {}
-			expect(XLSHelpers.sum()).to.equal('SUMA')
+			expect(XLSHelpers.sum()).to.equal('SUM')
 		})
 
 		it('should return the appropiate function name according to the language stored in @localStorage.excelLanguage', function(){
@@ -41,7 +41,7 @@ describe('XLSHelpers Module', function(){
 
 		it('should return the default value if the language stored in @localStorage.excelLanguage is invalid', function(){
 			window.localStorage = {excelLanguage: 'jp'}
-			expect(XLSHelpers.sum()).to.equal('SUMA')
+			expect(XLSHelpers.sum()).to.equal('SUM')
 		})
 
 	})

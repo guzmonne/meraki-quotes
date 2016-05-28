@@ -21,6 +21,10 @@ import {
 import AwsApiObservers from '../../../modules/aws-api-observers.module.js'
 import Auth from '../../../modules/auth.module.js'
 
+// Barrel
+export * from './change-password.actions.js'
+// ------
+
 export function doUsersIndex() {
 	return (dispatch, getState) => {
 		const handleSuccess = response => dispatch(usersIndexSuccess(response))
