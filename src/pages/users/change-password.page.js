@@ -9,6 +9,7 @@ class ChangePasswordPage extends React.Component {
 		return (
 			<ChangePasswordContainer 
 				onSubmit={doUserChangePassword}
+				updating={state.isUserChangingPassword}
 			/>
 		) 
 	}

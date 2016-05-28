@@ -4,6 +4,8 @@ import {Router, Route, browserHistory, IndexRoute} from 'react-router'
 // Redux
 import {Provider} from 'react-redux'
 import {store} from './state/store.js'
+// React Redux Toastr
+import ReduxToastr from 'react-redux-toastr'
 // Modules
 import Auth from './modules/auth.module.js'
 // Signup Page
@@ -31,32 +33,37 @@ import ActivateAccountPage from './pages/users/activate-account.page.js'
 
 export default (props) => 
 	<Provider store={store}>
-		<Router history={browserHistory}>
-			<Route path="/" component={MainLayout} onEnter={requireAuth}>
-				<IndexRoute component={HomePage} />
-				<Route path="meraki_quotes" component={MerakiQuotesLayout}>
-					<IndexRoute component={MerakiQuotesIndex} />
-					<Route path="price_list" component={MerakiPriceListPage} />
-					<Route path="index" onEnter={toMerakiQuotesListPage}/>
-					<Route path="edit/:ID" component={MerakiQuotesEdit} />
+		<div id="Conapps">
+			<Router history={browserHistory}>
+				<Route path="/" component={MainLayout} onEnter={requireAuth}>
+					<IndexRoute component={HomePage} />
+					<Route path="meraki_quotes" component={MerakiQuotesLayout}>
+						<IndexRoute component={MerakiQuotesIndex} />
+						<Route path="price_list" component={MerakiPriceListPage} />
+						<Route path="index" onEnter={toMerakiQuotesListPage}/>
+						<Route path="edit/:ID" component={MerakiQuotesEdit} />
+					</Route>
+					<Route path="users" onEnter={(...args) => requirePermission('users-admin', args)}>
+						<IndexRoute onEnter={toUsersListPage}/>
+						<Route path="create" component={UserCreatePage}/>
+						<Route path="index" component={UsersIndexPage}/>
+						<Route path="permissions" component={PermissionsPage}/>
+						<Route path="show/:email" component={UserShowPage} />
+					</Route>
+					<Route path="user" component={UserProfileLayout}>
+						<Route path="account" component={AccountPage}/>
+						<Route path="change_password" component={ChangePasswordPage}/>
+						<Route path="permissions" component={UserPermissionsPage}/>
+					</Route>
 				</Route>
-				<Route path="users" onEnter={(...args) => requirePermission('users-admin', args)}>
-					<IndexRoute onEnter={toUsersListPage}/>
-					<Route path="create" component={UserCreatePage}/>
-					<Route path="index" component={UsersIndexPage}/>
-					<Route path="permissions" component={PermissionsPage}/>
-					<Route path="show/:email" component={UserShowPage} />
-				</Route>
-				<Route path="user" component={UserProfileLayout}>
-					<Route path="account" component={AccountPage}/>
-					<Route path="change_password" component={ChangePasswordPage}/>
-					<Route path="permissions" component={UserPermissionsPage}/>
-				</Route>
-			</Route>
-			<Route path="activate_account" component={ActivateAccountPage} />
-			<Route path="login" component={LoginPage} onEnter={alreadyLoggedIn}/>
-			<Route path="signup" component={SignupPage} />
-		</Router>
+				<Route path="activate_account" component={ActivateAccountPage} />
+				<Route path="login" component={LoginPage} onEnter={alreadyLoggedIn}/>
+				<Route path="signup" component={SignupPage} />
+			</Router>
+			<ReduxToastr 
+				confirmOptions={{okText: 'Aceptar', cancelTest: 'Cancelar'}}
+			/>
+		</div>
 	</Provider>
 
 function replacePathnameWith(url, nextState, replace){

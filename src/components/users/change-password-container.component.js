@@ -1,4 +1,5 @@
 import React from 'react'
+import {toastr} from 'react-redux-toastr'
 import {
 	Col,
 	FormGroup,
@@ -28,7 +29,8 @@ class ChangePasswordContainer extends React.Component {
 		const {clearPassword, clearPasswordConfirmation, newPassword} = this.state
 		return clearPassword !== "" && 
 		       clearPassword === clearPasswordConfirmation &&
-		       newPassword.length > 3
+		       newPassword.length > 3 &&
+		       !this.props.updating
 	}
 
 	submit(e){
@@ -36,8 +38,16 @@ class ChangePasswordContainer extends React.Component {
 		const {clearPassword, newPassword} = this.state
 		const {onSubmit} = this.props
 		if(!this.canSubmit()) return
-		onSubmit(clearPassword, newPassword)
-		this.defaultState()
+		onSubmit(clearPassword, newPassword).
+			subscribe(
+				() => {
+					toastr.success('Contraseña Actualizada correctamente.')
+					this.defaultState()
+				},
+				() => {
+					toastr.error('La contraseña ingresada no es correcta.')
+				}
+			)		
 	}
 
 	change(value, key){
@@ -96,7 +106,8 @@ ChangePasswordContainer.prototype.defaults = {
 }
 
 ChangePasswordContainer.propTypes = {
-	onSubmit: React.PropTypes.func.isRequired
+	onSubmit: React.PropTypes.func.isRequired,
+	updating: React.PropTypes.bool.isRequired
 }
 
 export default ChangePasswordContainer

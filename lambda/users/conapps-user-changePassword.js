@@ -51,6 +51,7 @@ exports.handler = function(event, context, callback){
 	console.log('Getting user')
 	Helpers.getUser(email, function(err, user){
 		if (err) {
+			console.log('getUser() fail')
 			console.log(err)
 			callback(err)
 			return
@@ -61,11 +62,11 @@ exports.handler = function(event, context, callback){
 		}
 		Helpers.computeHash(clearPassword, user.get('passwordSalt'), function(err, salt, hash){
 			if (err) {
+				console.log('computeHash() fail')
 				console.log(err)
 				callback(err)
 				return
-			}
-			if (hash == user.get('passwordHash')) {
+			} else if (hash == user.get('passwordHash')) {
 				console.log('User authenticated with old password')
 				Helpers.computeHash(newPassword, function(err, newSalt, newHash){
 					User.update(Object.assign({}, {
@@ -90,6 +91,10 @@ exports.handler = function(event, context, callback){
 						})
 					})
 				})
+			} else {
+				console.log('User provided invalid password')
+				callback('Contraseña invalida')
+				return
 			}
 		})
 	})

@@ -5,6 +5,7 @@ import merakiDevicesReducer from '../pages/meraki_quotes/reducers/meraki-devices
 import merakiQuotesReducer from '../pages/meraki_quotes/reducers/meraki-quotes.reducer.js'
 import usersReducer from '../pages/users/reducers/users.reducer.js'
 import mainReducer from '../pages/main/reducers/main.reducer.js'
+import {reducer as toastrReducer} from 'react-redux-toastr'
 
 export default (state={}, action) => {
 	return {
@@ -14,6 +15,7 @@ export default (state={}, action) => {
 		merakiQuotes : merakiQuotesReducer(state.merakiQuotes, action),
 		users        : usersReducer(state.users, action),
 		main         : mainReducer(state.main, action),
-		helpers      : helpersReducer(state.helpers, action)
+		helpers      : helpersReducer(state.helpers, action),
+		toastr       : toastrReducer(state.toastr, action)
 	}
 }

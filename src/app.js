@@ -1,4 +1,5 @@
 require('./styles/main.scss')
+require('../node_modules/react-redux-toastr/lib/css/react-redux-toastr.min.css')
 
 const FileSaver = require('../node_modules/filesaverjs/FileSaver.js')
 
