@@ -71,7 +71,7 @@ const AwsApiObservers = function(){
 
 		paginationKey = (!!paginationKey && !!paginationKey.PartNumber && !!paginationKey.Category) ? 
 			`PartNumber=${paginationKey.PartNumber}&Category=${paginationKey.Category}` : "" 
-		pageSize = typeof pageSize === "number" ? `PageSize=${pageSize}` : ""
+		pageSize = typeof pageSize === "number" ? `&PageSize=${pageSize}` : ""
 
 		if (!!paginationKey || !!pageSize || query)
 			queryString = '?'

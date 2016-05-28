@@ -8,8 +8,9 @@ class PageSizeForm extends React.Component {
 		this.submit = this.submit.bind(this)
 	}
 
-	submit(){
-		const pageSize = parseInt(this.refs.pageSize.getValue())
+	submit(e){
+		e.preventDefault()
+		const pageSize = parseInt(e.target.value)
 
 		this.props.onSelect(pageSize)
 	}
@@ -21,8 +22,8 @@ class PageSizeForm extends React.Component {
 					<FormControl 
 						componentClass="select"
 						onChange={this.submit}
-						ref="pageSize"
 						placeholder="10"
+						defaultValue="10"
 						className="col-xs-3"
 					>
 						<option value="5">5</option>
