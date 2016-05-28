@@ -5,7 +5,7 @@ import ChangePasswordContainer from '../../components/users/change-password-cont
 
 class ChangePasswordPage extends React.Component {
 	render(){
-		const {state} = this.props
+		const {state, doUserChangePassword} = this.props
 		return (
 			<ChangePasswordContainer 
 				onSubmit={doUserChangePassword}

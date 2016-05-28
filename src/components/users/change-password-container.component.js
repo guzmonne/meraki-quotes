@@ -31,12 +31,13 @@ class ChangePasswordContainer extends React.Component {
 		       newPassword.length > 3
 	}
 
-	submit(){
+	submit(e){
+		e.preventDefault()
 		const {clearPassword, newPassword} = this.state
 		const {onSubmit} = this.props
 		if(!this.canSubmit()) return
 		onSubmit(clearPassword, newPassword)
-		this.setState()
+		this.defaultState()
 	}
 
 	change(value, key){
@@ -54,20 +55,23 @@ class ChangePasswordContainer extends React.Component {
 							<ControlLabel>Contraseña Actual</ControlLabel>
 							<FormControl
 								onChange={(e) => this.change(e.target.value, 'clearPassword')}
-								type="password"
-							/>
-						</FormGroup>
-						<FormGroup>
-							<ControlLabel>Nueva Contraseña</ControlLabel>
-							<FormControl
-								onChange={(e) => this.change(e.target.value, 'clearPasswordConfirmation')} 
+								value={this.state.clearPassword}
 								type="password"
 							/>
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>Repetir Contraseña</ControlLabel>
 							<FormControl
+								onChange={(e) => this.change(e.target.value, 'clearPasswordConfirmation')} 
+								value={this.state.clearPasswordConfirmation}
+								type="password"
+							/>
+						</FormGroup>
+						<FormGroup>
+							<ControlLabel>Nueva Contraseña</ControlLabel>
+							<FormControl
 								onChange={(e) => this.change(e.target.value, 'newPassword')} 
+								value={this.state.newPassword}
 								type="password"
 							/>
 							<HelpBlock>Utilice más de 3 cáracteres</HelpBlock>
