@@ -4,16 +4,19 @@ import Service from '../../modules/service/service.module.js'
 import MerakiQuotesDevicesTableServiceRow from './meraki-quotes-devices-table-service-row.component.js'
 import MerakiQuotesDevicesTableAdminRow from './meraki-quotes-devices-table-admin-row.component.js'
 import MerakiQuotesDevicesTableFinancingRow from './meraki-quotes-devices-table-financing-row.component.js'
+import MerakiQuotesDevicesTableLicenseRow from './meraki-quotes-devices-table-license-row.component.js'
+import LoadingContainer from '../helpers/loading-container.component.js'
 
 export default ({
 	model,
 	onUpdate,
 	onSelect,
 	isLogActivated
-}) => {
-	return !_.isArray(model.Devices) || model.Devices.length === 0 ? 
-		<tbody><tr><td className="text-center" colSpan="9">Lista de equipos vacía.</td></tr></tbody>
-	:
+}) =>
+	<LoadingContainer
+		loading={!_.isArray(model.Devices) || model.Devices.length === 0}
+		loadingComponent={<tbody><tr><td className="text-center" colSpan="9">Lista de equipos vacía.</td></tr></tbody>}
+	>
 		<tbody>
 			<tr><td colSpan={9} className="MerakiQuotesDevicesTable__title_row">Hardware</td></tr>
 			{Service.from(model).getHardware().map((device, i) => 
@@ -36,16 +39,10 @@ export default ({
 				/>
 			)}
 			<tr><td colSpan={9} className="MerakiQuotesDevicesTable__title_row">Administración, Soporte y Financiación</td></tr>
-			<MerakiQuotesDevicesTableServiceRow 
-				model={model}
-				isLogActivated={isLogActivated}
-			/>
-			<MerakiQuotesDevicesTableAdminRow 
-				model={model}
-				isLogActivated={isLogActivated}
-			/>
-			<MerakiQuotesDevicesTableFinancingRow 
-				model={model}
+			<MerakiQuotesDevicesTableServiceRow model={model} />
+			<MerakiQuotesDevicesTableAdminRow model={model} />
+			<MerakiQuotesDevicesTableLicenseRow model={model} />
+			<MerakiQuotesDevicesTableFinancingRow model={model}
 			/>
 		</tbody>
-}
+	</LoadingContainer>
