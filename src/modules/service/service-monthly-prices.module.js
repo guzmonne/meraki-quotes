@@ -21,10 +21,14 @@ import {
  * @param  {Object} quote Quote object
  * @return {Number}       The monthly cost of the licenses
  */
-export const calculateLicenseMonthlyPrice = (quote, options) =>
-	twoDecimals(
-		calculateLicensePrice(quote, options) / getLicenseMonths(quote, options)
-	)
+export const calculateLicenseMonthlyPrice = (quote, options) => {
+	const {LicenceYears} = quote
+	const licensesPrice  = calculateLicensePrice(quote, options)
+	const months         = getLicenseMonths(quote, options)
+	const interest       = Math.pow(1.12, LicenceYears)
+	const result         = interest * licensesPrice / months
+	return twoDecimals(result)
+}
 
 /**
  * Calculates the monthly cost of the Unified Solution

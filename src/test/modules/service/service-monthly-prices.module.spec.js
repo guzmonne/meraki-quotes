@@ -21,7 +21,7 @@ describe('Service Prices Module', function(){
 	describe('#calculateLicenseMonthlyPrice()', function(){
 		
 		it('should calculate the monthly price of the licenses', function(){
-			expect(ServiceMonthly.calculateLicenseMonthlyPrice(_quote, _options)).to.equal(69.27)
+			expect(ServiceMonthly.calculateLicenseMonthlyPrice(_quote, _options)).to.equal(97.32)
 		})
 
 	})
@@ -29,7 +29,7 @@ describe('Service Prices Module', function(){
 	describe('#calculateUnifiedMonthlyPrice()', function(){
 
 		it('should return the Unified Monthly Price', function(){
-			expect(ServiceMonthly.calculateUnifiedMonthlyPrice(_quote, _options)).to.equal(1300.38)
+			expect(ServiceMonthly.calculateUnifiedMonthlyPrice(_quote, _options)).to.equal(1328.43)
 		})
 
 	})
@@ -37,7 +37,7 @@ describe('Service Prices Module', function(){
 	describe('#calculateAdministeredMonthlyPrice()', function(){
 
 		it('should return the Administered Monthly Price', function(){
-			expect(ServiceMonthly.calculateAdministeredMonthlyPrice(_quote, _options)).to.equal(466.66)
+			expect(ServiceMonthly.calculateAdministeredMonthlyPrice(_quote, _options)).to.equal(494.71)
 		})
 
 	})
@@ -45,7 +45,7 @@ describe('Service Prices Module', function(){
 	describe('#calculateTraditionalMonthlyPrice()', function(){
 
 		it('should return the Traditional Monthly Price', function(){
-			expect(ServiceMonthly.calculateTraditionalMonthlyPrice(_quote, _options)).to.equal(122.67)
+			expect(ServiceMonthly.calculateTraditionalMonthlyPrice(_quote, _options)).to.equal(150.72)
 		})
 
 	})
