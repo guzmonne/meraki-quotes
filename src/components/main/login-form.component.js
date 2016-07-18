@@ -4,7 +4,6 @@ import Spinner from '../helpers/spinner.component.js'
 export default class LoginForm extends React.Component {
 	constructor(){
 		super()
-
 		this.login = this.login.bind(this)
 	}
 

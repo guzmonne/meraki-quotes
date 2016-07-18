@@ -23,8 +23,11 @@ exports.handler = function(event, context, callback){
 	const invalidQuoteErrorMessage = 'Quote invalido.'
 	const createErrorMessage       = 'Error al crear el nuevo quote'
 
+	if (!!quote.Description === false)
+		quote.Description = '---'
+
 	console.log('Verifying quote...')
-	if (!quote || !quote.Name || !quote.Description)
+	if (!quote || !quote.Name)
 		return callback(invalidQuoteErrorMessage)
 
 	console.log('Getting current user id...')

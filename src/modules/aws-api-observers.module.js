@@ -126,8 +126,7 @@ const AwsApiObservers = function(){
   		}
   	]
   
-  const merakiQuotesCreateObs = quote =>
-  	ajaxObs({
+  const merakiQuotesCreateObs = quote => ajaxObs({
   		url: `${url}meraki-quotes/create`,
   		method: POST,
   		body: JSON.stringify({quote})

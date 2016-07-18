@@ -48,6 +48,7 @@ function ServiceConstructor(){
 		calculateHardwarePrice           : calculateHardwarePrice.bind(this, quote, options),
 		calculateLicenseCost             : calculateLicenseCost.bind(this, quote, options),
 		calculateLicensePrice            : calculateLicensePrice.bind(this, quote, options),
+		calculateLicenseMonthlyPrice     : calculateLicenseMonthlyPrice.bind(this, quote, options),
 		calculateUnifiedMonthlyPrice     : calculateUnifiedMonthlyPrice.bind(this, quote, options),
 		calculateAdministeredMonthlyPrice: calculateAdministeredMonthlyPrice.bind(this, quote, options),
 		calculateTraditionalMonthlyPrice : calculateTraditionalMonthlyPrice.bind(this, quote, options),

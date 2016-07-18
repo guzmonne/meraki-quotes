@@ -26,9 +26,9 @@ class ChangePasswordContainer extends React.Component {
 	}
 
 	canSubmit(){
-		const {clearPassword, clearPasswordConfirmation, newPassword} = this.state
+		const {clearPassword, newPassword, newPasswordConfirmation} = this.state
 		return clearPassword !== "" && 
-		       clearPassword === clearPasswordConfirmation &&
+		       newPassword === newPasswordConfirmation &&
 		       newPassword.length > 3 &&
 		       !this.props.updating
 	}
@@ -62,7 +62,7 @@ class ChangePasswordContainer extends React.Component {
 
 					<form onSubmit={this.submit}>
 						<FormGroup>
-							<ControlLabel>Contraseña Actual</ControlLabel>
+							<ControlLabel>Contraseña actual</ControlLabel>
 							<FormControl
 								onChange={(e) => this.change(e.target.value, 'clearPassword')}
 								value={this.state.clearPassword}
@@ -70,18 +70,18 @@ class ChangePasswordContainer extends React.Component {
 							/>
 						</FormGroup>
 						<FormGroup>
-							<ControlLabel>Repetir Contraseña</ControlLabel>
+							<ControlLabel>Nueva contraseña</ControlLabel>
 							<FormControl
-								onChange={(e) => this.change(e.target.value, 'clearPasswordConfirmation')} 
-								value={this.state.clearPasswordConfirmation}
+								onChange={(e) => this.change(e.target.value, 'newPassword')} 
+								value={this.state.newPassword}
 								type="password"
 							/>
 						</FormGroup>
 						<FormGroup>
-							<ControlLabel>Nueva Contraseña</ControlLabel>
+							<ControlLabel>Repetir nueva contraseña</ControlLabel>
 							<FormControl
-								onChange={(e) => this.change(e.target.value, 'newPassword')} 
-								value={this.state.newPassword}
+								onChange={(e) => this.change(e.target.value, 'newPasswordConfirmation')} 
+								value={this.state.newPasswordConfirmation}
 								type="password"
 							/>
 							<HelpBlock>Utilice más de 3 cáracteres</HelpBlock>

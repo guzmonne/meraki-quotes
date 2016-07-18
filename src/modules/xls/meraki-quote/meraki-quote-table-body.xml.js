@@ -131,14 +131,14 @@ export const HardwareFinancingRow = (quote, isLogActivated) => `
 export const LicenseFinancingRow = (quote, isLogActivated) => `
 <Row ss:Height="15.75">
 	<Cell ss:StyleID="s266"><Data ss:Type="String">Financiación de Licencias</Data></Cell>
-	<Cell ss:StyleID="s267"><Data ss:Type="String">Cuota mensual</Data></Cell>
+	<Cell ss:StyleID="s267"><Data ss:Type="String">Cuota mensual bajo contrato a ${quote.LicenceYears * 12} meses</Data></Cell>
 	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
 	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
 	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
 	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
 	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
 	<Cell ss:StyleID="s96"><Data ss:Type="String">-</Data></Cell>
-	<Cell ss:StyleID="s295" ss:Formula="=${sum()}(R[${licenseBegins(quote, 2)}]C:R[${licenseEnds(quote, 2)}]C)/${quote.LicenceYears*12}">
+	<Cell ss:StyleID="s295" ss:Formula="=POWER(${1.12}, ${quote.LicenceYears})*${sum()}(R[${licenseBegins(quote, 2)}]C:R[${licenseEnds(quote, 2)}]C)/${quote.LicenceYears*12}">
 		<Data ss:Type="Number"></Data>
 	</Cell>
 </Row>

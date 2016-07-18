@@ -19,7 +19,7 @@ class MerakiQuotesCreateModal extends React.Component {
 		}
 
 		if (!model.Name || model.Name === "") return
-		if (!model.Description) return
+		//if (!model.Description) return
 
 		this.props.onSubmit(model)
 	}

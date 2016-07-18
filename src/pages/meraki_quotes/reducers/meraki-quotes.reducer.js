@@ -17,7 +17,8 @@ import {
 	TOGGLE_SELECTION_ON_MERAKI_DEVICES,
 	TOGGLE_MERAKI_QUOTES_EDIT_CHARTS,
 	TOGGLE_MERAKI_QUOTES_EDIT_LOG,
-	SET_MERAKI_QUOTES_BREADCRUMBS
+	SET_MERAKI_QUOTES_BREADCRUMBS,
+	TOOGLE_CLONE_MERAKI_QUOTE_MODAL
 } from '../../../state/action-types.js'
 
 const breadcrumbs = [{
@@ -202,6 +203,15 @@ export default function merakiQuotesReducer(state=defaultState, action){
 				{},
 				state,
 				{breadcrumbs: action.breadcrumbs}
+			)
+		// -------------------------------
+		// TOOGLE_CLONE_MERAKI_QUOTE_MODAL
+		// -------------------------------
+		case TOOGLE_CLONE_MERAKI_QUOTE_MODAL:
+			return Object.assign(
+				{},
+				state,
+				{isShowingCloneMerakiQuoteModal: !state.isShowingCloneMerakiQuoteModal}
 			)
 		// -------
 		// DEFAULT

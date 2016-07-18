@@ -28,6 +28,9 @@ import Session from '../../../modules/session.module.js'
 import {calculateNeededLicenses} from '../../../modules/meraki-quotes-devices.module.js'
 import Service from '../../../modules/service/service.module.js'
 
+// Barrel
+export * from './meraki-quotes-modals.actions.js'
+
 // SET MERAKI QUOTES BREADCRUMBS
 export function setMerakiQuotesBreadcrumbs(breadcrumbs){
 	return {
@@ -474,8 +477,13 @@ export function toggleMerakiQuotesEditLog(){
  * @return {Action}         
  */
 function handleMerakiQuotesError(type, ...args){
-	const error = args[0]
-	if (!!error && !!error.status && error.status === 0)
-		return Session.logout('Su sesión ha expirado.')
-	return Object.assign({}, {type}, ...args)
+	let error = args[0]
+	try {
+		if (!!error && error.status === 0) {
+			Session.logout('Su sesión ha expirado.')
+		}
+	} catch (err) {
+		error = err
+	}
+	return Object.assign({}, {type, error})
 }

@@ -6,6 +6,7 @@ import {
 	Input,
 	Button
 } from 'react-bootstrap'
+import LoadingContainer from '../helpers/loading-container.component.js'
 import MerakiQuotesMenu from '../menus/meraki-quotes-menu.component.js'
 import MerakiQuotesBreadcrumbs from './meraki-quotes-breadcrumbs.component.js'
 import MerakiQuotesDevicesTable from './meraki-quotes-devices-table.component.js'
@@ -22,20 +23,7 @@ import {
 	merakiQuotesDevicesRemove
 } from '../../modules/meraki-quotes-devices.module.js'
 
-export default ({
-	children,
-	state,
-	onUpdate,
-	onSelect,
-	onFetch,
-	page="index",
-	toggleModal,
-	toggleLog,
-	model={},
-	devices=[],
-	isGettingMerakiDevices=false
-}) =>
-	isGettingMerakiDevices === false && state.isGettingMerakiQuote ? 
+const loadingComponent = (
 	<Panel className="loading">
 		<h1>
 			Cargando
@@ -43,68 +31,89 @@ export default ({
 			<Spinner />
 		</h1>
 	</Panel>
-	:
-	<Panel className="MerakiQuotesEdit">
-		<MerakiQuotesEditHeader
-			toggleModal={toggleModal}
-			toggleLog={toggleLog}
-			isLogActivated={state.isLogActivated}
-			model={model}
-		/>
+)
+
+export default ({
+	children,
+	state,
+	onUpdate,
+	onSelect,
+	onFetch,
+	page="index",
+	toggleCreateModal,
+	toggleCloneModal,
+	toggleLog,
+	model={},
+	devices=[],
+	isGettingMerakiDevices
+}) =>
+	<LoadingContainer
+		loading={isGettingMerakiDevices === true || state.isGettingMerakiQuote === true}
+		loadingComponent={loadingComponent}
+	>
+		<Panel className="MerakiQuotesEdit">
+			<MerakiQuotesEditHeader
+				toggleModal={toggleCreateModal}
+				toggleLog={toggleLog}
+				isLogActivated={state.isLogActivated}
+				model={model}
+			/>
+			
+			<MerakiQuotesDeviceSearchForm
+				devices={devices}
+				updating={isGettingMerakiDevices} 
+				onAdd={device => {
+					merakiQuotesDevicesAdd(model, device, devices, Devices => 
+						onUpdate({Devices})
+					)
+				}}
+			/>
+
+			<MerakiQuotesEditSettings
+				model={model}
+				isLogActivated={state.isLogActivated}
+				onUpdate={onUpdate}
+				onRemoveDevice={() => {
+					merakiQuotesDevicesRemove(model, devices, Devices => 
+						onUpdate({Devices})
+					)
+				}}
+			/>
+
+			<Row>
+				<Col xs={12}>
+					<MerakiQuotesDevicesTable
+						onUpdate={onUpdate}
+						onSelect={onSelect}
+						selectedAll={state.selectedAll}
+						model={model}
+						isLogActivated={state.isLogActivated}
+					/>
+					<hr/>
+				</Col>
+			</Row>
+
+			<Row className="MerakiQuotesEdit__totals">
+				<Col sm={5}>
+					<MerakiQuotesEditVariablesForm 
+						onUpdate={onUpdate}
+						model={model}
+					/>
+				</Col>
+				<Col sm={7}>
+					<MerakiQuotesEditTotals
+						quote={model}
+						isLogActivated={state.isLogActivated}
+					/>
+				</Col>
+			</Row>
+			<MerakiQuotesCreateModal 
+				show={state.isShowingMerakiQuotesCreateModal}
+				onToggle={toggleCreateModal}
+				onSubmit={patch => {toggleCreateModal(); onUpdate(patch)}}
+				title="Editar Quote"
+				model={model}
+			/>
+		</Panel>
 		
-		<MerakiQuotesDeviceSearchForm
-			devices={devices}
-			updating={isGettingMerakiDevices} 
-			onAdd={device => {
-				merakiQuotesDevicesAdd(model, device, devices, Devices => 
-					onUpdate({Devices})
-				)
-			}}
-		/>
-
-		<MerakiQuotesEditSettings
-			model={model}
-			isLogActivated={state.isLogActivated}
-			onUpdate={onUpdate}
-			onRemoveDevice={() => {
-				merakiQuotesDevicesRemove(model, devices, Devices => 
-					onUpdate({Devices})
-				)
-			}}
-		/>
-
-		<Row>
-			<Col xs={12}>
-				<MerakiQuotesDevicesTable
-					onUpdate={onUpdate}
-					onSelect={onSelect}
-					selectedAll={state.selectedAll}
-					model={model}
-					isLogActivated={state.isLogActivated}
-				/>
-				<hr/>
-			</Col>
-		</Row>
-
-		<Row className="MerakiQuotesEdit__totals">
-			<Col sm={5}>
-				<MerakiQuotesEditVariablesForm 
-					onUpdate={onUpdate}
-					model={model}
-				/>
-			</Col>
-			<Col sm={7}>
-				<MerakiQuotesEditTotals
-					quote={model}
-					isLogActivated={state.isLogActivated}
-				/>
-			</Col>
-		</Row>
-		<MerakiQuotesCreateModal 
-			show={state.isShowingMerakiQuotesCreateModal}
-			onToggle={toggleModal}
-			onSubmit={patch => {toggleModal(); onUpdate(patch)}}
-			title="Editar Quote"
-			model={model}
-		/>
-	</Panel>
+	</LoadingContainer>

@@ -12,7 +12,7 @@ else
 	echo "************************************************"
 	echo "Uploading zip to AWS"
 	echo "************************************************"
-	aws lambda update-function-code --function-name conapps-meraki-quote-create --zip-file fileb://merakiQuoteCreate.zip
+	aws lambda update-function-code --function-name conapps-meraki-quote-create --zip-file fileb://merakiQuoteCreate.zip --profile adminuser
 fi
 echo ""
 echo "Done"
