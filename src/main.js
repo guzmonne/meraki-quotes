@@ -80,10 +80,9 @@ function alreadyLoggedIn(...args){
 }
 
 function requireAuth(...args){
-	localStorage.log = JSON.stringify(Auth.token.hasExpired())
 	if (Auth.token.hasExpired() === true){
 		delete localStorage.token
-		location.href = '/login'
+		replacePathnameWith('/login', ...args)
 	}	
 }
 

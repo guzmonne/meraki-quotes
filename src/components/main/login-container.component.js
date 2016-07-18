@@ -15,11 +15,11 @@ const setMessage = (props) => {
 	if (!!props.login.error) {
 		message = 'Error de usuario o contraseña'
 		type    = 'error'
-	} else if (props.message && !!props.message.type){
+	} else if (props.message && !!props.message.type && !!props.message.text){
 		message = props.message.text
 		type    = props.message.type
 	} else {
-		message = 'Bienvenido'
+		message = 'Bienvenido a Conapps'
 		type    = 'info'
 	}
 	const alertType = getAlertType(type)

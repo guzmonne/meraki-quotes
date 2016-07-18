@@ -12,5 +12,5 @@ let createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
 
 export const store = createStore(mainReducer, {}, compose(
 	applyMiddleware(thunk),
-	window.devToolsExtension ? window.devToolsExtension() : f => f
+	window.devToolsExtension && process.env.NODE_ENV !== 'production' ? window.devToolsExtension() : f => f
 ))
